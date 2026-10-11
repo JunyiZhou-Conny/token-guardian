@@ -7,6 +7,8 @@ const path = require("node:path");
 const { parseCursorCsv, parseEventJson } = require("./engine");
 const { createStore } = require("./store");
 const { createChat } = require("./chat");
+const { createGrokBot } = require("./grokbot");
+const { createVoice, readAudio } = require("./voice");
 
 const MAX_BODY_BYTES = 2 * 1024 * 1024;
 const MIME = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".css": "text/css; charset=utf-8", ".json": "application/json; charset=utf-8", ".svg": "image/svg+xml", ".png": "image/png", ".webp": "image/webp", ".ico": "image/x-icon", ".woff2": "font/woff2" };
@@ -32,8 +34,10 @@ async function readBody(request) {
   return body;
 }
 
-function createGuardianServer({ store = createStore(), staticDir = path.join(__dirname, "..", "guardian"), env = process.env, fetchImpl, now } = {}) {
+function createGuardianServer({ store = createStore(), staticDir = path.join(__dirname, "..", "guardian"), env = process.env, fetchImpl, now, grokbot } = {}) {
   const companion = createChat({ store, env, fetchImpl, now });
+  const voice = createVoice({ store, env, fetchImpl, now });
+  const quota = grokbot || createGrokBot({ env, now, fetchImpl });
   const server = http.createServer(async (request, response) => {
     try {
       const host = request.headers.host || "";
@@ -46,8 +50,30 @@ function createGuardianServer({ store = createStore(), staticDir = path.join(__d
       const url = new URL(request.url, `http://${host}`);
       const mode = url.searchParams.get("mode") || "auto";
       if (!["auto", "local", "demo"].includes(mode)) return sendJson(response, 400, { error: "Dataset mode must be local, demo or auto." });
-      if (request.method === "GET" && url.pathname === "/api/guardian") return sendJson(response, 200, await store.snapshot({ mode }));
-      if (request.method === "GET" && ["/api/health", "/api/guardian/health"].includes(url.pathname)) return sendJson(response, 200, { ok: true, service: "Token Guild Guardian", llmConfigured: Boolean(env.OPENAI_API_KEY) });
+      if (request.method === "GET" && url.pathname === "/api/guardian") {
+        const snapshot = await store.snapshot({ mode });
+        snapshot.coverage.llmConfigured = companion.configuration().configured;
+        return sendJson(response, 200, snapshot);
+      }
+      if (request.method === "GET" && ["/api/health", "/api/guardian/health"].includes(url.pathname)) {
+        const chat = companion.configuration();
+        return sendJson(response, 200, { ok: true, service: "Token Guardian", llmConfigured: chat.configured, chat, voice: voice.configuration() });
+      }
+      if (request.method === "GET" && url.pathname === "/api/guardian/grokbot") {
+        const enabled = url.searchParams.get("enabled");
+        const refresh = url.searchParams.get("refresh");
+        if (enabled !== null && !["0", "1"].includes(enabled)) return sendJson(response, 400, { error: "Grok Bot enabled must be 0 or 1." });
+        if (refresh !== null && !["0", "1"].includes(refresh)) return sendJson(response, 400, { error: "Grok Bot refresh must be 0 or 1." });
+        return sendJson(response, 200, await quota.status({ enabled: enabled === null ? undefined : enabled === "1", refresh: refresh === "1" }));
+      }
+      if (request.method === "POST" && url.pathname === "/api/guardian/transcribe") {
+        try {
+          const clip = await readAudio(request);
+          return sendJson(response, 200, await voice.transcribe(clip));
+        } catch (error) {
+          return sendJson(response, error.status || 500, { error: error.publicCode ? error.message : "Voice transcription is unavailable. Type your question instead.", code: error.publicCode || "voice-unavailable" });
+        }
+      }
       if (request.method === "POST" && ["/api/import", "/api/guardian/import"].includes(url.pathname)) {
         const body = await readBody(request);
         let events;
@@ -62,8 +88,10 @@ function createGuardianServer({ store = createStore(), staticDir = path.join(__d
         if (typeof body.message !== "string" || !body.message.trim() || body.message.length > 3000) return sendJson(response, 400, { error: "Enter a question of 1–3,000 characters." });
         const chatMode = body.datasetMode || mode;
         if (!["auto", "local", "demo"].includes(chatMode)) return sendJson(response, 400, { error: "Dataset mode must be local, demo or auto." });
+        if (body.provider !== undefined && !["local", "openai", "deepseek"].includes(body.provider)) return sendJson(response, 400, { error: "Chat provider must be local, openai or deepseek." });
+        if (body.focusId !== undefined && (typeof body.focusId !== "string" || !body.focusId.trim() || body.focusId.length > 240)) return sendJson(response, 400, { error: "Session focus must be a non-empty identifier of at most 240 characters." });
         const snapshot = await store.snapshot({ mode: chatMode });
-        return sendJson(response, 200, await companion.chat(body.message.trim(), snapshot, { useOpenAI: body.useOpenAI !== false }));
+        return sendJson(response, 200, await companion.chat(body.message.trim(), snapshot, { useOpenAI: body.useOpenAI !== false, provider: body.provider, focusId: body.focusId }));
       }
       if (url.pathname.startsWith("/api/")) return sendJson(response, request.method === "GET" || request.method === "POST" ? 404 : 405, { error: "Unknown API route or unsupported method." });
       if (request.method !== "GET" && request.method !== "HEAD") return sendJson(response, 405, { error: "Method not allowed." });

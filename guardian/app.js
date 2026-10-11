@@ -41,7 +41,13 @@
     budgetTitle: 'Your usage-value alert', budgetBody: 'Recorded usage value today has reached your chosen alert amount.', menu: 'Open navigation', welcome: 'Personal watchtower',
     recordDetail: 'Usage record', recordDescription: 'This is the metadata exposed by the source. It does not contain your prompts or conversation text.', requestNotProven: 'Time-bucket records combine activity. They cannot prove the number or cadence of individual requests.',
     costReported: 'provider-reported usage value', costEstimated: 'estimated usage value', costUnknown: 'usage value not exposed', noProject: 'Project unavailable', noSession: 'Session unavailable', automation: 'Automation',
-    privacy: 'Prompts and conversation bodies are not collected.', importedResult: 'Imported records are now part of the local watchtower.'
+    privacy: 'Prompts and conversation bodies are not collected.', importedResult: 'Imported records are now part of the local watchtower.',
+    sessionsNav: 'Sessions', sessionsTitle: 'Find the work behind the tokens.', sessionsPageSub: 'Rank recorded sessions and inspect the evidence behind each total.', sessionsEmpty: 'These records do not expose usable session identifiers.', sessionsLimit: 'Groups describe available metadata. A project group is not a conversation, and missing identifiers cannot be recovered from timing alone.', sessionAsk: 'Explain this session', sessionEvidence: 'View evidence', sessionMissing: 'Unattributed usage', sessionCoverage: 'Attribution coverage', sessionSort: 'Ranked by recorded tokens',
+    chatProvider: 'Explanation provider', chatDeepSeek: 'DeepSeek explanation', providerLocal: 'Local', providerOpenAI: 'OpenAI', providerDeepSeek: 'DeepSeek', providerNotConfigured: 'not configured', cloudChatNote: 'Cloud explanations send your question and bounded usage metadata to the selected provider. Preview questions stay local.', localChatNote: 'Local explanations use the records on this device without a model call.',
+    voiceMethod: 'Voice input', voiceBrowser: 'Browser dictation', voiceOpenAI: 'OpenAI transcription', voiceStart: 'Start voice input', voiceStop: 'Finish voice input', voiceCancel: 'Cancel voice input', voiceListening: 'Listening. Finish to edit your draft.', voiceRecording: 'Recording', voiceTranscribing: 'Transcribing your audio…', voiceDraft: 'Your voice draft is ready. Review and edit before sending.', voiceIdle: 'Voice input creates an editable draft. It never sends a message automatically.', voiceBrowserPrivacy: 'Browser dictation may send audio to your browser’s speech service.', voiceOpenAIPrivacy: 'Recording sends audio to OpenAI for transcription. Maximum 30 seconds.', voiceUnsupported: 'Browser dictation is not supported here. Type your question or use configured OpenAI transcription.', voiceOpenAIUnavailable: 'OpenAI transcription requires a server-side key and microphone support.', voicePermission: 'Microphone access was denied. Check your browser permissions.', voiceNoSpeech: 'No speech was detected. You can try again or type your question.', voiceCanceled: 'Voice input canceled. Your existing draft is unchanged.', voiceTooLarge: 'Audio exceeds the 2 MB transcription limit. Try a shorter recording.', voiceError: 'Voice input could not finish. You can still type your question.', voiceRead: 'Read aloud', voiceReadStop: 'Stop reading', voiceReadNote: 'Read aloud uses your browser’s speech voices.',
+    skinHeading: 'A familiar face, a fresh outfit.', skinSub: 'Classic or cozy. The same three companions, with a little variety.', skinClassic: 'Classic', skinCozy: 'Cozy', skinChoose: 'Companion outfit',
+    voiceWaiting: 'Waiting for microphone permission…', voiceFinishingDictation: 'Finishing your dictation…', voiceFinishingRecording: 'Finishing your recording…', voiceShortened: 'Draft shortened to 2,000 characters.', cloudFallback: 'The selected cloud provider was not used. This is a local explanation.', serverFallback: 'The server explanation was unavailable; this answer was produced locally.',
+    grokHeading: 'Grok Bot · Cursor allowance', grokSub: 'Provider-reported quota percentage · separate from token usage', grokEnable: 'Enable quota check', grokRefresh: 'Refresh quota', grokDisable: 'Disable quota check', grokDisabled: 'Off by default. Enable to read the official Cursor quota using your local Cursor sign-in.', grokUnknown: 'Quota unavailable', grokUsed: 'of allowance used', grokNoTokens: 'This percentage is not a token count and is not added to Cursor totals.', grokChecking: 'Checking the official allowance…'
   };
   const PROVIDERS = [
     { id: 'codex', name: 'Codex', symbol: '◈', color: '#839e86' },
@@ -65,6 +71,10 @@
     upload:'<path d="M12 16V3m-5 5 5-5 5 5M4 15v5h16v-5"/>',
     download:'<path d="M12 3v13m-5-5 5 5 5-5M4 17v4h16v-4"/>',
     message:'<path d="M21 11a9 9 0 0 1-9 9H7l-5 2 2-5v-6a9 9 0 0 1 17 0Z"/><path d="M8 11h8M8 15h5"/>',
+    sessions:'<rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h6M8 16h4"/>',
+    mic:'<rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3m-4 0h8"/>',
+    volume:'<path d="m11 4-6 5H2v6h3l6 5ZM15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/>',
+    stop:'<rect x="6" y="6" width="12" height="12" rx="2"/>',
     close:'<path d="m6 6 12 12M6 18 18 6"/>',
     check:'<path d="m5 12 4 4L19 6"/>',
     clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
@@ -85,17 +95,19 @@
   const provider = source => PROVIDERS.find(p => p.id === sourceId(source)) || {id:sourceId(source),name:source || 'Unknown',symbol:'◈',color:'#a79cb6'};
   const safeTokens = value => Math.max(0, Number(value) || 0);
   const totalTokens = e => e.totalTokens != null ? safeTokens(e.totalTokens) : safeTokens(e.inputTokens) + safeTokens(e.outputTokens) + safeTokens(e.cachedTokens) + safeTokens(e.cacheWriteTokens ?? e.cacheCreationTokens);
-  const dateTime = value => { const d = new Date(value); return Number.isNaN(d.getTime()) ? '—' : d.toLocaleString(undefined,{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}); };
-  const clockTime = value => { const d = new Date(value); return Number.isNaN(d.getTime()) ? '—' : d.toLocaleTimeString(undefined,{hour:'2-digit',minute:'2-digit'}); };
+  const dateTime = value => { if(!value)return '—';const d = new Date(value); return Number.isNaN(d.getTime()) ? '—' : d.toLocaleString(undefined,{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}); };
+  const clockTime = value => { if(!value)return '—';const d = new Date(value); return Number.isNaN(d.getTime()) ? '—' : d.toLocaleTimeString(undefined,{hour:'2-digit',minute:'2-digit'}); };
   const readPrefs = () => { try { return JSON.parse(localStorage.getItem('token-guardian-preferences') || '{}'); } catch { return {}; } };
   const saved = readPrefs();
   const state = {
-    tab: ['overview','activity','collection','settings'].includes(saved.tab) ? saved.tab : 'overview', period: ['today','week','month'].includes(saved.period) ? saved.period : 'today',
+    tab: ['overview','activity','sessions','collection','settings'].includes(saved.tab) ? saved.tab : 'overview', period: ['today','week','month'].includes(saved.period) ? saved.period : 'today',
     provider: 'all', companion: Object.hasOwn(COMPANIONS,saved.companion) ? saved.companion : 'ahri',
     preferences: {autoRefresh:true,notifications:false,budget:15,...saved.preferences}, reviewed: Array.isArray(saved.reviewed) ? saved.reviewed : [],
-    mode: 'demo', events: [], incidents: [], coverage: [], loaded: false, loading: false, connected: false, chatOpen:false, chatBusy:false, chatMode:'local', messages:[], mobileOpen:false, queryMode:null, refreshedAt:null
+    skins: {ahri:'classic',jinx:'classic',jhin:'classic',...saved.skins}, chatProvider:['local','openai','deepseek'].includes(saved.chatProvider)?saved.chatProvider:'local',
+    mode: 'demo', events: [], incidents: [], sessionInsights: null, coverage: [], health:null, grok:null, grokBusy:false, loaded: false, loading: false, connected: false, chatOpen:false, chatBusy:false, chatMode:'local', draft:'', messages:[], mobileOpen:false, queryMode:null, refreshedAt:null,
+    voiceMethod:'browser', voice:{phase:'idle',message:'',seconds:0}, speechIndex:null
   };
-  const save = () => { try { localStorage.setItem('token-guardian-preferences',JSON.stringify({tab:state.tab,period:state.period,companion:state.companion,preferences:state.preferences,reviewed:state.reviewed})); } catch {} };
+  const save = () => { try { localStorage.setItem('token-guardian-preferences',JSON.stringify({tab:state.tab,period:state.period,companion:state.companion,skins:state.skins,chatProvider:state.chatProvider,preferences:state.preferences,reviewed:state.reviewed})); } catch {} };
   function makeDemo() {
     const now = Date.now(), events = [];
     for(let day=0;day<7;day++) {
@@ -120,7 +132,7 @@
     const tails = id==='ahri' ? '<path d="M105 142C33 92 6 130 50 167c-64-6-50 47 17 31-12 47 46 42 58-5" fill="#f0e9fb" stroke="#cabddd" stroke-width="2"/><path d="M144 146c44-68 87-33 51 9 62-6 49 49-10 38 19 34-15 48-47 9" fill="#f0e9fb" stroke="#cabddd" stroke-width="2"/>' : id==='jinx' ? '<path d="M74 101c-6 41-26 62-23 108l23-11c-2-28 20-57 15-93m76-4c5 43 27 65 23 107l-22-9c1-27-19-56-15-94" fill="#90bed4" stroke="#76a5be" stroke-width="2"/>' : '<path d="m96 142-30 45 35 26 44 1 35-27-28-45Z" fill="#a89480" stroke="#887963" stroke-width="2"/>';
     const ears = id==='ahri' ? '<path d="m72 68-1-38 35 25m40-1 35-26-7 41" fill="#e8dcef" stroke="#beafcf" stroke-width="2"/><path d="m80 57-2-17 17 14m62-1 15-13-3 18" fill="#c4a7c1"/>' : '';
     const face = id==='jhin' ? '<path d="M85 93c0-29 69-29 69 0v26c-9 28-57 30-66 0Z" fill="#f5efe1"/><path d="m89 88 23 9-19 13m55-20-24 7 22 11" stroke="#876c6b" stroke-width="4" fill="none"/><path d="m112 117 12 0-7 8Z" fill="#b7a08d"/>' : '<ellipse cx="120" cy="109" rx="39" ry="36" fill="#fae6e0"/><ellipse cx="99" cy="114" rx="7" ry="4" fill="#edb9c0" opacity=".7"/><ellipse cx="142" cy="114" rx="7" ry="4" fill="#edb9c0" opacity=".7"/><path d="M96 104q7-8 14 0m20 0q7-8 14 0" fill="none" stroke="#736082" stroke-width="3.3" stroke-linecap="round"/><path d="M114 117q6 6 12 0" fill="none" stroke="#af7d91" stroke-width="2" stroke-linecap="round"/>';
-    return `<div class="champion-art ${className}" data-art="${id}"><img src="./assets/champions.png" alt="${escape(c.name)} chibi companion" loading="lazy" /><svg class="champion-fallback" viewBox="0 0 240 240" aria-hidden="true"><ellipse cx="121" cy="215" rx="53" ry="8" fill="${c.color}" opacity=".12"/>${tails}${ears}<path d="M75 99c-7-65 102-68 98 0l-6 43-17 9-61-7Z" fill="${c.hair}" stroke="${c.color}" stroke-width="2"/>${face}<path d="M77 96c-8-43 25-49 45-47 37-4 58 27 46 53l-17-24-18 15-13-20-15 23-14-5Z" fill="${c.hair}" stroke="${c.color}" stroke-width="2"/><path d="m99 143-17 39 18 17h43l17-17-20-38Z" fill="${c.color}" stroke="#9280a7" stroke-width="2"/><path d="m111 145 10 12 10-12 10 17-20 23-20-23Z" fill="#f7eef3"/><path d="m84 161-16 19 10 7 20-15m56-11 17 19-11 7-19-15" fill="#f4e2df" stroke="${c.color}" stroke-width="2"/><path d="m106 194-4 15q-17 2-12 10h22l6-25m17 0 4 15q17 2 12 10h-22l-6-25" fill="#8e79a2"/><path d="m180 45 3 8 8 3-8 3-3 8-3-8-8-3 8-3Z" fill="#c7b9d6"/></svg></div>`;
+    return `<div class="champion-art ${className}" data-art="${id}"><img src="./assets/${state.skins[id]==='cozy'?'champion-variants':'champions'}.png" alt="${escape(c.name)} ${state.skins[id]==='cozy'?'cozy':'classic'} chibi companion" loading="lazy" /><svg class="champion-fallback" viewBox="0 0 240 240" aria-hidden="true"><ellipse cx="121" cy="215" rx="53" ry="8" fill="${c.color}" opacity=".12"/>${tails}${ears}<path d="M75 99c-7-65 102-68 98 0l-6 43-17 9-61-7Z" fill="${c.hair}" stroke="${c.color}" stroke-width="2"/>${face}<path d="M77 96c-8-43 25-49 45-47 37-4 58 27 46 53l-17-24-18 15-13-20-15 23-14-5Z" fill="${c.hair}" stroke="${c.color}" stroke-width="2"/><path d="m99 143-17 39 18 17h43l17-17-20-38Z" fill="${c.color}" stroke="#9280a7" stroke-width="2"/><path d="m111 145 10 12 10-12 10 17-20 23-20-23Z" fill="#f7eef3"/><path d="m84 161-16 19 10 7 20-15m56-11 17 19-11 7-19-15" fill="#f4e2df" stroke="${c.color}" stroke-width="2"/><path d="m106 194-4 15q-17 2-12 10h22l6-25m17 0 4 15q17 2 12 10h-22l-6-25" fill="#8e79a2"/><path d="m180 45 3 8 8 3-8 3-3 8-3-8-8-3 8-3Z" fill="#c7b9d6"/></svg></div>`;
   }
   function bindArt() {
     document.querySelectorAll('.champion-art img').forEach(img=>{
@@ -156,16 +168,16 @@
   function renderShell() {
     const c=COMPANIONS[state.companion], local=state.mode==='local';
     const date=new Date().toLocaleDateString(undefined,{month:'long',day:'numeric'});
-    const titles={overview:COPY.greeting,activity:COPY.activityTitle,collection:COPY.collectionTitle,settings:COPY.settingsTitle};
-    const subtitles={overview:COPY.greetingSub,activity:COPY.activitySub,collection:COPY.collectionSub,settings:COPY.settingsSub};
+    const titles={overview:COPY.greeting,activity:COPY.activityTitle,sessions:COPY.sessionsTitle,collection:COPY.collectionTitle,settings:COPY.settingsTitle};
+    const subtitles={overview:COPY.greetingSub,activity:COPY.activitySub,sessions:COPY.sessionsPageSub,collection:COPY.collectionSub,settings:COPY.settingsSub};
     document.getElementById('app').innerHTML=`<div class="app-shell">
       <div class="mobile-scrim ${state.mobileOpen?'visible':''}" data-action="menu-close"></div>
       <aside class="sidebar ${state.mobileOpen?'open':''}" aria-label="Primary navigation"><div class="brand"><svg class="brand-mark" viewBox="0 0 42 46" fill="none" aria-hidden="true"><path d="M21 3 4 9v14c0 9 17 19 17 19s17-10 17-19V9Z" stroke="currentColor" stroke-width="1.5"/><path d="m21 11 3.3 8.7L33 23l-8.7 3.3L21 35l-3.3-8.7L9 23l8.7-3.3Z" fill="currentColor" opacity=".65"/><circle cx="21" cy="23" r="3" fill="#f0eee7"/></svg><div class="wordmark">${COPY.brand}<small>${COPY.brandSub}</small></div></div>
-      <div class="nav-label">${COPY.space}</div><nav class="nav-items">${['overview','activity','collection','settings'].map(tab=>`<button class="nav-item ${state.tab===tab?'active':''}" data-tab="${tab}" ${state.tab===tab?'aria-current="page"':''} title="${COPY[tab]}">${icon(tab==='overview'?'home':tab)}<span>${COPY[tab]}</span></button>`).join('')}</nav>${location.pathname.startsWith('/guardian')?`<a class="advanced-link" href="/?app=1">${icon('link',12)}Advanced tracker</a>`:''}<div class="nav-spacer"></div><button class="sidebar-guardian" data-action="chat"><div class="tiny-avatar">${championArt(state.companion)}</div><div><strong>${c.name} is with you</strong><span>${COPY.watching}</span></div></button><div class="local-note">${icon('shield',13)}<span>${COPY.localNote}</span></div></aside>
-      <main class="main"><header class="topbar"><div class="breadcrumb"><button class="icon-button mobile-menu" data-action="menu" aria-label="${COPY.menu}">${icon('menu')}</button><span>${COPY.space}</span><span>/</span><span>${COPY[state.tab]}</span></div><div class="top-actions"><span class="mode-pill ${local?'local':''}">${local?'<i class="live-dot"></i>':icon('sparkles',11)}${local?COPY.local:COPY.demo}</span><button class="icon-button ${state.loading?'refresh-spinning':''}" data-action="refresh" aria-label="${COPY.refresh}" ${state.loading?'disabled':''}>${icon('refresh',14)}</button><button class="icon-button" data-tab="settings" aria-label="${COPY.settings}">${icon('bell',14)}</button><span class="avatar-letter" aria-label="Personal workspace">S</span></div></header>
+      <div class="nav-label">${COPY.space}</div><nav class="nav-items">${['overview','activity','sessions','collection','settings'].map(tab=>`<button class="nav-item ${state.tab===tab?'active':''}" data-tab="${tab}" ${state.tab===tab?'aria-current="page"':''} title="${tab==='sessions'?COPY.sessionsNav:COPY[tab]}">${icon(tab==='overview'?'home':tab)}<span>${tab==='sessions'?COPY.sessionsNav:COPY[tab]}</span></button>`).join('')}</nav>${location.pathname.startsWith('/guardian')?`<a class="advanced-link" href="/?app=1">${icon('link',12)}Advanced tracker</a>`:''}<div class="nav-spacer"></div><button class="sidebar-guardian" data-action="chat"><div class="tiny-avatar">${championArt(state.companion)}</div><div><strong>${c.name} is with you</strong><span>${COPY.watching}</span></div></button><div class="local-note">${icon('shield',13)}<span>${COPY.localNote}</span></div></aside>
+      <main class="main"><header class="topbar"><div class="breadcrumb"><button class="icon-button mobile-menu" data-action="menu" aria-label="${COPY.menu}">${icon('menu')}</button><span>${COPY.space}</span><span>/</span><span>${state.tab==='sessions'?COPY.sessionsNav:COPY[state.tab]}</span></div><div class="top-actions"><span class="mode-pill ${local?'local':''}">${local?'<i class="live-dot"></i>':icon('sparkles',11)}${local?COPY.local:COPY.demo}</span><button class="icon-button ${state.loading?'refresh-spinning':''}" data-action="refresh" aria-label="${COPY.refresh}" ${state.loading?'disabled':''}>${icon('refresh',14)}</button><button class="icon-button" data-tab="settings" aria-label="${COPY.settings}">${icon('bell',14)}</button><span class="avatar-letter" aria-label="Personal workspace">S</span></div></header>
       <div class="page-heading"><div><p class="eyebrow">${escape(date)} · ${COPY.welcome}</p><h1>${titles[state.tab]}</h1><p class="heading-subtitle">${subtitles[state.tab]}</p></div>${['overview','activity'].includes(state.tab)?`<div class="period-control" role="group" aria-label="Time range">${['today','week','month'].map(p=>`<button class="${state.period===p?'active':''}" data-period="${p}" aria-pressed="${state.period===p}">${COPY[p]}</button>`).join('')}</div>`:''}</div>
       ${!local?`<div class="demo-banner">${icon('sparkles',15)}<span>${COPY.demoNote}</span><button data-action="import">${COPY.import}</button></div>`:''}
-      <div id="page-content">${state.tab==='overview'?renderOverview():state.tab==='activity'?renderActivity():state.tab==='collection'?renderCollection():renderSettings()}</div>
+      <div id="page-content">${state.tab==='overview'?renderOverview():state.tab==='activity'?renderActivity():state.tab==='sessions'?renderSessions():state.tab==='collection'?renderCollection():renderSettings()}</div>
       <footer class="footline"><span>${icon('shield',10)}${local?COPY.foot:COPY.footDemo}</span><span><i class="pink-dot"></i>${state.refreshedAt?`${COPY.footLive} ${clockTime(state.refreshedAt)}`:COPY.privacy}</span></footer></main></div>`;
     bindArt();
     if(state.chatOpen)renderChat();
@@ -178,7 +190,7 @@
     const total=sumEvents(events).tokens;
     return `<section class="panel"><div class="panel-head"><div><h2>${COPY.providerHeading}</h2><p>${COPY.providerSub}</p></div><button class="text-button" data-provider="all">${COPY.allProviders}${icon('arrow',12)}</button></div><div class="source-grid">${PROVIDERS.map(p=>{
       const rows=events.filter(e=>sourceId(e.source)===p.id),s=sumEvents(rows);
-      return `<button class="source-card ${state.provider===p.id?'active':''}" data-provider="${p.id}" aria-pressed="${state.provider===p.id}" style="--source-color:${p.color}"><div class="source-top">${providerIcon(p.id)}<span class="source-status">${state.mode==='demo'?COPY.preview:rows.length?COPY.records:COPY.noData}</span></div><strong>${p.name}</strong><div class="source-cost">${rows.length?(s.reported+s.estimated?money(s.reported+s.estimated):s.unknown?'—':money(0)):'—'}</div><div class="source-tokens">${compact(s.tokens)} tokens ${s.unknown?'· value unknown':''}</div><div class="source-line"><span style="width:${total?Math.max(3,s.tokens/total*100):0}%"></span></div></button>`;
+      return `<div class="source-slot"><button class="source-card ${state.provider===p.id?'active':''}" data-provider="${p.id}" aria-pressed="${state.provider===p.id}" style="--source-color:${p.color}"><div class="source-top">${providerIcon(p.id)}<span class="source-status">${state.mode==='demo'?COPY.preview:rows.length?COPY.records:COPY.noData}</span></div><strong>${p.name}</strong><div class="source-cost">${rows.length?(s.reported+s.estimated?money(s.reported+s.estimated):s.unknown?'—':money(0)):'—'}</div><div class="source-tokens">${compact(s.tokens)} tokens ${s.unknown?'· value unknown':''}</div><div class="source-line"><span style="width:${total?Math.max(3,s.tokens/total*100):0}%"></span></div></button>${p.id==='cursor'?renderGrokCard():''}</div>`;
     }).join('')}</div></section>`;
   }
   function renderChart(events) {
@@ -212,10 +224,63 @@
     const events=filteredEvents();
     return `<div class="section-toolbar">${providerFilter()}<div><button class="secondary-button" data-action="import">${icon('upload',13)}${COPY.import}</button> <button class="secondary-button" data-action="export">${icon('download',13)}${COPY.export}</button></div></div>${renderStats(events)}<section class="panel activity-panel" style="margin-top:21px"><div class="panel-head"><div><h2>${COPY.activity}</h2><p>${number(events.length)} records · ${Intl.DateTimeFormat().resolvedOptions().timeZone}</p></div></div>${activityTable(events,100)}</section>`;
   }
+  function availableSessions(includeAll=false) {
+    let sessions=state.sessionInsights?.rankedSessions;
+    if(!Array.isArray(sessions)) {
+      const groups=new Map();
+      for(const event of state.events) {
+        if(!event.sessionId||event.grain==='bucket')continue;
+        const id=sourceId(event.source)+'::'+event.sessionId;
+        if(!groups.has(id))groups.set(id,{id,source:event.source,sessionId:event.sessionId,project:event.project,model:event.model,basis:'raw-events',attribution:'observed',eventIds:[],evidenceIds:[],events:[]});
+        const group=groups.get(id);group.events.push(event);group.eventIds.push(event.id);group.evidenceIds.push(event.id);
+      }
+      sessions=[...groups.values()].map(group=>{const s=sumEvents(group.events),dates=group.events.map(e=>e.timestamp).sort();return {...group,totalTokens:s.tokens,reportedCostUsd:s.reported,estimatedCostUsd:s.estimated,unknownCostEvents:s.unknown,eventCount:group.events.length,startedAt:dates[0],endedAt:dates.at(-1),models:[],recommendations:[]};});
+    }
+    return sessions.filter(s=>includeAll||state.provider==='all'||sourceId(s.source)===state.provider).sort((a,b)=>safeTokens(b.totalTokens)-safeTokens(a.totalTokens));
+  }
+  function sessionName(session) {return session.title||session.project||('Session '+String(session.sessionId||session.sessionHash||session.id).slice(0,20));}
+  function sessionValue(session) {const known=Number(session.reportedCostUsd||0)+Number(session.estimatedCostUsd||0);return session.unknownCostEvents&&known===0?'—':money(known)+(session.costIsPartial?' + unknown':'');}
+  function renderSessions() {
+    const sessions=availableSessions(),coverage=state.sessionInsights?.coverage;
+    const note=coverage?.notes?.join(' ')||COPY.sessionsLimit;
+    return '<div class="section-toolbar">'+providerFilter()+'<span class="session-sort">'+COPY.sessionSort+' · all available records</span></div>'+
+      '<div class="session-coverage">'+icon('shield',16)+'<div><strong>'+COPY.sessionCoverage+'</strong><p>'+escape(note)+' Session breakdowns explain account usage; they are not added to overview totals.</p></div>'+
+      (state.provider==='all'&&Number.isFinite(coverage?.sessionAttributionPercent)?'<span>'+Number(coverage.sessionAttributionPercent).toFixed(1)+'%<small>of account tokens attributed</small></span>':'')+'</div>'+
+      (sessions.length?'<div class="session-grid">'+sessions.slice(0,3).map((s,index)=>'<article class="session-card"><div class="session-card-head">'+providerIcon(s.source)+'<span>#'+(index+1)+'</span><span class="session-basis">'+(s.basis==='session-sidecar'?'Session metadata':'Raw events')+'</span></div><h2>'+escape(sessionName(s))+'</h2><p class="session-id">'+escape(s.sessionId||s.sessionHash||s.id)+'</p><div class="session-total">'+(s.totalTokens==null?'—':compact(s.totalTokens))+'<small>recorded tokens</small></div><p class="session-model">'+escape(s.model||'Model unavailable')+' · '+escape(provider(s.source).name)+'</p><div class="session-token-split"><span>'+(s.inputTokens==null?'—':compact(s.inputTokens))+' input</span><span>'+(s.outputTokens==null?'—':compact(s.outputTokens))+' output</span><span>'+(s.cachedTokens==null?'—':compact(s.cachedTokens))+' cache reads</span></div><div class="session-card-actions"><button class="secondary-button" data-session="'+escape(s.id)+'">'+COPY.sessionEvidence+'</button><button class="text-button" data-session-ask="'+escape(s.id)+'">'+COPY.ask+' '+COMPANIONS[state.companion].name+icon('arrow',12)+'</button></div></article>').join('')+'</div>'+
+      '<section class="panel"><div class="panel-head"><div><h2>Recorded sessions</h2><p>Available totals · '+number(sessions.length)+' sessions</p></div></div><div class="table-wrap"><table class="activity-table session-table"><thead><tr><th>Session / project</th><th>Tool</th><th>Tokens</th><th>Usage value</th></tr></thead><tbody>'+sessions.slice(0,100).map(s=>'<tr><td><button class="row-button" data-session="'+escape(s.id)+'">'+escape(sessionName(s))+'<div class="table-sub">'+escape(s.basis==='session-sidecar'?'Session metadata':'Individual event evidence')+' · '+dateTime(s.endedAt)+'</div></button></td><td>'+escape(provider(s.source).name)+'</td><td>'+(s.totalTokens==null?'—':compact(s.totalTokens))+'</td><td>'+sessionValue(s)+'</td></tr>').join('')+'</tbody></table></div><div class="activity-footer">'+COPY.sessionsLimit+'</div></section>':
+      '<div class="panel empty-state">'+icon('sessions',26)+COPY.sessionsEmpty+'<br>'+COPY.sessionsLimit+'</div>');
+  }
+  function showSession(id) {
+    const session=availableSessions(true).find(s=>String(s.id)===String(id));if(!session)return;stopVoice(true);
+    const dialog=document.createElement('dialog');dialog.className='detail-dialog session-dialog';
+    const rows=evidenceRows(session.evidenceIds||session.eventIds),models=session.models||[],recommendations=session.recommendations||[];
+    dialog.innerHTML='<div class="detail-head"><h2>'+escape(sessionName(session))+'</h2><button class="icon-button" data-dialog-close aria-label="'+COPY.close+'">'+icon('close',15)+'</button></div><div class="detail-body"><p class="detail-description">Available session evidence · '+escape(provider(session.source).name)+' · '+escape(session.basis==='session-sidecar'?'Session metadata':'Individual event records')+'<br>'+escape(session.sessionId||session.sessionHash||session.id)+'<br>'+dateTime(session.startedAt)+' — '+dateTime(session.endedAt)+'</p><div class="detail-facts"><div class="detail-fact"><span>Recorded tokens</span><strong>'+(session.totalTokens==null?'Unavailable':number(session.totalTokens))+'</strong></div><div class="detail-fact"><span>Reported usage value</span><strong>'+money(session.reportedCostUsd)+'</strong></div><div class="detail-fact"><span>Estimated usage value</span><strong>'+money(session.estimatedCostUsd)+'</strong></div></div><div class="detail-limit">'+COPY.sessionsLimit+'<br>'+escape((session.coverage?.notes||[]).join(' '))+(session.unknownCostEvents?'<br>'+number(session.unknownCostEvents)+' records have unknown pricing.':'')+'</div>'+
+      (models.length?'<h3>Models in this session</h3><div class="model-breakdown">'+models.map(model=>'<div><span>'+escape(model.model)+'</span><strong>'+(model.totalTokens==null?'—':compact(model.totalTokens))+' tokens</strong><small>'+(model.cachedTokens==null?'—':compact(model.cachedTokens))+' cache reads · '+(model.costUsd==null?'value unknown':money(model.costUsd)+' '+escape(model.costType||'reported'))+'</small></div>').join('')+'</div>':'')+
+      (recommendations.length?'<h3>Things to investigate</h3><div class="recommendation-list">'+recommendations.map(rec=>'<article><strong>'+escape(rec.title)+'</strong><p>'+escape(rec.detail)+'</p><small>'+escape(rec.confidence)+' · investigation suggestion</small></article>').join('')+'</div>':'')+
+      '<h3>Evidence</h3><div class="evidence-list">'+(rows.length?rows.slice(0,30).map(e=>'<button class="evidence-item row-button" data-event="'+escape(e.id)+'"><strong>'+dateTime(e.timestamp)+' · '+compact(totalTokens(e))+' tokens</strong><p>'+escape(e.model)+' · '+escape(e.project||COPY.noProject)+'</p></button>').join(''):'<p class="settings-footnote">These session metadata totals have no individual request records in the current view. They cannot establish request cadence.</p>')+'</div><div class="detail-actions"><button class="primary-button" data-session-dialog-ask>'+COPY.sessionAsk+'</button></div></div>';
+    document.getElementById('overlay-root').append(dialog);dialog.showModal();
+    dialog.addEventListener('click',event=>{if(event.target.closest('[data-dialog-close]'))dialog.close();if(event.target.closest('[data-session-dialog-ask]')){dialog.close();askSession(session.id);}});
+    dialog.addEventListener('close',()=>dialog.remove());
+  }
+  function askSession(id) {
+    const session=availableSessions(true).find(s=>String(s.id)===String(id));if(!session)return;
+    const tokenContext=session.totalTokens==null?'Its token total is unavailable.':'It has '+number(session.totalTokens)+' recorded tokens.';
+    openChat();sendMessage('Explain session '+(session.sessionId||session.sessionHash||session.id)+' in '+provider(session.source).name+'. '+tokenContext+' Which models and cache usage contribute, and what does the evidence suggest I should investigate?',session.id);
+  }
+  function renderGrokCard() {
+    const quota=state.grok,enabled=Boolean(state.preferences.grokEnabled),available=quota?.availability==='available'&&Number.isFinite(quota.usedPercent);
+    return '<section class="grok-mini" aria-label="'+COPY.grokHeading+'"><div class="grok-mini-head"><strong>Grok Bot allowance</strong><span>Cursor quota</span></div><div class="grok-value">'+(available?Number(quota.usedPercent).toFixed(1)+'%':'—')+'</div><p>'+(state.grokBusy?COPY.grokChecking:available?COPY.grokUsed:escape(quota?.message||COPY.grokDisabled))+'</p>'+(available&&quota.resetAt?'<p>Resets '+dateTime(quota.resetAt)+'</p>':'')+(quota?.planLabel?'<p>'+escape(quota.planLabel)+'</p>':'')+'<small>'+COPY.grokNoTokens+'</small><div class="grok-actions"><button data-action="'+(enabled?'grok-refresh':'grok-enable')+'" '+(state.grokBusy?'disabled':'')+'>'+ (enabled?COPY.grokRefresh:COPY.grokEnable)+'</button>'+(enabled?'<button data-action="grok-disable" '+(state.grokBusy?'disabled':'')+'>'+COPY.grokDisable+'</button>':'')+'</div></section>';
+  }
+  async function refreshGrok(enabled=true) {
+    if(state.grokBusy)return;state.preferences.grokEnabled=enabled;save();state.grokBusy=true;renderShell();
+    try {state.grok=await api('/api/guardian/grokbot?enabled='+(enabled?'1&refresh=1':'0'));}
+    catch(error){state.grok={availability:'unavailable',usedPercent:null,message:error.message||COPY.grokUnknown};}
+    finally{state.grokBusy=false;renderShell();}
+  }
   function renderCollection() {
     const local=state.mode==='local';
     const stickers=[{emoji:'🌱',name:COPY.firstWatch,sub:COPY.firstWatchSub,done:local&&state.events.length>0},{emoji:'🔎',name:COPY.loopDetective,sub:COPY.loopDetectiveSub,done:local&&state.reviewed.length>0},{emoji:'🛡️',name:COPY.budgetKeeper,sub:COPY.budgetKeeperSub,done:local&&state.preferences.budget>0},{emoji:'✨',name:'A familiar friend',sub:'Choose a companion for your watchtower',done:true}];
-    return `<section class="collection-intro"><div><h2>${COPY.collectionIntro}</h2><p>${COPY.collectionIntroSub}</p></div><div class="seal">${icon('sparkles',27)}</div></section><div class="champion-grid">${Object.entries(COMPANIONS).map(([id,c])=>`<section class="champion-card ${id} ${state.companion===id?'selected':''}">${state.companion===id?`<span class="selected-tag">${icon('check',10)}${COPY.selected}</span>`:''}${championArt(id)}<h3>${c.name}</h3><p>${c.role}<br>${c.quote}</p><button class="secondary-button" data-companion="${id}" aria-pressed="${state.companion===id}">${state.companion===id?icon('check',12):icon('sparkles',12)}${state.companion===id?COPY.selected:COPY.choose}</button></section>`).join('')}</div><h2>${COPY.stickerHeading}</h2>${!local?`<p class="settings-footnote">${COPY.stickerPreview}</p>`:''}<div class="sticker-grid">${stickers.map(s=>`<section class="sticker ${!s.done?'locked':''}"><div class="sticker-emoji" aria-hidden="true">${s.emoji}</div><strong>${s.name}</strong><p>${s.sub}</p><p style="margin-top:8px">${s.done?COPY.stickerUnlocked:COPY.stickerLocked}</p></section>`).join('')}</div>`;
+    return `<section class="collection-intro"><div><h2>${COPY.collectionIntro}</h2><p>${COPY.collectionIntroSub}</p></div><div class="seal">${icon('sparkles',27)}</div></section><div class="champion-grid">${Object.entries(COMPANIONS).map(([id,c])=>`<section class="champion-card ${id} ${state.companion===id?'selected':''}">${state.companion===id?`<span class="selected-tag">${icon('check',10)}${COPY.selected}</span>`:''}${championArt(id)}<h3>${c.name}</h3><div class="skin-control" role="group" aria-label="${COPY.skinChoose} for ${c.name}">${['classic','cozy'].map(skin=>`<button data-skin="${skin}" data-skin-companion="${id}" aria-pressed="${(state.skins[id]==='cozy'?'cozy':'classic')===skin}" class="${(state.skins[id]==='cozy'?'cozy':'classic')===skin?'active':''}">${skin==='cozy'?COPY.skinCozy:COPY.skinClassic}</button>`).join('')}</div><p>${c.role}<br>${c.quote}</p><button class="secondary-button" data-companion="${id}" aria-pressed="${state.companion===id}">${state.companion===id?icon('check',12):icon('sparkles',12)}${state.companion===id?COPY.selected:COPY.choose}</button></section>`).join('')}</div><h2>${COPY.stickerHeading}</h2>${!local?`<p class="settings-footnote">${COPY.stickerPreview}</p>`:''}<div class="sticker-grid">${stickers.map(s=>`<section class="sticker ${!s.done?'locked':''}"><div class="sticker-emoji" aria-hidden="true">${s.emoji}</div><strong>${s.name}</strong><p>${s.sub}</p><p style="margin-top:8px">${s.done?COPY.stickerUnlocked:COPY.stickerLocked}</p></section>`).join('')}</div>`;
   }
   function renderSettings() {
     return `<div class="settings-grid"><div class="main-column"><section class="panel settings-panel"><h2>${COPY.watchHeading}</h2><p>${COPY.watchSub}</p><label class="setting-row"><div><strong>${COPY.autoRefresh}</strong><p>${COPY.autoRefreshSub}</p></div><input type="checkbox" class="toggle" data-pref="autoRefresh" ${state.preferences.autoRefresh?'checked':''}/></label><label class="setting-row"><div><strong>${COPY.notifications}</strong><p>${COPY.notificationsSub}</p></div><input type="checkbox" class="toggle" data-pref="notifications" ${state.preferences.notifications?'checked':''}/></label><label class="setting-row"><div><strong>${COPY.alertBudget}</strong><p>${COPY.alertBudgetSub}</p></div><input type="number" class="amount-input" min="0" max="100000" step="1" data-pref="budget" value="${Number(state.preferences.budget)||0}" aria-label="Usage value alert in US dollars"/></label><p class="settings-footnote">${COPY.notificationLimit}</p></section><section class="panel settings-panel"><h2>${COPY.dataHeading}</h2><p>${COPY.dataSub}</p><div class="data-actions"><button class="primary-button" data-action="import">${icon('upload',14)}${COPY.import}</button><button class="secondary-button" data-action="local">${COPY.localButton}</button><button class="secondary-button" data-action="demo">${COPY.demoButton}</button></div><p class="settings-footnote">${COPY.importFoot}</p></section></div><section class="panel settings-panel"><h2>${COPY.coverageHeading}</h2><p>${COPY.coverageSub}</p><div class="coverage-list">${PROVIDERS.map(p=>{const found=state.events.some(e=>sourceId(e.source)===p.id);const raw=Array.isArray(state.coverage.providers)?state.coverage.providers.find(c=>sourceId(c.source||c.provider)===p.id):null;return `<div class="coverage-row">${providerIcon(p.id)}<div><strong>${p.name}</strong><span>${state.mode==='demo'?'Sample records':found?COPY.hasCoverage:COPY.noCoverage}</span>${raw?.note?`<p class="settings-footnote">${escape(raw.note)}</p>`:''}</div><span class="coverage-state">${state.mode==='demo'?COPY.preview:found?COPY.records:COPY.noData}</span></div>`;}).join('')}</div><p class="settings-footnote">${COPY.privacy} Provider totals may expose less detail than session logs. Projects, requests, and schedules are shown only when the source supplies them.</p></section></div>`;
@@ -223,18 +288,19 @@
   let toastTimer;
   function toast(message) {const el=document.getElementById('toast');el.textContent=message;el.classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('visible'),4200);}
   async function api(path,options={}) {
-    const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),12000);
-    try {const response=await fetch(path,{...options,signal:controller.signal,headers:{'Content-Type':'application/json',...(options.headers||{})}});let data;try{data=await response.json();}catch{throw new Error('The local server returned an unreadable response.');}if(!response.ok)throw new Error(data.error||`Request failed (${response.status})`);return data;}finally{clearTimeout(timer);}
+    const {timeoutMs=12000,...requestOptions}=options;
+    const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),timeoutMs);
+    try {const response=await fetch(path,{...requestOptions,signal:controller.signal,headers:{'Content-Type':'application/json',...(requestOptions.headers||{})}});let data;try{data=await response.json();}catch{throw new Error('The local server returned an unreadable response.');}if(!response.ok)throw new Error(data.error||`Request failed (${response.status})`);return data;}finally{clearTimeout(timer);}
   }
   async function loadData(manual=false) {
     if(state.loading)return;state.loading=true;if(state.loaded)renderShell();
     try {
       const data=await api(`/api/guardian${state.queryMode?`?mode=${state.queryMode}`:''}`);
       if(!Array.isArray(data.events))throw new Error('Usage records are missing.');
-      state.mode=data.mode==='demo'?'demo':'local';state.events=data.events;state.incidents=Array.isArray(data.incidents)?data.incidents:[];state.coverage=data.coverage||[];state.connected=true;
+      state.mode=data.mode==='demo'?'demo':'local';state.events=data.events;state.incidents=Array.isArray(data.incidents)?data.incidents:[];state.coverage=data.coverage||[];state.sessionInsights=data.sessionInsights||null;state.connected=true;
       if(manual)toast(COPY.refreshDone);
     } catch {
-      if(!state.loaded||state.queryMode==='demo') {const demo=makeDemo();state.mode=demo.mode;state.events=demo.events;state.incidents=demo.incidents;state.coverage=[];}
+      if(!state.loaded||state.queryMode==='demo') {const demo=makeDemo();state.mode=demo.mode;state.events=demo.events;state.incidents=demo.incidents;state.coverage=[];state.sessionInsights=null;}
       state.connected=false;if(manual)toast(COPY.refreshError);
     } finally {state.loaded=true;state.loading=false;state.refreshedAt=new Date().toISOString();renderShell();checkAlerts();}
   }
@@ -251,23 +317,129 @@
     });dialog.addEventListener('close',()=>dialog.remove());
   }
   function showEvent(id) {
-    const e=state.events.find(row=>String(row.id)===String(id));if(!e)return;
+    const e=state.events.find(row=>String(row.id)===String(id));if(!e){const session=availableSessions(true).find(s=>(s.evidenceIds||[]).includes(id));if(session)showSession(session.id);return;}
     showDetail({id:`record-${e.id}`,title:COPY.recordDetail,description:COPY.recordDescription,source:e.source,confidence:e.attribution,evidenceIds:[e.id],limits:e.grain==='bucket'?[COPY.requestNotProven]:!e.project&&!e.sessionId?[COPY.evidenceMissing]:[]});
   }
   function openChat() {state.chatOpen=true;if(!state.messages.length)state.messages.push({role:'assistant',content:COPY.chatWelcome,mode:'local'});renderChat();setTimeout(()=>document.getElementById('chat-input')?.focus(),80);}
+  function chatModeLabel(mode) { return mode==='openai'?COPY.chatOpenAI:mode==='deepseek'?COPY.chatDeepSeek:COPY.chatMode; }
+  function configuredProvider(id) { return id==='local'||Boolean(state.health?.chat?.availableProviders?.find(p=>p.id===id)?.configured); }
+  async function loadHealth() {
+    try {state.health=await api('/api/guardian/health');if(!configuredProvider(state.chatProvider))state.chatProvider='local';if(!browserDictationSupported()&&state.health?.voice?.configured)state.voiceMethod='openai';}
+    catch {state.health=null;state.chatProvider='local';}
+    if(state.chatOpen)renderChat();
+  }
+  function renderChatMessage(message,index) {
+    let html='<div class="chat-message '+message.role+'">'+escape(message.content);
+    if(message.role==='assistant') {
+      html+='<span class="chat-mode">'+chatModeLabel(message.mode)+(state.mode==='demo'?' · preview data':'')+'</span>';
+      if(message.notice)html+='<span class="chat-notice">'+escape(message.notice)+'</span>';
+      if('speechSynthesis' in window)html+='<button class="read-button" data-read="'+index+'" aria-label="'+(state.speechIndex===index?COPY.voiceReadStop:COPY.voiceRead)+'">'+icon(state.speechIndex===index?'stop':'volume',11)+(state.speechIndex===index?COPY.voiceReadStop:COPY.voiceRead)+'</button>';
+    }
+    if(message.evidenceIds?.length)html+='<div class="chat-evidence">'+message.evidenceIds.slice(0,5).map(id=>'<button data-event="'+escape(id)+'">'+COPY.evidence+' ↗</button>').join('')+'</div>';
+    return html+'</div>';
+  }
   function renderChat() {
     document.querySelector('.drawer-backdrop')?.remove();
     const c=COMPANIONS[state.companion],el=document.createElement('div');el.className='drawer-backdrop';
-    el.innerHTML=`<section class="chat-drawer" role="dialog" aria-modal="true" aria-labelledby="chat-title"><div class="chat-header"><div class="tiny-avatar">${championArt(state.companion)}</div><div><h2 id="chat-title">${COPY.ask} ${c.name}</h2><p>${state.chatMode==='openai'?COPY.chatOpenAI:COPY.chatMode} · read-only</p></div><button class="icon-button" data-action="chat-close" aria-label="${COPY.close}">${icon('close',15)}</button></div><div class="chat-messages" id="chat-messages" role="log" aria-live="polite">${state.messages.map(m=>`<div class="chat-message ${m.role}">${escape(m.content)}${m.role==='assistant'?`<span class="chat-mode">${m.mode==='openai'?COPY.chatOpenAI:COPY.chatMode}${state.mode==='demo'?' · preview data':''}</span>`:''}${m.evidenceIds?.length?`<div class="chat-evidence">${m.evidenceIds.slice(0,5).map(id=>`<button data-event="${escape(id)}">${COPY.evidence} ↗</button>`).join('')}</div>`:''}</div>`).join('')}${state.chatBusy?`<div class="chat-message assistant">${COPY.chatThinking}</div>`:''}</div><div class="chat-suggestions">${[COPY.chatQuestion1,COPY.chatQuestion2,COPY.chatQuestion3].map(q=>`<button data-question="${escape(q)}" ${state.chatBusy?'disabled':''}>${q}</button>`).join('')}</div><form class="chat-form" id="chat-form"><textarea id="chat-input" rows="1" placeholder="${COPY.chatPlaceholder}" aria-label="${COPY.chatPlaceholder}" maxlength="2000" ${state.chatBusy?'disabled':''}></textarea><button type="submit" aria-label="${COPY.chatSend}" ${state.chatBusy?'disabled':''}>${icon('arrowUp',16)}</button></form><p class="chat-privacy">${COPY.chatMeta}${state.mode==='demo'?' · '+COPY.demo:''}</p></section>`;
+    const options=['local','openai','deepseek'].map(id=>'<option value="'+id+'" '+(state.chatProvider===id?'selected ':'')+(!configuredProvider(id)?'disabled':'')+'>'+COPY[id==='local'?'providerLocal':id==='openai'?'providerOpenAI':'providerDeepSeek']+(!configuredProvider(id)?' · '+COPY.providerNotConfigured:'')+'</option>').join('');
+    el.innerHTML=[
+      '<section class="chat-drawer" role="dialog" aria-modal="true" aria-labelledby="chat-title">',
+      '<div class="chat-header"><div class="tiny-avatar">'+championArt(state.companion)+'</div><div><h2 id="chat-title">'+COPY.ask+' '+c.name+'</h2><p>'+chatModeLabel(state.chatMode)+' · read-only</p></div><button class="icon-button" data-action="chat-close" aria-label="'+COPY.close+'">'+icon('close',15)+'</button></div>',
+      '<div class="chat-provider-row"><label for="chat-provider">'+COPY.chatProvider+'</label><select id="chat-provider" class="filter-select">'+options+'</select><p>'+(state.chatProvider==='local'?COPY.localChatNote:COPY.cloudChatNote)+'</p></div>',
+      '<div class="chat-messages" id="chat-messages" role="log" aria-live="polite">'+state.messages.map(renderChatMessage).join('')+(state.chatBusy?'<div class="chat-message assistant">'+COPY.chatThinking+'</div>':'')+'</div>',
+      '<div class="chat-suggestions">'+[COPY.chatQuestion1,COPY.chatQuestion2,COPY.chatQuestion3].map(q=>'<button data-question="'+escape(q)+'" '+(state.chatBusy||voiceBusy()?'disabled':'')+'>'+q+'</button>').join('')+'</div>',
+      '<div class="voice-controls"><label for="voice-method">'+COPY.voiceMethod+'</label><select id="voice-method"><option value="browser" '+(state.voiceMethod==='browser'?'selected':'')+'>'+COPY.voiceBrowser+'</option><option value="openai" '+(state.voiceMethod==='openai'?'selected ':'')+(!openAIVoiceSupported()?'disabled':'')+'>'+COPY.voiceOpenAI+(!openAIVoiceSupported()?' · '+COPY.providerNotConfigured:'')+'</option></select><button class="icon-button voice-button" data-action="voice" aria-label="'+COPY.voiceStart+'" title="'+COPY.voiceStart+'">'+icon('mic',15)+'</button><button class="text-button voice-cancel" data-action="voice-cancel" hidden>'+COPY.voiceCancel+'</button></div>',
+      '<p class="voice-privacy">'+(state.voiceMethod==='openai'?COPY.voiceOpenAIPrivacy:COPY.voiceBrowserPrivacy)+'</p><p class="voice-status" role="status" aria-live="polite">'+COPY.voiceIdle+'</p>',
+      '<form class="chat-form" id="chat-form"><textarea id="chat-input" rows="2" placeholder="'+COPY.chatPlaceholder+'" aria-label="'+COPY.chatPlaceholder+'" maxlength="2000" '+(state.chatBusy?'disabled':'')+'>'+escape(state.draft)+'</textarea><button type="submit" aria-label="'+COPY.chatSend+'" '+(state.chatBusy||voiceBusy()?'disabled':'')+'>'+icon('arrowUp',16)+'</button></form>',
+      '<p class="chat-privacy">'+COPY.chatMeta+(state.mode==='demo'?' · '+COPY.demo:'')+'<br>'+COPY.voiceReadNote+'</p></section>'
+    ].join('');
     el.addEventListener('click',event=>{if(event.target===el)closeChat();});
-    document.getElementById('overlay-root').append(el);bindArt();
+    document.getElementById('overlay-root').append(el);document.getElementById('app').inert=true;bindArt();
     const log=document.getElementById('chat-messages');log.scrollTop=log.scrollHeight;
-    document.getElementById('chat-form').addEventListener('submit',event=>{event.preventDefault();const input=document.getElementById('chat-input');sendMessage(input.value);});
-    document.getElementById('chat-input').addEventListener('keydown',event=>{if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage(event.target.value);}});
-    trapFocus(el);
+    document.getElementById('chat-form').addEventListener('submit',event=>{event.preventDefault();sendMessage(state.draft);});
+    const input=document.getElementById('chat-input');
+    input.addEventListener('input',()=>{state.draft=input.value;});
+    input.addEventListener('keydown',event=>{if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage(state.draft);}});
+    trapFocus(el);updateVoiceUI();
   }
-  function trapFocus(container) {container.addEventListener('keydown',event=>{if(event.key==='Escape'){closeChat();return;}if(event.key!=='Tab')return;const nodes=[...container.querySelectorAll('button:not(:disabled),textarea:not(:disabled)')];if(!nodes.length)return;const first=nodes[0],last=nodes.at(-1);if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}});}
-  function closeChat() {state.chatOpen=false;document.querySelector('.drawer-backdrop')?.remove();document.querySelector('[data-action="chat"]')?.focus();}
+  function trapFocus(container) {container.addEventListener('keydown',event=>{if(event.key==='Escape'){closeChat();return;}if(event.key!=='Tab')return;const nodes=[...container.querySelectorAll('button:not(:disabled):not([hidden]),textarea:not(:disabled),select:not(:disabled)')].filter(node=>node.getClientRects().length);if(!nodes.length)return;const first=nodes[0],last=nodes.at(-1);if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}});}
+  function closeChat() {stopVoice(true);stopReading();state.chatOpen=false;document.getElementById('app').inert=false;document.querySelector('.drawer-backdrop')?.remove();document.querySelector('[data-action="chat"]')?.focus();}
+  let recognition=null,recorder=null,micStream=null,voiceTimer=null,voiceTimeout=null,transcribeController=null,voiceEpoch=0,voiceBaseDraft='',audioChunks=[],audioBytes=0,voiceHadError=false;
+  function browserDictationSupported() {return Boolean(window.SpeechRecognition||window.webkitSpeechRecognition);}
+  function recordingMime() {return window.MediaRecorder?.isTypeSupported?['audio/webm;codecs=opus','audio/mp4','audio/webm'].find(type=>window.MediaRecorder.isTypeSupported(type)):null;}
+  function openAIVoiceSupported() {return Boolean(state.health?.voice?.configured&&navigator.mediaDevices?.getUserMedia&&recordingMime());}
+  function voiceBusy() {return state.voice.phase!=='idle';}
+  function setVoicePhase(phase,message='') {state.voice.phase=phase;state.voice.message=message;updateVoiceUI();}
+  function updateVoiceUI() {
+    const button=document.querySelector('[data-action="voice"]'),status=document.querySelector('.voice-status'),cancel=document.querySelector('[data-action="voice-cancel"]'),input=document.getElementById('chat-input'),method=document.getElementById('voice-method'),send=document.querySelector('#chat-form button[type="submit"]');
+    if(!button)return;
+    const active=['listening','recording'].includes(state.voice.phase),supported=state.voiceMethod==='browser'?browserDictationSupported():openAIVoiceSupported();
+    button.innerHTML=icon(active?'stop':'mic',15);button.classList.toggle('recording',active);button.disabled=state.chatBusy||['requesting','transcribing','finishing'].includes(state.voice.phase)||(!supported&&!active);
+    const label=active?COPY.voiceStop:COPY.voiceStart;button.setAttribute('aria-label',label);button.title=label;button.setAttribute('aria-pressed',String(active));
+    cancel.hidden=!voiceBusy();if(method)method.disabled=voiceBusy()||state.chatBusy;
+    if(input){input.readOnly=voiceBusy();input.value=state.draft;}
+    if(send)send.disabled=state.chatBusy||voiceBusy();
+    document.querySelectorAll('[data-question]').forEach(node=>{node.disabled=state.chatBusy||voiceBusy();});
+    if(status)status.textContent=state.voice.phase==='recording'?COPY.voiceRecording+' · '+state.voice.seconds+'s / 30s':state.voice.message||(!supported?(state.voiceMethod==='openai'?COPY.voiceOpenAIUnavailable:COPY.voiceUnsupported):COPY.voiceIdle);
+  }
+  async function startVoice() {
+    if(state.chatBusy||voiceBusy())return;stopReading();voiceBaseDraft=state.draft;const epoch=++voiceEpoch;voiceHadError=false;state.voice.seconds=0;
+    if(state.voiceMethod==='browser') {
+      const Recognition=window.SpeechRecognition||window.webkitSpeechRecognition;if(!Recognition){setVoicePhase('idle',COPY.voiceUnsupported);return;}
+      recognition=new Recognition();recognition.lang=navigator.language||'en-US';recognition.continuous=true;recognition.interimResults=true;
+      recognition.onresult=event=>{if(epoch!==voiceEpoch||!state.chatOpen)return;let transcript='';for(let i=0;i<event.results.length;i++)transcript+=event.results[i][0].transcript+' ';state.draft=(voiceBaseDraft+(voiceBaseDraft?' ':'')+transcript.trim()).slice(0,2000);updateVoiceUI();};
+      recognition.onerror=event=>{if(epoch!==voiceEpoch)return;voiceHadError=true;stopVoice(true);setVoicePhase('idle',['not-allowed','service-not-allowed','audio-capture'].includes(event.error)?COPY.voicePermission:event.error==='no-speech'?COPY.voiceNoSpeech:COPY.voiceError);};
+      recognition.onend=()=>{if(epoch!==voiceEpoch)return;recognition=null;clearTimeout(voiceTimeout);if(!voiceHadError)setVoicePhase('idle',state.draft!==voiceBaseDraft?COPY.voiceDraft:COPY.voiceNoSpeech);document.getElementById('chat-input')?.focus();};
+      try {recognition.start();setVoicePhase('listening',COPY.voiceListening);voiceTimeout=setTimeout(finishVoice,30000);}catch {recognition=null;setVoicePhase('idle',COPY.voiceError);}
+      return;
+    }
+    if(!openAIVoiceSupported()){setVoicePhase('idle',COPY.voiceOpenAIUnavailable);return;}
+    setVoicePhase('requesting',COPY.voiceWaiting);
+    try {
+      const stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,channelCount:1},video:false});
+      if(epoch!==voiceEpoch||!state.chatOpen||document.hidden){stream.getTracks().forEach(track=>track.stop());return;}
+      micStream=stream;audioChunks=[];audioBytes=0;
+      const mime=recordingMime();
+      recorder=new MediaRecorder(stream,{...(mime?{mimeType:mime}:{}),audioBitsPerSecond:24000});
+      recorder.ondataavailable=event=>{if(epoch!==voiceEpoch)return;if(event.data.size){audioChunks.push(event.data);audioBytes+=event.data.size;if(audioBytes>2097152){stopVoice(true);setVoicePhase('idle',COPY.voiceTooLarge);}}};
+      recorder.onerror=()=>{if(epoch!==voiceEpoch)return;stopVoice(true);setVoicePhase('idle',COPY.voiceError);};
+      recorder.onstop=()=>{clearInterval(voiceTimer);clearTimeout(voiceTimeout);micStream?.getTracks().forEach(track=>track.stop());micStream=null;if(epoch!==voiceEpoch)return;const type=recorder?.mimeType||mime||'audio/webm',blob=new Blob(audioChunks,{type});recorder=null;audioChunks=[];transcribeAudio(blob,epoch);};
+      recorder.start(250);setVoicePhase('recording');
+      voiceTimer=setInterval(()=>{state.voice.seconds++;updateVoiceUI();},1000);voiceTimeout=setTimeout(finishVoice,30000);
+    } catch(error) {if(epoch!==voiceEpoch)return;micStream?.getTracks().forEach(track=>track.stop());micStream=null;setVoicePhase('idle',error.name==='NotAllowedError'?COPY.voicePermission:COPY.voiceError);}
+  }
+  function finishVoice() {
+    if(recognition){setVoicePhase('finishing',COPY.voiceFinishingDictation);try{recognition.stop();}catch{stopVoice(true);setVoicePhase('idle',COPY.voiceError);}return;}
+    if(recorder&&recorder.state!=='inactive'){setVoicePhase('finishing',COPY.voiceFinishingRecording);recorder.stop();}
+  }
+  function stopVoice(discard=true) {
+    const wasBusy=voiceBusy();voiceEpoch++;clearInterval(voiceTimer);clearTimeout(voiceTimeout);transcribeController?.abort();transcribeController=null;
+    if(recognition){recognition.onend=null;recognition.onresult=null;recognition.onerror=null;try{recognition.abort();}catch{}recognition=null;}
+    if(recorder){recorder.onstop=null;recorder.ondataavailable=null;recorder.onerror=null;if(recorder.state!=='inactive')try{recorder.stop();}catch{}recorder=null;}
+    micStream?.getTracks().forEach(track=>track.stop());micStream=null;audioChunks=[];audioBytes=0;
+    if(discard&&wasBusy)state.draft=voiceBaseDraft;
+    setVoicePhase('idle',wasBusy?COPY.voiceCanceled:state.voice.message);
+  }
+  async function transcribeAudio(blob,epoch) {
+    if(!blob.size){setVoicePhase('idle',COPY.voiceNoSpeech);return;}if(blob.size>2097152){setVoicePhase('idle',COPY.voiceTooLarge);return;}
+    setVoicePhase('transcribing',COPY.voiceTranscribing);const controller=new AbortController();transcribeController=controller;const timer=setTimeout(()=>controller.abort(),45000);
+    try {
+      const response=await fetch('/api/guardian/transcribe',{method:'POST',headers:{'Content-Type':blob.type.split(';')[0]},body:blob,signal:controller.signal});
+      const data=await response.json();if(!response.ok)throw new Error(data.error||COPY.voiceError);if(epoch!==voiceEpoch||!state.chatOpen)return;
+      const transcript=String(data.text||'').trim();if(!transcript){setVoicePhase('idle',COPY.voiceNoSpeech);return;}
+      const text=voiceBaseDraft+(voiceBaseDraft?' ':'')+transcript;state.draft=text.slice(0,2000);setVoicePhase('idle',COPY.voiceDraft+(text.length>2000?' '+COPY.voiceShortened:'')+(data.notice?' '+String(data.notice):''));document.getElementById('chat-input')?.focus();
+    }catch(error){if(epoch===voiceEpoch)setVoicePhase('idle',error.name==='AbortError'?COPY.voiceError:error.message||COPY.voiceError);}
+    finally{clearTimeout(timer);if(transcribeController===controller)transcribeController=null;}
+  }
+  let readEpoch=0;
+  function stopReading() {readEpoch++;if('speechSynthesis' in window)window.speechSynthesis.cancel();state.speechIndex=null;document.querySelectorAll('[data-read]').forEach(button=>{button.innerHTML=icon('volume',11)+COPY.voiceRead;button.setAttribute('aria-label',COPY.voiceRead);});}
+  function readAnswer(index) {
+    if(!('speechSynthesis' in window)||!window.SpeechSynthesisUtterance||voiceBusy())return;
+    const previous=state.speechIndex;stopReading();if(previous===index)return;const message=state.messages[index];if(!message||message.role!=='assistant')return;
+    const utterance=new SpeechSynthesisUtterance(message.content),epoch=readEpoch;utterance.lang=navigator.language||'en-US';utterance.rate=1;state.speechIndex=index;
+    utterance.onend=()=>{if(epoch===readEpoch)stopReading();};utterance.onerror=()=>{if(epoch===readEpoch)stopReading();};window.speechSynthesis.speak(utterance);
+    const button=document.querySelector('[data-read="'+index+'"]');if(button){button.innerHTML=icon('stop',11)+COPY.voiceReadStop;button.setAttribute('aria-label',COPY.voiceReadStop);}
+  }
   function localAnswer(message) {
     const events=state.events,totals=PROVIDERS.map(p=>({...p,...sumEvents(events.filter(e=>sourceId(e.source)===p.id))})).sort((a,b)=>b.tokens-a.tokens),top=totals[0];
     const incidents=state.incidents;
@@ -275,13 +447,13 @@
     if(!events.length)return {answer:'There are no records in the complete dataset. Import a usage export or choose another time range. I can explain activity once there is a recorded trail.',mode:'local',evidenceIds:[]};
     return {answer:`${COPY.chatFallback}\n\n${top.name} has the most recorded tokens in the complete dataset: ${number(top.tokens)}. Its recorded usage value is ${money(top.reported+top.estimated)} (${money(top.reported)} reported, ${money(top.estimated)} estimated). ${top.unknown?`${top.unknown} records have unknown pricing. `:''}\n\nThese values describe usage, not necessarily additional charges. Project and conversation attribution is available only when an identifier was recorded.`,mode:'local',evidenceIds:events.filter(e=>sourceId(e.source)===top.id).slice(0,3).map(e=>e.id)};
   }
-  async function sendMessage(raw) {
-    const message=String(raw||'').trim();if(!message||state.chatBusy)return;
-    state.messages.push({role:'user',content:message});state.chatBusy=true;renderChat();
+  async function sendMessage(raw,focusId=null) {
+    const message=String(raw||'').trim().slice(0,2000);if(!message||state.chatBusy||voiceBusy())return;
+    stopReading();state.draft='';state.voice.message='';state.messages.push({role:'user',content:message});state.chatBusy=true;renderChat();
     try {
-      const data=state.connected?await api('/api/guardian/chat',{method:'POST',body:JSON.stringify({message,datasetMode:state.mode})}):localAnswer(message);
-      state.chatMode=data.mode==='openai'?'openai':'local';state.messages.push({role:'assistant',content:data.answer||COPY.chatError,mode:state.chatMode,evidenceIds:data.evidenceIds||[]});
-    } catch {const data=localAnswer(message);state.messages.push({role:'assistant',content:data.answer,mode:'local',evidenceIds:data.evidenceIds});}
+      const data=state.connected?await api('/api/guardian/chat',{method:'POST',timeoutMs:35000,body:JSON.stringify({message,datasetMode:state.mode,provider:state.chatProvider,...(focusId?{focusId}:{})})}):localAnswer(message);
+      state.chatMode=['openai','deepseek'].includes(data.mode)?data.mode:'local';state.messages.push({role:'assistant',content:data.answer||COPY.chatError,mode:state.chatMode,notice:data.notice||(state.chatProvider!=='local'&&state.chatMode==='local'?COPY.cloudFallback:''),evidenceIds:data.evidenceIds||[]});
+    } catch {const data=localAnswer(message);state.chatMode='local';state.messages.push({role:'assistant',content:data.answer,mode:'local',notice:COPY.serverFallback,evidenceIds:data.evidenceIds});}
     finally{state.chatBusy=false;if(state.chatOpen){renderChat();document.getElementById('chat-input')?.focus();}}
   }
   async function importFile(file) {
@@ -301,10 +473,14 @@
   }
   document.addEventListener('click',event=>{
     const target=event.target.closest('button,[data-action]');if(!target)return;
-    if(target.dataset.tab){state.tab=target.dataset.tab;state.mobileOpen=false;save();renderShell();window.scrollTo({top:0,behavior:'instant'});}
+    if(target.dataset.tab){stopVoice(true);stopReading();state.tab=target.dataset.tab;state.mobileOpen=false;save();renderShell();window.scrollTo({top:0,behavior:'instant'});}
     if(target.dataset.period){state.period=target.dataset.period;save();renderShell();}
     if(target.dataset.provider){state.provider=target.dataset.provider;renderShell();}
     if(target.dataset.companion){state.companion=target.dataset.companion;save();renderShell();toast(COPY.switched);}
+    if(target.dataset.skin&&Object.hasOwn(COMPANIONS,target.dataset.skinCompanion)){state.skins[target.dataset.skinCompanion]=target.dataset.skin==='cozy'?'cozy':'classic';save();renderShell();}
+    if(target.dataset.session)showSession(target.dataset.session);
+    if(target.dataset.sessionAsk)askSession(target.dataset.sessionAsk);
+    if(target.dataset.read!=null)readAnswer(Number(target.dataset.read));
     if(target.dataset.incident){const i=state.incidents.find(i=>String(i.id)===target.dataset.incident);if(i)showDetail(i);}
     if(target.dataset.event)showEvent(target.dataset.event);
     if(target.dataset.question)sendMessage(target.dataset.question);
@@ -312,6 +488,10 @@
     if(action==='refresh')loadData(true);
     if(action==='chat')openChat();
     if(action==='chat-close')closeChat();
+    if(action==='voice')voiceBusy()?finishVoice():startVoice();
+    if(action==='voice-cancel'){stopVoice(true);document.getElementById('chat-input')?.focus();}
+    if(action==='grok-enable'||action==='grok-refresh')refreshGrok(true);
+    if(action==='grok-disable')refreshGrok(false);
     if(action==='menu'||action==='menu-close'){state.mobileOpen=action==='menu'?!state.mobileOpen:false;renderShell();}
     if(action==='import')document.getElementById('usage-file').click();
     if(action==='export')exportRecords();
@@ -320,9 +500,13 @@
   document.addEventListener('change',async event=>{
     const target=event.target;
     if(target.id==='provider-filter'){state.provider=target.value;renderShell();}
+    if(target.id==='chat-provider'){state.chatProvider=['local','openai','deepseek'].includes(target.value)?target.value:'local';save();renderChat();document.getElementById('chat-provider')?.focus();}
+    if(target.id==='voice-method'){stopVoice(true);state.voiceMethod=target.value==='openai'?'openai':'browser';state.voice.message='';renderChat();document.getElementById('voice-method')?.focus();}
     if(target.dataset.pref){const key=target.dataset.pref;if(key==='notifications'&&target.checked){if(!('Notification' in window)){target.checked=false;toast(COPY.notificationsUnavailable);}else {const permission=await Notification.requestPermission();if(permission!=='granted'){target.checked=false;toast(COPY.notificationsDenied);}}}state.preferences[key]=target.type==='checkbox'?target.checked:Math.max(0,Math.min(100000,Number(target.value)||0));save();checkAlerts();}
     if(target.id==='usage-file')importFile(target.files[0]);
   });
-  state.events=makeDemo().events;state.incidents=makeDemo().incidents;renderShell();loadData();
-  setInterval(()=>{if(state.preferences.autoRefresh&&!document.hidden&&!state.chatBusy&&!document.querySelector('.detail-dialog'))loadData();},30000);
+  document.addEventListener('visibilitychange',()=>{if(document.hidden){stopVoice(true);stopReading();}});
+  window.addEventListener('pagehide',()=>{stopVoice(true);stopReading();});
+  const initialDemo=makeDemo();state.events=initialDemo.events;state.incidents=initialDemo.incidents;renderShell();loadData();loadHealth();
+  setInterval(()=>{if(state.preferences.autoRefresh&&!document.hidden&&!state.chatBusy&&state.voice.phase==='idle'&&!document.querySelector('.detail-dialog'))loadData();},30000);
 })();

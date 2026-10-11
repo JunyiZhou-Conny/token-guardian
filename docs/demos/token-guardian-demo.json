@@ -1,0 +1,121 @@
+{
+  "recordedAt": "2026-10-11T17:44:33.465391+00:00",
+  "video": "token-guardian-demo.mp4",
+  "subtitles": "token-guardian-demo.srt",
+  "dimensions": {
+    "width": 1280,
+    "height": 720
+  },
+  "fixtureDataOnly": true,
+  "handler": "guardian-server/server.js",
+  "paidApiCalls": 0,
+  "microphone": "not used",
+  "dictation": "disclosed synthetic browser-recognition fixture",
+  "grokQuota": "opt-in control shown, no provider connection enabled",
+  "checks": [
+    "Empty isolated store shows labeled preview data",
+    "Actual Sessions view ranks available attributed sessions",
+    "Session question answered by the production local explanation engine",
+    "Session answer returns supporting evidence IDs",
+    "Disclosed synthetic browser dictation creates an editable draft",
+    "Voice draft does not automatically send a chat request",
+    "Grok Bot quota access has an explicit opt-in control",
+    "Companion selection is an actual app interaction",
+    "Synthetic import adds seven metadata events",
+    "Importing the unchanged fixture twice does not inflate totals",
+    "No browser JavaScript errors during the walkthrough"
+  ],
+  "browserErrors": [],
+  "scenes": [
+    {
+      "start": 0.608,
+      "end": 6.608,
+      "caption": "Install Node.js 20+, download the source, and start the local app.\nThis is a browser prototype; a signed macOS installer is still pending."
+    },
+    {
+      "start": 7.728,
+      "end": 13.728,
+      "caption": "The overview combines Codex, Claude Code, Cursor, and Gemini CLI.\nAll usage in this walkthrough is synthetic; check the Preview data label."
+    },
+    {
+      "start": 13.854,
+      "end": 19.854,
+      "caption": "Find the largest attributed sessions and compare the available evidence.\nMissing identifiers remain unknown; aggregate totals cannot invent a session."
+    },
+    {
+      "start": 19.919,
+      "end": 25.919,
+      "caption": "Open a session to inspect its usage trail and recommended next steps.\nGuardian helps you investigate; it cannot stop jobs in the originating app."
+    },
+    {
+      "start": 26.147,
+      "end": 30.147,
+      "caption": "Ask: Which session used the most tokens? Read the answer and its evidence.\nThis recording uses local explanations; OpenAI and DeepSeek are optional."
+    },
+    {
+      "start": 30.164,
+      "end": 35.164,
+      "caption": "Review grounded suggestions: inspect the job, reduce repeated context, or try caching.\nSuggestions require your judgment; Guardian cannot promise exact savings."
+    },
+    {
+      "start": 35.52,
+      "end": 38.52,
+      "caption": "Dictation demo: a synthetic browser transcription is being injected.\nNo real microphone, audio upload, or speech-model call is used here."
+    },
+    {
+      "start": 38.53,
+      "end": 44.53,
+      "caption": "Review or edit the dictated draft before sending it.\nBrowser speech may use its vendor service; OpenAI audio is a separate opt-in."
+    },
+    {
+      "start": 44.748,
+      "end": 51.748,
+      "caption": "Grok Bot inside Cursor has an optional read-only quota connection.\nPercent used and reset time are quota measures, not token counts. It is off here."
+    },
+    {
+      "start": 51.963,
+      "end": 54.963,
+      "caption": "Choose Ahri, Jinx, or Jhin; switch between classic and cozy outfits."
+    },
+    {
+      "start": 55.004,
+      "end": 59.004,
+      "caption": "Cute companions and stickers celebrate attention and good habits.\nYou do not have to spend more tokens to collect them."
+    },
+    {
+      "start": 59.098,
+      "end": 62.098,
+      "caption": "Your companion and outfit choice stay in this browser."
+    },
+    {
+      "start": 62.547,
+      "end": 67.547,
+      "caption": "Import a Cursor CSV or normalized metadata JSON into local storage.\nLocal data in this recording still comes from a synthetic demo fixture."
+    },
+    {
+      "start": 67.695,
+      "end": 72.695,
+      "caption": "Reimport the same export: duplicate records are skipped.\nIncluded plan usage, estimated cost, and extra charges stay distinct."
+    },
+    {
+      "start": 73.242,
+      "end": 78.242,
+      "caption": "Try the source prototype and send anonymized feedback through GitHub issues.\nLive provider and macOS checks remain; the video demonstrates the actual UI."
+    }
+  ],
+  "media": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1280,
+        "height": 720
+      }
+    ],
+    "format": {
+      "duration": "78.840000",
+      "size": "1510779"
+    }
+  }
+}

@@ -12,7 +12,12 @@ this is not a complete OpenAI account or ChatGPT subscription usage monitor.
 
 ![Token Guardian overview with an Ahri companion](docs/screenshots/guardian-preview.png)
 
-The screenshot uses labeled preview data.
+The screenshot uses labeled preview data. [Watch or download the 79-second demo](docs/demos/token-guardian-demo.mp4),
+then use the [installation guide](docs/INSTALL.md) and [walkthrough](docs/DEMO.md)
+to try the current prototype.
+
+See the [session investigation view](docs/screenshots/guardian-sessions.png) and
+[companion collection](docs/screenshots/guardian-collection.png) for more previews.
 
 ## Try the prototype
 
@@ -47,12 +52,20 @@ TOKENTRACKER_GUARDIAN_DATA_DIR=/path/to/data-root TOKENTRACKER_GUARDIAN_PORT=768
   estimated, and unknown usage values kept distinct.
 - Investigation details with record links and available project, session,
   automation, and cloud-agent identifiers.
+- A Sessions view that ranks available attributed sessions, explains the
+  evidence basis, and suggests practical investigation steps. Missing session
+  attribution remains visible instead of being guessed from totals.
 - Detection of request spikes and recurring activity when individual events
   provide enough evidence. Cursor CSV parsing preserves populated Automation ID
   and Cloud Agent ID columns before aggregation.
-- Ahri, Jinx, and Jhin prototype companions, a small sticker collection, and
-  read-only companion chat. Preview achievements are illustrative; local
+- Ahri, Jinx, and Jhin prototype companions with classic and cozy outfits, a
+  small sticker collection, and read-only companion chat. Preview achievements are illustrative; local
   achievements use your local records and actions.
+- Optional OpenAI or DeepSeek explanations, and voice input that produces an
+  editable question draft before you send it.
+- An explicit, read-only Grok Bot in Cursor quota connection. It uses Cursor's
+  existing sign-in to show the provider's percentage and reset time when exposed;
+  these are quota measures rather than an additional token source.
 - The upstream collector, React dashboard, and desktop app sources. See
   [Guardian setup and architecture](GUARDIAN.md) to collect usage and build on them.
 
@@ -70,11 +83,19 @@ Unknown pricing stays unknown.
 
 Guardian collects usage metadata, not original prompts, code, or conversation
 bodies. Without a key, chat uses a labeled local explanation engine. Optionally
-set `OPENAI_API_KEY` in the server environment to use the OpenAI Responses API for
-local-data questions. That sends your question and a bounded selection of usage
-metadata to OpenAI, with response storage disabled. Preview questions stay local.
+configure `OPENAI_API_KEY` or `DEEPSEEK_API_KEY` in the server environment for
+local-data questions. A paid explanation sends your question and a bounded
+selection of usage metadata to the selected provider; local project paths,
+session titles, and vendor session identifiers are excluded from that evidence.
+Anything you type into the question itself is sent when you choose a model.
+The browser starts with Local; select a configured provider to request a paid explanation.
+OpenAI response storage is disabled. Preview questions stay local.
 Defaults are **10 calls/day**, **350 output tokens/call**, and a **3,500 daily
-output-token reservation limit**; these do not guarantee a dollar spending cap.
+output-token reservation limit**, shared across configured chat providers;
+these do not guarantee a dollar spending cap. Voice has a separate privacy
+choice: browser dictation may use the browser vendor's speech service, while
+OpenAI transcription explicitly uploads your recorded audio. A transcript stays
+in the question draft until you send it.
 See [chat configuration](GUARDIAN.md#companion-chat) and the
 [local service documentation](guardian-server/README.md) for details.
 
@@ -92,11 +113,14 @@ npm run guardian:test
 ```
 
 The focused tests cover metadata normalization, imports, detection, local storage,
-request handling, and mocked OpenAI behavior. The local launcher and browser flows
+request handling, and mocked provider behavior. The local launcher and browser flows
 were also checked: companion selection, evidence dialogs, chat citations, repeated
 CSV imports, and mobile navigation. These checks do not replace a real macOS
 collection and browser check. Detailed setup and limits are in [GUARDIAN.md](GUARDIAN.md);
 the preserved upstream documentation is [README.upstream.md](README.upstream.md).
+The demo uses isolated synthetic records, local explanations, and disclosed
+mock browser dictation. Live model calls, real microphone recognition, and
+Grok Bot quota access require an account-based check.
 
 ## Roadmap and feedback
 
