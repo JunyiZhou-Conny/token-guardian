@@ -3,6 +3,8 @@
   'use strict';
   const COPY = {
     brand: 'Token Guardian', brandSub: 'a little watchtower', overview: 'Overview', activity: 'Activity', collection: 'Collection', settings: 'Preferences', space: 'Your space',
+    floatingView:'Floating view',floatingPreview:'Open floating view preview',floatingError:'The floating view could not open. Please try again.',
+    voiceInBrowser:'Voice in browser',voiceDesktopNote:'Microphone input opens in your browser. The desktop app keeps text chat and does not access your microphone.',voiceBrowserOpenError:'The browser dashboard could not open. Please try again.',
     localNote: 'A little company. A clearer picture.', watching: 'Your guardian is here', companion: 'Your companion', change: 'Change',
     greeting: 'Your tokens. In good company.', greetingSub: 'A clearer view of your AI usage, with a friend by your side.', today: 'Today', week: '7 days', month: '30 days',
     demo: 'Preview data', demoNote: 'You’re exploring sample activity. These numbers are not your actual usage.', import: 'Import usage', refresh: 'Refresh usage',
@@ -61,6 +63,7 @@
     jhin: { name: 'Jhin', role: 'The meticulous observer', quote: '“Every detail deserves a closer look.”', color: '#b9a594', hair: '#d6c4b0' }
   };
   const iconPaths = {
+    floating:'<rect x="3" y="7" width="14" height="13" rx="2"/><path d="M7 7V3h14v13h-4M7 12h6m-6 4h3"/>',
     home:'<path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-8H9v8H4a1 1 0 0 1-1-1Z"/>',
     activity:'<path d="M3 17V9m6 8V4m6 13v-6m6 6V2M2 21h20"/>',
     collection:'<rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><path d="m17.5 14 1.2 2.3 2.3 1.2-2.3 1.2-1.2 2.3-1.2-2.3-2.3-1.2 2.3-1.2Z"/>',
@@ -97,7 +100,7 @@
   const totalTokens = e => e.totalTokens != null ? safeTokens(e.totalTokens) : safeTokens(e.inputTokens) + safeTokens(e.outputTokens) + safeTokens(e.cachedTokens) + safeTokens(e.cacheWriteTokens ?? e.cacheCreationTokens);
   const dateTime = value => { if(!value)return '—';const d = new Date(value); return Number.isNaN(d.getTime()) ? '—' : d.toLocaleString(undefined,{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}); };
   const clockTime = value => { if(!value)return '—';const d = new Date(value); return Number.isNaN(d.getTime()) ? '—' : d.toLocaleTimeString(undefined,{hour:'2-digit',minute:'2-digit'}); };
-  const readPrefs = () => { try { return JSON.parse(localStorage.getItem('token-guardian-preferences') || '{}'); } catch { return {}; } };
+  const readPrefs = () => { try {const value=JSON.parse(localStorage.getItem('token-guardian-preferences') || '{}');return value&&typeof value==='object'&&!Array.isArray(value)?value:{};} catch { return {}; } };
   const saved = readPrefs();
   const state = {
     tab: ['overview','activity','sessions','collection','settings'].includes(saved.tab) ? saved.tab : 'overview', period: ['today','week','month'].includes(saved.period) ? saved.period : 'today',
@@ -107,7 +110,7 @@
     mode: 'demo', events: [], incidents: [], sessionInsights: null, coverage: [], health:null, grok:null, grokBusy:false, loaded: false, loading: false, connected: false, chatOpen:false, chatBusy:false, chatMode:'local', draft:'', messages:[], mobileOpen:false, queryMode:null, refreshedAt:null,
     voiceMethod:'browser', voice:{phase:'idle',message:'',seconds:0}, speechIndex:null
   };
-  const save = () => { try { localStorage.setItem('token-guardian-preferences',JSON.stringify({tab:state.tab,period:state.period,companion:state.companion,skins:state.skins,chatProvider:state.chatProvider,preferences:state.preferences,reviewed:state.reviewed})); } catch {} };
+  const save = () => { try { localStorage.setItem('token-guardian-preferences',JSON.stringify({...readPrefs(),tab:state.tab,period:state.period,companion:state.companion,skins:state.skins,chatProvider:state.chatProvider,preferences:state.preferences,reviewed:state.reviewed})); } catch {} };
   function makeDemo() {
     const now = Date.now(), events = [];
     for(let day=0;day<7;day++) {
@@ -174,7 +177,7 @@
       <div class="mobile-scrim ${state.mobileOpen?'visible':''}" data-action="menu-close"></div>
       <aside class="sidebar ${state.mobileOpen?'open':''}" aria-label="Primary navigation"><div class="brand"><svg class="brand-mark" viewBox="0 0 42 46" fill="none" aria-hidden="true"><path d="M21 3 4 9v14c0 9 17 19 17 19s17-10 17-19V9Z" stroke="currentColor" stroke-width="1.5"/><path d="m21 11 3.3 8.7L33 23l-8.7 3.3L21 35l-3.3-8.7L9 23l8.7-3.3Z" fill="currentColor" opacity=".65"/><circle cx="21" cy="23" r="3" fill="#f0eee7"/></svg><div class="wordmark">${COPY.brand}<small>${COPY.brandSub}</small></div></div>
       <div class="nav-label">${COPY.space}</div><nav class="nav-items">${['overview','activity','sessions','collection','settings'].map(tab=>`<button class="nav-item ${state.tab===tab?'active':''}" data-tab="${tab}" ${state.tab===tab?'aria-current="page"':''} title="${tab==='sessions'?COPY.sessionsNav:COPY[tab]}">${icon(tab==='overview'?'home':tab)}<span>${tab==='sessions'?COPY.sessionsNav:COPY[tab]}</span></button>`).join('')}</nav>${location.pathname.startsWith('/guardian')?`<a class="advanced-link" href="/?app=1">${icon('link',12)}Advanced tracker</a>`:''}<div class="nav-spacer"></div><button class="sidebar-guardian" data-action="chat"><div class="tiny-avatar">${championArt(state.companion)}</div><div><strong>${c.name} is with you</strong><span>${COPY.watching}</span></div></button><div class="local-note">${icon('shield',13)}<span>${COPY.localNote}</span></div></aside>
-      <main class="main"><header class="topbar"><div class="breadcrumb"><button class="icon-button mobile-menu" data-action="menu" aria-label="${COPY.menu}">${icon('menu')}</button><span>${COPY.space}</span><span>/</span><span>${state.tab==='sessions'?COPY.sessionsNav:COPY[state.tab]}</span></div><div class="top-actions"><span class="mode-pill ${local?'local':''}">${local?'<i class="live-dot"></i>':icon('sparkles',11)}${local?COPY.local:COPY.demo}</span><button class="icon-button ${state.loading?'refresh-spinning':''}" data-action="refresh" aria-label="${COPY.refresh}" ${state.loading?'disabled':''}>${icon('refresh',14)}</button><button class="icon-button" data-tab="settings" aria-label="${COPY.settings}">${icon('bell',14)}</button><span class="avatar-letter" aria-label="Personal workspace">S</span></div></header>
+      <main class="main"><header class="topbar"><div class="breadcrumb"><button class="icon-button mobile-menu" data-action="menu" aria-label="${COPY.menu}">${icon('menu')}</button><span>${COPY.space}</span><span>/</span><span>${state.tab==='sessions'?COPY.sessionsNav:COPY[state.tab]}</span></div><div class="top-actions"><button class="floating-button" data-action="floating" aria-label="${COPY.floatingView}" title="${window.guardianDesktop?.isDesktop?COPY.floatingView:COPY.floatingPreview}">${icon('floating',14)}<span>${COPY.floatingView}</span></button><span class="mode-pill ${local?'local':''}">${local?'<i class="live-dot"></i>':icon('sparkles',11)}${local?COPY.local:COPY.demo}</span><button class="icon-button ${state.loading?'refresh-spinning':''}" data-action="refresh" aria-label="${COPY.refresh}" ${state.loading?'disabled':''}>${icon('refresh',14)}</button><button class="icon-button" data-tab="settings" aria-label="${COPY.settings}">${icon('bell',14)}</button><span class="avatar-letter" aria-label="Personal workspace">S</span></div></header>
       <div class="page-heading"><div><p class="eyebrow">${escape(date)} · ${COPY.welcome}</p><h1>${titles[state.tab]}</h1><p class="heading-subtitle">${subtitles[state.tab]}</p></div>${['overview','activity'].includes(state.tab)?`<div class="period-control" role="group" aria-label="Time range">${['today','week','month'].map(p=>`<button class="${state.period===p?'active':''}" data-period="${p}" aria-pressed="${state.period===p}">${COPY[p]}</button>`).join('')}</div>`:''}</div>
       ${!local?`<div class="demo-banner">${icon('sparkles',15)}<span>${COPY.demoNote}</span><button data-action="import">${COPY.import}</button></div>`:''}
       <div id="page-content">${state.tab==='overview'?renderOverview():state.tab==='activity'?renderActivity():state.tab==='sessions'?renderSessions():state.tab==='collection'?renderCollection():renderSettings()}</div>
@@ -285,6 +288,8 @@
   function renderSettings() {
     return `<div class="settings-grid"><div class="main-column"><section class="panel settings-panel"><h2>${COPY.watchHeading}</h2><p>${COPY.watchSub}</p><label class="setting-row"><div><strong>${COPY.autoRefresh}</strong><p>${COPY.autoRefreshSub}</p></div><input type="checkbox" class="toggle" data-pref="autoRefresh" ${state.preferences.autoRefresh?'checked':''}/></label><label class="setting-row"><div><strong>${COPY.notifications}</strong><p>${COPY.notificationsSub}</p></div><input type="checkbox" class="toggle" data-pref="notifications" ${state.preferences.notifications?'checked':''}/></label><label class="setting-row"><div><strong>${COPY.alertBudget}</strong><p>${COPY.alertBudgetSub}</p></div><input type="number" class="amount-input" min="0" max="100000" step="1" data-pref="budget" value="${Number(state.preferences.budget)||0}" aria-label="Usage value alert in US dollars"/></label><p class="settings-footnote">${COPY.notificationLimit}</p></section><section class="panel settings-panel"><h2>${COPY.dataHeading}</h2><p>${COPY.dataSub}</p><div class="data-actions"><button class="primary-button" data-action="import">${icon('upload',14)}${COPY.import}</button><button class="secondary-button" data-action="local">${COPY.localButton}</button><button class="secondary-button" data-action="demo">${COPY.demoButton}</button></div><p class="settings-footnote">${COPY.importFoot}</p></section></div><section class="panel settings-panel"><h2>${COPY.coverageHeading}</h2><p>${COPY.coverageSub}</p><div class="coverage-list">${PROVIDERS.map(p=>{const found=state.events.some(e=>sourceId(e.source)===p.id);const raw=Array.isArray(state.coverage.providers)?state.coverage.providers.find(c=>sourceId(c.source||c.provider)===p.id):null;return `<div class="coverage-row">${providerIcon(p.id)}<div><strong>${p.name}</strong><span>${state.mode==='demo'?'Sample records':found?COPY.hasCoverage:COPY.noCoverage}</span>${raw?.note?`<p class="settings-footnote">${escape(raw.note)}</p>`:''}</div><span class="coverage-state">${state.mode==='demo'?COPY.preview:found?COPY.records:COPY.noData}</span></div>`;}).join('')}</div><p class="settings-footnote">${COPY.privacy} Provider totals may expose less detail than session logs. Projects, requests, and schedules are shown only when the source supplies them.</p></section></div>`;
   }
+  async function openFloating(){try{if(window.guardianDesktop?.isDesktop)await window.guardianDesktop.openWidget();else window.open(new URL('./widget.html',location.href).href,'token-guardian-widget','noopener');}catch{toast(COPY.floatingError);}}
+  async function openBrowserVoice(){try{if(window.guardianDesktop?.isDesktop)await window.guardianDesktop.openBrowserDashboard();}catch{toast(COPY.voiceBrowserOpenError);}}
   let toastTimer;
   function toast(message) {const el=document.getElementById('toast');el.textContent=message;el.classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('visible'),4200);}
   async function api(path,options={}) {
@@ -340,7 +345,7 @@
   }
   function renderChat() {
     document.querySelector('.drawer-backdrop')?.remove();
-    const c=COMPANIONS[state.companion],el=document.createElement('div');el.className='drawer-backdrop';
+    const c=COMPANIONS[state.companion],el=document.createElement('div'),nativeVoice=Boolean(window.guardianDesktop?.isDesktop);el.className='drawer-backdrop';
     const options=['local','openai','deepseek'].map(id=>'<option value="'+id+'" '+(state.chatProvider===id?'selected ':'')+(!configuredProvider(id)?'disabled':'')+'>'+COPY[id==='local'?'providerLocal':id==='openai'?'providerOpenAI':'providerDeepSeek']+(!configuredProvider(id)?' · '+COPY.providerNotConfigured:'')+'</option>').join('');
     el.innerHTML=[
       '<section class="chat-drawer" role="dialog" aria-modal="true" aria-labelledby="chat-title">',
@@ -348,8 +353,8 @@
       '<div class="chat-provider-row"><label for="chat-provider">'+COPY.chatProvider+'</label><select id="chat-provider" class="filter-select">'+options+'</select><p>'+(state.chatProvider==='local'?COPY.localChatNote:COPY.cloudChatNote)+'</p></div>',
       '<div class="chat-messages" id="chat-messages" role="log" aria-live="polite">'+state.messages.map(renderChatMessage).join('')+(state.chatBusy?'<div class="chat-message assistant">'+COPY.chatThinking+'</div>':'')+'</div>',
       '<div class="chat-suggestions">'+[COPY.chatQuestion1,COPY.chatQuestion2,COPY.chatQuestion3].map(q=>'<button data-question="'+escape(q)+'" '+(state.chatBusy||voiceBusy()?'disabled':'')+'>'+q+'</button>').join('')+'</div>',
-      '<div class="voice-controls"><label for="voice-method">'+COPY.voiceMethod+'</label><select id="voice-method"><option value="browser" '+(state.voiceMethod==='browser'?'selected':'')+'>'+COPY.voiceBrowser+'</option><option value="openai" '+(state.voiceMethod==='openai'?'selected ':'')+(!openAIVoiceSupported()?'disabled':'')+'>'+COPY.voiceOpenAI+(!openAIVoiceSupported()?' · '+COPY.providerNotConfigured:'')+'</option></select><button class="icon-button voice-button" data-action="voice" aria-label="'+COPY.voiceStart+'" title="'+COPY.voiceStart+'">'+icon('mic',15)+'</button><button class="text-button voice-cancel" data-action="voice-cancel" hidden>'+COPY.voiceCancel+'</button></div>',
-      '<p class="voice-privacy">'+(state.voiceMethod==='openai'?COPY.voiceOpenAIPrivacy:COPY.voiceBrowserPrivacy)+'</p><p class="voice-status" role="status" aria-live="polite">'+COPY.voiceIdle+'</p>',
+      nativeVoice?'<div class="voice-controls"><span>'+COPY.voiceMethod+'</span><button class="text-button" data-action="voice-browser">'+COPY.voiceInBrowser+' ↗</button></div>':'<div class="voice-controls"><label for="voice-method">'+COPY.voiceMethod+'</label><select id="voice-method"><option value="browser" '+(state.voiceMethod==='browser'?'selected':'')+'>'+COPY.voiceBrowser+'</option><option value="openai" '+(state.voiceMethod==='openai'?'selected ':'')+(!openAIVoiceSupported()?'disabled':'')+'>'+COPY.voiceOpenAI+(!openAIVoiceSupported()?' · '+COPY.providerNotConfigured:'')+'</option></select><button class="icon-button voice-button" data-action="voice" aria-label="'+COPY.voiceStart+'" title="'+COPY.voiceStart+'">'+icon('mic',15)+'</button><button class="text-button voice-cancel" data-action="voice-cancel" hidden>'+COPY.voiceCancel+'</button></div>',
+      '<p class="voice-privacy">'+(nativeVoice?COPY.voiceDesktopNote:state.voiceMethod==='openai'?COPY.voiceOpenAIPrivacy:COPY.voiceBrowserPrivacy)+'</p>'+(!nativeVoice?'<p class="voice-status" role="status" aria-live="polite">'+COPY.voiceIdle+'</p>':''),
       '<form class="chat-form" id="chat-form"><textarea id="chat-input" rows="2" placeholder="'+COPY.chatPlaceholder+'" aria-label="'+COPY.chatPlaceholder+'" maxlength="2000" '+(state.chatBusy?'disabled':'')+'>'+escape(state.draft)+'</textarea><button type="submit" aria-label="'+COPY.chatSend+'" '+(state.chatBusy||voiceBusy()?'disabled':'')+'>'+icon('arrowUp',16)+'</button></form>',
       '<p class="chat-privacy">'+COPY.chatMeta+(state.mode==='demo'?' · '+COPY.demo:'')+'<br>'+COPY.voiceReadNote+'</p></section>'
     ].join('');
@@ -359,7 +364,7 @@
     document.getElementById('chat-form').addEventListener('submit',event=>{event.preventDefault();sendMessage(state.draft);});
     const input=document.getElementById('chat-input');
     input.addEventListener('input',()=>{state.draft=input.value;});
-    input.addEventListener('keydown',event=>{if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage(state.draft);}});
+    input.addEventListener('keydown',event=>{if(event.key==='Enter'&&!event.shiftKey&&!event.isComposing){event.preventDefault();sendMessage(state.draft);}});
     trapFocus(el);updateVoiceUI();
   }
   function trapFocus(container) {container.addEventListener('keydown',event=>{if(event.key==='Escape'){closeChat();return;}if(event.key!=='Tab')return;const nodes=[...container.querySelectorAll('button:not(:disabled):not([hidden]),textarea:not(:disabled),select:not(:disabled)')].filter(node=>node.getClientRects().length);if(!nodes.length)return;const first=nodes[0],last=nodes.at(-1);if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}});}
@@ -383,6 +388,7 @@
     if(status)status.textContent=state.voice.phase==='recording'?COPY.voiceRecording+' · '+state.voice.seconds+'s / 30s':state.voice.message||(!supported?(state.voiceMethod==='openai'?COPY.voiceOpenAIUnavailable:COPY.voiceUnsupported):COPY.voiceIdle);
   }
   async function startVoice() {
+    if(window.guardianDesktop?.isDesktop){await openBrowserVoice();return;}
     if(state.chatBusy||voiceBusy())return;stopReading();voiceBaseDraft=state.draft;const epoch=++voiceEpoch;voiceHadError=false;state.voice.seconds=0;
     if(state.voiceMethod==='browser') {
       const Recognition=window.SpeechRecognition||window.webkitSpeechRecognition;if(!Recognition){setVoicePhase('idle',COPY.voiceUnsupported);return;}
@@ -486,9 +492,11 @@
     if(target.dataset.question)sendMessage(target.dataset.question);
     const action=target.dataset.action;
     if(action==='refresh')loadData(true);
+    if(action==='floating')openFloating();
     if(action==='chat')openChat();
     if(action==='chat-close')closeChat();
     if(action==='voice')voiceBusy()?finishVoice():startVoice();
+    if(action==='voice-browser')openBrowserVoice();
     if(action==='voice-cancel'){stopVoice(true);document.getElementById('chat-input')?.focus();}
     if(action==='grok-enable'||action==='grok-refresh')refreshGrok(true);
     if(action==='grok-disable')refreshGrok(false);
@@ -505,6 +513,7 @@
     if(target.dataset.pref){const key=target.dataset.pref;if(key==='notifications'&&target.checked){if(!('Notification' in window)){target.checked=false;toast(COPY.notificationsUnavailable);}else {const permission=await Notification.requestPermission();if(permission!=='granted'){target.checked=false;toast(COPY.notificationsDenied);}}}state.preferences[key]=target.type==='checkbox'?target.checked:Math.max(0,Math.min(100000,Number(target.value)||0));save();checkAlerts();}
     if(target.id==='usage-file')importFile(target.files[0]);
   });
+  window.addEventListener('storage',event=>{if(event.key!=='token-guardian-preferences')return;const value=readPrefs();if(Object.hasOwn(COMPANIONS,value.companion))state.companion=value.companion;for(const id of Object.keys(COMPANIONS))if(['classic','cozy'].includes(value.skins?.[id]))state.skins[id]=value.skins[id];if(['local','openai','deepseek'].includes(value.chatProvider))state.chatProvider=value.chatProvider;renderShell();});
   document.addEventListener('visibilitychange',()=>{if(document.hidden){stopVoice(true);stopReading();}});
   window.addEventListener('pagehide',()=>{stopVoice(true);stopReading();});
   const initialDemo=makeDemo();state.events=initialDemo.events;state.incidents=initialDemo.incidents;renderShell();loadData();loadHealth();

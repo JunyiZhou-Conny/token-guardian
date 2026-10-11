@@ -29,6 +29,63 @@ ORIGIN = "http://127.0.0.1:7681"
 DICTATION_PHRASE = "Which session used the most tokens?"
 
 
+def media_probe(path):
+    return json.loads(subprocess.check_output([
+        "ffprobe", "-v", "error", "-show_entries",
+        "format=duration,size:stream=codec_name,codec_type,width,height,sample_rate,channels",
+        "-of", "json", str(path),
+    ], text=True))
+
+
+def mix_narration(video_path, cues, plan_path, scratch):
+    """Mix existing narration clips only; never call a paid provider here."""
+    plan_path = pathlib.Path(plan_path).resolve()
+    plan = json.loads(plan_path.read_text(encoding="utf-8"))
+    segments = plan["segments"]
+    if len(segments) != len(cues):
+        raise RuntimeError("Narration segment count does not match the recorded scenes.")
+    duration = float(media_probe(video_path)["format"]["duration"])
+    command = ["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-i", str(video_path)]
+    filters, timing = [], []
+    for index, (segment, cue) in enumerate(zip(segments, cues)):
+        clip = (plan_path.parent / segment["file"]).resolve()
+        if not clip.is_relative_to(plan_path.parent) or not clip.is_file():
+            raise RuntimeError("Narration clips must exist inside the plan's directory.")
+        source_duration = float(media_probe(clip)["format"]["duration"])
+        source_start = float(segment.get("sourceStart", 0))
+        source_end = float(segment.get("sourceEnd", source_duration))
+        if not 0 <= source_start < source_end <= source_duration + 0.02:
+            raise RuntimeError("Narration source trim is outside its audio clip.")
+        clip_seconds = source_end - source_start
+        available = max(0.3, cue[1] - cue[0] - 0.15)
+        tempo = max(1.0, clip_seconds / available)
+        if tempo > 1.4:
+            raise RuntimeError(f"Narration for scene {index} is too long; shorten its script or extend the scene.")
+        command.extend(["-i", str(clip)])
+        delay = int((cue[0] + 0.06) * 1000)
+        filters.append(f"[{index + 1}:a]atrim=start={source_start:.4f}:end={source_end:.4f},"
+                       "asetpts=PTS-STARTPTS,aresample=48000,aformat=channel_layouts=mono,"
+                       f"atempo={tempo:.5f},adelay={delay}:all=1[n{index}]")
+        timing.append({"scene": index, "text": segment["text"], "sourceFile": segment["file"],
+                       "sourceSeconds": round(clip_seconds, 3), "tempo": round(tempo, 4),
+                       "sourceStart": round(source_start, 3), "sourceEnd": round(source_end, 3),
+                       "start": round(cue[0] + 0.06, 3),
+                       "end": round(cue[0] + 0.06 + clip_seconds / tempo, 3)})
+    filters.append("".join(f"[n{i}]" for i in range(len(segments))) +
+                   f"amix=inputs={len(segments)}:normalize=0,loudnorm=I=-16:TP=-1.5:LRA=7,"
+                   f"apad=whole_dur={duration},atrim=0:{duration}[narration]")
+    narrated = pathlib.Path(scratch) / "narrated.mp4"
+    command.extend(["-filter_complex", ";".join(filters), "-map", "0:v", "-map", "[narration]",
+                    "-c:v", "copy", "-c:a", "aac", "-ar", "48000", "-b:a", "96k",
+                    "-movflags", "+faststart", str(narrated)])
+    subprocess.run(command, check=True)
+    shutil.copyfile(narrated, video_path)
+    return {"provider": plan["provider"], "endpoint": plan["endpoint"], "voice": plan["voice"],
+            "syntheticVoice": True, "userVoiceCloning": False,
+            "generationSeparateFromApp": True, "paidCallsDuringRecording": 0,
+            "scriptOnly": True, "segments": timing}
+
+
 def timestamp(seconds):
     milliseconds = int(round(seconds * 1000))
     hours, milliseconds = divmod(milliseconds, 3600000)
@@ -103,6 +160,12 @@ def main():
                         default=ROOT.parent / "token-guardian-demo.mp4")
     parser.add_argument("--chromium", default="/usr/bin/chromium")
     parser.add_argument("--publish-copy", action="store_true")
+    parser.add_argument("--narration-plan", type=pathlib.Path,
+                        default=ROOT / "docs/demos/narration/guardian/plan.json")
+    parser.add_argument("--silent", action="store_true",
+                        help="Record without the existing narration clips.")
+    parser.add_argument("--narrate-existing", action="store_true",
+                        help="Add existing narration clips to a previously verified video and manifest.")
     args = parser.parse_args()
     output = args.output.resolve()
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -113,6 +176,30 @@ def main():
     fixture = fixture_csv()
     cards = {}
     video_path = None
+
+    if args.narrate_existing:
+        if args.silent:
+            parser.error("--narrate-existing cannot be combined with --silent")
+        if not output.is_file() or not manifest_path.is_file() or not subtitles.is_file():
+            parser.error("The existing video, JSON manifest, and subtitles must be present")
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        existing_cues = [(s["start"], s["end"], s["caption"]) for s in manifest["scenes"]]
+        with tempfile.TemporaryDirectory(prefix="guardian-narration-") as scratch:
+            manifest["narration"] = mix_narration(output, existing_cues, args.narration_plan, scratch)
+        manifest["appPaidApiCalls"] = 0
+        manifest["media"] = media_probe(output)
+        manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+        if args.publish_copy:
+            if output.stat().st_size >= 20 * 1024 * 1024:
+                raise RuntimeError("Narrated video exceeds the publication-copy limit.")
+            destination = ROOT / "docs/demos"
+            destination.mkdir(exist_ok=True)
+            for artifact in (output, subtitles, manifest_path):
+                shutil.copyfile(artifact, destination / artifact.name)
+        print(json.dumps({"video": str(output), "narrated": True,
+                          "bytes": output.stat().st_size,
+                          "duration": manifest["media"]["format"]["duration"]}, indent=2))
+        return
 
     with tempfile.TemporaryDirectory(prefix="guardian-demo-") as scratch:
         # Reuse the installed ffmpeg rather than downloading Playwright browsers
@@ -359,16 +446,19 @@ def main():
                 "-vf", filter_text, "-c:v", "libx264", "-preset", "fast", "-crf", "25",
                 "-movflags", "+faststart", "-an", str(output),
             ], check=True)
-            probe = json.loads(subprocess.check_output([
-                "ffprobe", "-v", "error", "-show_entries", "format=duration,size:stream=codec_name,width,height",
-                "-of", "json", str(output),
-            ], text=True))
+            narration = None
+            if not args.silent:
+                if not args.narration_plan.is_file():
+                    raise RuntimeError("Narration plan is missing. Provide existing clips, or explicitly choose --silent.")
+                narration = mix_narration(output, cues, args.narration_plan, scratch)
+            probe = media_probe(output)
             manifest = {
                 "recordedAt": datetime.now(timezone.utc).isoformat(),
                 "video": output.name, "subtitles": subtitles.name,
                 "dimensions": {"width": 1280, "height": 720},
                 "fixtureDataOnly": True, "handler": "guardian-server/server.js",
                 "paidApiCalls": 0, "microphone": "not used",
+                "appPaidApiCalls": 0, "narration": narration,
                 "dictation": "disclosed synthetic browser-recognition fixture",
                 "grokQuota": "opt-in control shown, no provider connection enabled",
                 "checks": checks, "browserErrors": errors,

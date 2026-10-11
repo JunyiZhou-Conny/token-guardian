@@ -1,0 +1,71 @@
+{
+  "provider": "fal.ai",
+  "endpoint": "fal-ai/elevenlabs/tts/turbo-v2.5",
+  "voice": "Rachel",
+  "generation": "One synthetic narration request for public tutorial text; no voice cloning, private usage, or microphone audio.",
+  "segments": [
+    {
+      "file": "floating-narration.mp3",
+      "text": "Meet your floating Token Guardian, using synthetic preview data.",
+      "sourceStart": 0,
+      "sourceEnd": 4.397,
+      "requestId": "01a12c63-10e7-7c80-817f-87986aa04d80"
+    },
+    {
+      "file": "floating-narration.mp3",
+      "text": "A small champion keeps your usage summary nearby. Pin the widget above other windows.",
+      "sourceStart": 4.76,
+      "sourceEnd": 10.539,
+      "requestId": "01a12c63-10e7-7c80-817f-87986aa04d80"
+    },
+    {
+      "file": "floating-narration.mp3",
+      "text": "Summon the butler to inspect the trail, understand the largest recorded session, and review suggested next steps.",
+      "sourceStart": 11.087,
+      "sourceEnd": 18.085,
+      "requestId": "01a12c63-10e7-7c80-817f-87986aa04d80"
+    },
+    {
+      "file": "floating-narration.mp3",
+      "text": "Ask in the floating chat. Local explanations stay on this computer. OpenAI and DeepSeek are optional.",
+      "sourceStart": 18.633,
+      "sourceEnd": 26.166,
+      "requestId": "01a12c63-10e7-7c80-817f-87986aa04d80"
+    },
+    {
+      "file": "floating-narration.mp3",
+      "text": "Choose Ahri, Jinx, or Jhin, then try a cozy outfit. Collect good habits, without spending more tokens.",
+      "sourceStart": 26.470000000000002,
+      "sourceEnd": 34.026,
+      "requestId": "01a12c63-10e7-7c80-817f-87986aa04d80"
+    },
+    {
+      "file": "floating-narration.mp3",
+      "text": "The full dashboard opens in a separate window, while your companion stays nearby.",
+      "sourceStart": 34.214000000000006,
+      "sourceEnd": 39.053000000000004,
+      "requestId": "01a12c63-10e7-7c80-817f-87986aa04d80"
+    },
+    {
+      "file": "floating-narration.mp3",
+      "text": "For voice input, open the dashboard in your browser. The native window keeps microphone access off.",
+      "sourceStart": 39.241,
+      "sourceEnd": 45.589,
+      "requestId": "01a12c63-10e7-7c80-817f-87986aa04d80"
+    },
+    {
+      "file": "floating-narration.mp3",
+      "text": "Dismiss the butler or hide the widget. You can return from the app menu whenever you want.",
+      "sourceStart": 45.836,
+      "sourceEnd": 50.976,
+      "requestId": "01a12c63-10e7-7c80-817f-87986aa04d80"
+    },
+    {
+      "file": "floating-narration.mp3",
+      "text": "Use the desktop setup script, then launch Token Guardian. The Mac source launcher needs no Xcode. This prototype is unsigned.",
+      "sourceStart": 51.223,
+      "sourceEnd": 59.66,
+      "requestId": "01a12c63-10e7-7c80-817f-87986aa04d80"
+    }
+  ]
+}

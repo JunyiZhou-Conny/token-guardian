@@ -1,0 +1,83 @@
+{
+  "provider": "fal.ai",
+  "endpoint": "fal-ai/elevenlabs/tts/turbo-v2.5",
+  "voice": "Rachel",
+  "generation": "Synthetic narration of public tutorial text; no voice cloning, private usage, or microphone audio.",
+  "segments": [
+    {
+      "file": "scene-00.mp3",
+      "text": "Install Node twenty or newer, download Token Guardian, and run the launcher.",
+      "requestId": "01a12c5d-31e6-7ce2-810e-b03a6e5b1ff4"
+    },
+    {
+      "file": "scene-01.mp3",
+      "text": "The watchtower combines four tools. These preview records are synthetic, so you can explore safely.",
+      "requestId": "01a12c5e-3380-7733-9bda-cf70447bd25a"
+    },
+    {
+      "file": "scene-02.mp3",
+      "text": "Rank sessions with recorded identifiers. Missing attribution stays unknown.",
+      "requestId": "01a12c5e-40e0-7893-b8e8-3fd272a09879"
+    },
+    {
+      "file": "scene-03.mp3",
+      "text": "Open a session to inspect its evidence and suggested next steps.",
+      "requestId": "01a12c5e-4962-76d1-a93d-08ab35ce3607"
+    },
+    {
+      "file": "scene-04.mp3",
+      "text": "Ask which session used the most tokens.",
+      "requestId": "01a12c5e-5912-7981-858c-e76d5574b032"
+    },
+    {
+      "file": "scene-05.mp3",
+      "text": "Review the suggestions, then act in the original app.",
+      "requestId": "01a12c5e-601b-78a3-8289-936f8a7150df"
+    },
+    {
+      "file": "scene-06.mp3",
+      "text": "Dictation demo: this transcription is synthetic.",
+      "requestId": "01a12c5e-6a99-71c3-80c6-a93841e8f707"
+    },
+    {
+      "file": "scene-07.mp3",
+      "text": "Voice produces an editable draft. Review it before sending. No microphone was used here.",
+      "requestId": "01a12c5e-729f-7a80-96e9-41e792735de9"
+    },
+    {
+      "file": "scene-08.mp3",
+      "text": "Grok Bot runs inside Cursor. Its optional connection reports quota percentages, not additional token counts.",
+      "requestId": "01a12c5e-7a41-7d23-91cd-5cb0b554ba31"
+    },
+    {
+      "file": "scene-09.mp3",
+      "text": "Choose Ahri, Jinx, or Jhin.",
+      "requestId": "01a12c5e-8176-74a3-a1ec-d022532122ca"
+    },
+    {
+      "file": "scene-10.mp3",
+      "text": "Try classic or cozy outfits. Stickers reward good habits.",
+      "requestId": "01a12c5e-8aa7-7282-93f5-2be16ddf4d1c"
+    },
+    {
+      "file": "scene-11.mp3",
+      "text": "Your choice stays in this browser.",
+      "requestId": "01a12c5e-937f-7252-b982-f582bfedf426"
+    },
+    {
+      "file": "scene-12.mp3",
+      "text": "Import a Cursor export into local metadata storage.",
+      "requestId": "01a12c5e-9c3d-7ca2-b240-ba738cb866c5"
+    },
+    {
+      "file": "scene-13.mp3",
+      "text": "Import it again. Duplicate records are skipped, keeping the totals honest.",
+      "requestId": "01a12c5e-a4f8-7360-bfae-d0341050b38d"
+    },
+    {
+      "file": "scene-14.mp3",
+      "text": "Try the prototype and share anonymized feedback. Real Mac and provider checks remain.",
+      "requestId": "01a12c5e-adb3-7430-bf25-7ee4faca5c93"
+    }
+  ]
+}

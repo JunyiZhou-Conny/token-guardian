@@ -9,8 +9,14 @@ requires a real Mac/provider check.
 
 ## Source map
 
-- `guardian/`: vanilla browser UI. Keep user-facing text in the `COPY` registry in
-  `guardian/app.js`; preserve accessible controls and labeled preview/local modes.
+- `guardian/`: vanilla dashboard and floating widget UI. Keep user-facing text in
+  the `COPY` registries in `guardian/app.js` and `guardian/widget.js`; preserve
+  accessible controls and labeled preview/local modes.
+- `desktop/`: isolated Electron host and fixed preload bridge. Installation
+  requires Node.js 22.12 or newer. Renderers use the same verified local service;
+  keep Node access, arbitrary navigation, and native media permissions disabled.
+- `scripts/start-floating-guardian.cjs` and `Start Floating Guardian.command`:
+  desktop launchers after `npm --prefix desktop ci`.
 - `guardian-server/`: CommonJS service using Node built-ins. `engine.js` normalizes
   metadata, detects incidents, and ranks directly attributed sessions/sidecars;
   `store.js` reconciles events and exposes `sessionInsights`; `chat.js` offers local
@@ -49,6 +55,22 @@ synthetic fixtures and an isolated store. It currently requires Python Playwrigh
 and Chromium at `/usr/bin/chromium`; adapt the executable path for another local
 installation. Its screenshots and results are generated verification artifacts,
 not evidence that real provider collection or native packaging works.
+
+`python guardian-test/widget-smoke.py` checks browser widget behavior against the
+same production handler. Actual native windows use the pinned Electron runtime
+and Playwright QA driver:
+
+```sh
+npm --prefix desktop ci
+npm --prefix desktop install --no-save --package-lock=false playwright-core@1.62.0
+xvfb-run -a -s '-screen 0 1440x1000x24' node guardian-test/desktop-smoke.cjs
+```
+
+The native test creates isolated synthetic usage and preferences, exercises pin,
+hide, chat, dashboard, navigation restrictions, persistence, and owned-service
+shutdown. Its Linux container flag disables Chromium's OS sandbox only for QA;
+the customer launcher does not add that flag. Linux verification does not
+establish macOS window behavior or live provider collection.
 
 The inherited collector/dashboard requires its own dependencies and build;
 follow [GUARDIAN.md](GUARDIAN.md). Run checks appropriate to the changed source,

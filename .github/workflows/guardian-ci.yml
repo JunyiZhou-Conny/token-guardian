@@ -45,11 +45,39 @@ jobs:
         run: |
           while IFS= read -r -d '' source_file; do
             node --check "$source_file"
-          done < <(find guardian guardian-server guardian-test src bin scripts -type f \( -name '*.js' -o -name '*.cjs' -o -name '*.mjs' \) -print0)
+          done < <(find guardian guardian-server guardian-test src bin scripts desktop -type f ! -path '*/node_modules/*' \( -name '*.js' -o -name '*.cjs' -o -name '*.mjs' \) -print0)
 
       - name: Check macOS launcher and bundle script syntax
         shell: bash
         run: |
-          for script_file in "Start Token Guardian.command" TokenTrackerBar/scripts/bundle-node.sh; do
+          for script_file in "Start Token Guardian.command" "Start Floating Guardian.command" TokenTrackerBar/scripts/bundle-node.sh; do
             bash -n "$script_file"
           done
+
+  desktop:
+    name: Floating desktop (Linux)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Install pinned desktop runtime and QA driver
+        run: |
+          npm --prefix desktop ci
+          node desktop/node_modules/electron/install.js
+          npm --prefix desktop install --no-save --package-lock=false playwright-core@1.62.0
+      # A virtual Linux display verifies actual windows. The container-only
+      # --no-sandbox QA flag is never added by the customer launcher.
+      - name: Verify real floating windows with isolated synthetic metadata
+        run: xvfb-run -a -s '-screen 0 1440x1000x24' node guardian-test/desktop-smoke.cjs
+      - name: Upload desktop evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: guardian-desktop-verification
+          path: artifacts/guardian-*smoke.json
+          if-no-files-found: ignore

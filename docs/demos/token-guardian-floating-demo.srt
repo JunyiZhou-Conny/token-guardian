@@ -1,0 +1,35 @@
+1
+00:00:00,400 --> 00:00:06,402
+Floating Token Guardian · actual Electron windows · synthetic preview data
+
+2
+00:00:06,404 --> 00:00:14,408
+Compact summary · pin above other windows
+
+3
+00:00:14,410 --> 00:00:25,413
+Summon your champion · inspect a session and its evidence
+
+4
+00:00:25,413 --> 00:00:36,417
+Ask in floating chat · local evidence explanation
+
+5
+00:00:36,417 --> 00:00:47,419
+Ahri, Jinx and Jhin · classic and cozy outfits
+
+6
+00:00:47,419 --> 00:00:56,420
+Full dashboard in a separate window · same companion preferences
+
+7
+00:00:56,420 --> 00:01:04,422
+Voice stays in your browser · native microphone permission is off
+
+8
+00:01:04,423 --> 00:01:13,422
+Dismiss, hide and restore · the local service keeps running
+
+9
+00:01:13,423 --> 00:01:23,423
+Install the desktop runtime · Node 22.20+ · no Xcode · unsigned prototype
