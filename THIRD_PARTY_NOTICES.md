@@ -84,3 +84,22 @@ with OpenAI image generation on 2026-10-11 from the original prototype atlas.
 It depicts the same Ahri, Jinx, and Jhin characters in alternate cozy outfits.
 The same character, reference-artwork, and non-endorsement notices above apply;
 the software MIT license does not grant rights to these fan illustrations.
+
+## Floating desktop interaction reference
+
+The floating desktop interaction was informed by
+[Javis603/token-monitor](https://github.com/Javis603/token-monitor), reviewed at
+commit `7abdb33ed2290d61bf6d8325ef2da6c6b27ffd05` (MIT, copyright 2026 Javis).
+Guardian's desktop host and widget are implemented in this repository using its
+existing usage backend; reference code and marketing assets were not imported.
+
+The desktop development runtime is Electron 44.7.0. Electron and its bundled
+components carry their own licenses in the installed runtime distribution.
+
+## Generated tutorial narration
+
+The public tutorial scripts were narrated using the ElevenLabs Turbo v2.5 Rachel
+preset through fal.ai. No voice was cloned. The recordings use generated speech,
+synthetic usage metadata, and labeled tutorial examples. Text, request provenance,
+and timing plans are retained in `docs/demos/narration/`; the software MIT notice
+does not replace the media providers' applicable terms.

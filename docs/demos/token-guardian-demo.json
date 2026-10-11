@@ -1,5 +1,5 @@
 {
-  "recordedAt": "2026-10-11T17:44:33.465391+00:00",
+  "recordedAt": "2026-10-11T19:25:05.537322+00:00",
   "video": "token-guardian-demo.mp4",
   "subtitles": "token-guardian-demo.srt",
   "dimensions": {
@@ -10,6 +10,184 @@
   "handler": "guardian-server/server.js",
   "paidApiCalls": 0,
   "microphone": "not used",
+  "appPaidApiCalls": 0,
+  "narration": {
+    "provider": "fal.ai",
+    "endpoint": "fal-ai/elevenlabs/tts/turbo-v2.5",
+    "voice": "Rachel",
+    "syntheticVoice": true,
+    "userVoiceCloning": false,
+    "generationSeparateFromApp": true,
+    "paidCallsDuringRecording": 0,
+    "scriptOnly": true,
+    "segments": [
+      {
+        "scene": 0,
+        "text": "Install Node twenty or newer, download Token Guardian, and run the launcher.",
+        "sourceFile": "scene-00.mp3",
+        "sourceSeconds": 4.833,
+        "tempo": 1.0,
+        "sourceStart": 0.0,
+        "sourceEnd": 4.833,
+        "start": 0.637,
+        "end": 5.47
+      },
+      {
+        "scene": 1,
+        "text": "The watchtower combines four tools. These preview records are synthetic, so you can explore safely.",
+        "sourceFile": "scene-01.mp3",
+        "sourceSeconds": 6.217,
+        "tempo": 1.0628,
+        "sourceStart": 0.0,
+        "sourceEnd": 6.217,
+        "start": 7.864,
+        "end": 13.714
+      },
+      {
+        "scene": 2,
+        "text": "Rank sessions with recorded identifiers. Missing attribution stays unknown.",
+        "sourceFile": "scene-02.mp3",
+        "sourceSeconds": 4.833,
+        "tempo": 1.0,
+        "sourceStart": 0.0,
+        "sourceEnd": 4.833,
+        "start": 13.993,
+        "end": 18.825
+      },
+      {
+        "scene": 3,
+        "text": "Open a session to inspect its evidence and suggested next steps.",
+        "sourceFile": "scene-03.mp3",
+        "sourceSeconds": 3.84,
+        "tempo": 1.0,
+        "sourceStart": 0.0,
+        "sourceEnd": 3.84,
+        "start": 20.083,
+        "end": 23.923
+      },
+      {
+        "scene": 4,
+        "text": "Ask which session used the most tokens.",
+        "sourceFile": "scene-04.mp3",
+        "sourceSeconds": 2.403,
+        "tempo": 1.0,
+        "sourceStart": 0.0,
+        "sourceEnd": 2.403,
+        "start": 26.331,
+        "end": 28.734
+      },
+      {
+        "scene": 5,
+        "text": "Review the suggestions, then act in the original app.",
+        "sourceFile": "scene-05.mp3",
+        "sourceSeconds": 3.161,
+        "tempo": 1.0,
+        "sourceStart": 0.0,
+        "sourceEnd": 3.161,
+        "start": 30.368,
+        "end": 33.529
+      },
+      {
+        "scene": 6,
+        "text": "Dictation demo: this transcription is synthetic.",
+        "sourceFile": "scene-06.mp3",
+        "sourceSeconds": 3.004,
+        "tempo": 1.0541,
+        "sourceStart": 0.0,
+        "sourceEnd": 3.004,
+        "start": 35.742,
+        "end": 38.592
+      },
+      {
+        "scene": 7,
+        "text": "Voice produces an editable draft. Review it before sending. No microphone was used here.",
+        "sourceFile": "scene-07.mp3",
+        "sourceSeconds": 5.695,
+        "tempo": 1.0,
+        "sourceStart": 0.0,
+        "sourceEnd": 5.695,
+        "start": 38.751,
+        "end": 44.445
+      },
+      {
+        "scene": 8,
+        "text": "Grok Bot runs inside Cursor. Its optional connection reports quota percentages, not additional token counts.",
+        "sourceFile": "scene-08.mp3",
+        "sourceSeconds": 7.367,
+        "tempo": 1.0754,
+        "sourceStart": 0.0,
+        "sourceEnd": 7.367,
+        "start": 44.93,
+        "end": 51.78
+      },
+      {
+        "scene": 9,
+        "text": "Choose Ahri, Jinx, or Jhin.",
+        "sourceFile": "scene-09.mp3",
+        "sourceSeconds": 2.168,
+        "tempo": 1.0,
+        "sourceStart": 0.0,
+        "sourceEnd": 2.168,
+        "start": 52.141,
+        "end": 54.309
+      },
+      {
+        "scene": 10,
+        "text": "Try classic or cozy outfits. Stickers reward good habits.",
+        "sourceFile": "scene-10.mp3",
+        "sourceSeconds": 3.944,
+        "tempo": 1.0245,
+        "sourceStart": 0.0,
+        "sourceEnd": 3.944,
+        "start": 55.17,
+        "end": 59.02
+      },
+      {
+        "scene": 11,
+        "text": "Your choice stays in this browser.",
+        "sourceFile": "scene-11.mp3",
+        "sourceSeconds": 2.09,
+        "tempo": 1.0,
+        "sourceStart": 0.0,
+        "sourceEnd": 2.09,
+        "start": 59.26,
+        "end": 61.349
+      },
+      {
+        "scene": 12,
+        "text": "Import a Cursor export into local metadata storage.",
+        "sourceFile": "scene-12.mp3",
+        "sourceSeconds": 3.161,
+        "tempo": 1.0,
+        "sourceStart": 0.0,
+        "sourceEnd": 3.161,
+        "start": 62.509,
+        "end": 65.67
+      },
+      {
+        "scene": 13,
+        "text": "Import it again. Duplicate records are skipped, keeping the totals honest.",
+        "sourceFile": "scene-13.mp3",
+        "sourceSeconds": 4.545,
+        "tempo": 1.0,
+        "sourceStart": 0.0,
+        "sourceEnd": 4.545,
+        "start": 67.643,
+        "end": 72.188
+      },
+      {
+        "scene": 14,
+        "text": "Try the prototype and share anonymized feedback. Real Mac and provider checks remain.",
+        "sourceFile": "scene-14.mp3",
+        "sourceSeconds": 5.146,
+        "tempo": 1.061,
+        "sourceStart": 0.0,
+        "sourceEnd": 5.146,
+        "start": 73.194,
+        "end": 78.044
+      }
+    ]
+  },
   "dictation": "disclosed synthetic browser-recognition fixture",
   "grokQuota": "opt-in control shown, no provider connection enabled",
   "checks": [
@@ -28,78 +206,78 @@
   "browserErrors": [],
   "scenes": [
     {
-      "start": 0.608,
-      "end": 6.608,
+      "start": 0.577,
+      "end": 6.577,
       "caption": "Install Node.js 20+, download the source, and start the local app.\nThis is a browser prototype; a signed macOS installer is still pending."
     },
     {
-      "start": 7.728,
-      "end": 13.728,
+      "start": 7.804,
+      "end": 13.804,
       "caption": "The overview combines Codex, Claude Code, Cursor, and Gemini CLI.\nAll usage in this walkthrough is synthetic; check the Preview data label."
     },
     {
-      "start": 13.854,
-      "end": 19.854,
+      "start": 13.933,
+      "end": 19.933,
       "caption": "Find the largest attributed sessions and compare the available evidence.\nMissing identifiers remain unknown; aggregate totals cannot invent a session."
     },
     {
-      "start": 19.919,
-      "end": 25.919,
+      "start": 20.023,
+      "end": 26.023,
       "caption": "Open a session to inspect its usage trail and recommended next steps.\nGuardian helps you investigate; it cannot stop jobs in the originating app."
     },
     {
-      "start": 26.147,
-      "end": 30.147,
+      "start": 26.271,
+      "end": 30.271,
       "caption": "Ask: Which session used the most tokens? Read the answer and its evidence.\nThis recording uses local explanations; OpenAI and DeepSeek are optional."
     },
     {
-      "start": 30.164,
-      "end": 35.164,
+      "start": 30.308,
+      "end": 35.308,
       "caption": "Review grounded suggestions: inspect the job, reduce repeated context, or try caching.\nSuggestions require your judgment; Guardian cannot promise exact savings."
     },
     {
-      "start": 35.52,
-      "end": 38.52,
+      "start": 35.682,
+      "end": 38.682,
       "caption": "Dictation demo: a synthetic browser transcription is being injected.\nNo real microphone, audio upload, or speech-model call is used here."
     },
     {
-      "start": 38.53,
-      "end": 44.53,
+      "start": 38.691,
+      "end": 44.691,
       "caption": "Review or edit the dictated draft before sending it.\nBrowser speech may use its vendor service; OpenAI audio is a separate opt-in."
     },
     {
-      "start": 44.748,
-      "end": 51.748,
+      "start": 44.87,
+      "end": 51.87,
       "caption": "Grok Bot inside Cursor has an optional read-only quota connection.\nPercent used and reset time are quota measures, not token counts. It is off here."
     },
     {
-      "start": 51.963,
-      "end": 54.963,
+      "start": 52.081,
+      "end": 55.081,
       "caption": "Choose Ahri, Jinx, or Jhin; switch between classic and cozy outfits."
     },
     {
-      "start": 55.004,
-      "end": 59.004,
+      "start": 55.11,
+      "end": 59.11,
       "caption": "Cute companions and stickers celebrate attention and good habits.\nYou do not have to spend more tokens to collect them."
     },
     {
-      "start": 59.098,
-      "end": 62.098,
+      "start": 59.2,
+      "end": 62.2,
       "caption": "Your companion and outfit choice stay in this browser."
     },
     {
-      "start": 62.547,
-      "end": 67.547,
+      "start": 62.449,
+      "end": 67.449,
       "caption": "Import a Cursor CSV or normalized metadata JSON into local storage.\nLocal data in this recording still comes from a synthetic demo fixture."
     },
     {
-      "start": 67.695,
-      "end": 72.695,
+      "start": 67.583,
+      "end": 72.583,
       "caption": "Reimport the same export: duplicate records are skipped.\nIncluded plan usage, estimated cost, and extra charges stay distinct."
     },
     {
-      "start": 73.242,
-      "end": 78.242,
+      "start": 73.134,
+      "end": 78.134,
       "caption": "Try the source prototype and send anonymized feedback through GitHub issues.\nLive provider and macOS checks remain; the video demonstrates the actual UI."
     }
   ],
@@ -109,13 +287,20 @@
     "streams": [
       {
         "codec_name": "h264",
+        "codec_type": "video",
         "width": 1280,
         "height": 720
+      },
+      {
+        "codec_name": "aac",
+        "codec_type": "audio",
+        "sample_rate": "48000",
+        "channels": 1
       }
     ],
     "format": {
-      "duration": "78.840000",
-      "size": "1510779"
+      "duration": "78.640000",
+      "size": "2226387"
     }
   }
 }

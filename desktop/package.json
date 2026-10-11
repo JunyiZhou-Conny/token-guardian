@@ -1,0 +1,18 @@
+{
+  "name": "token-guardian-desktop",
+  "productName": "Token Guardian",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A floating local Token Guardian widget and companion window.",
+  "main": "entry.cjs",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "44.7.0"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "license": "MIT"
+}

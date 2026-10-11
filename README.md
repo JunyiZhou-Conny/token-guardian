@@ -10,14 +10,26 @@ The first focus is **macOS**, with a Guardian view for records from **Codex,
 Claude Code, Cursor, and Gemini CLI**. Codex covers the OpenAI coding-tool source;
 this is not a complete OpenAI account or ChatGPT subscription usage monitor.
 
+The companion can also float on your desktop while the full dashboard stays
+available. Use **Node.js 22.20+**, run `npm --prefix desktop ci` once, then
+`node scripts/start-floating-guardian.cjs`. First launch may download the Electron
+runtime. On macOS, **Start Floating
+Guardian.command** launches it after setup. This development runtime needs no
+Xcode; a signed macOS installer is still pending.
+
 ![Token Guardian overview with an Ahri companion](docs/screenshots/guardian-preview.png)
 
-The screenshot uses labeled preview data. [Watch or download the 79-second demo](docs/demos/token-guardian-demo.mp4),
+The screenshot uses labeled preview data. Watch the narrated
+[full dashboard tour](docs/demos/token-guardian-demo.mp4) or
+[floating companion tour](docs/demos/token-guardian-floating-demo.mp4),
 then use the [installation guide](docs/INSTALL.md) and [walkthrough](docs/DEMO.md)
 to try the current prototype.
 
 See the [session investigation view](docs/screenshots/guardian-sessions.png) and
 [companion collection](docs/screenshots/guardian-collection.png) for more previews.
+The [compact floating view](docs/screenshots/guardian-floating-compact.png) and
+[summoned companion](docs/screenshots/guardian-floating-companion.png) show real
+Electron windows tested on Linux, using synthetic records.
 
 ## Try the prototype
 
@@ -61,6 +73,8 @@ TOKENTRACKER_GUARDIAN_DATA_DIR=/path/to/data-root TOKENTRACKER_GUARDIAN_PORT=768
 - Ahri, Jinx, and Jhin prototype companions with classic and cozy outfits, a
   small sticker collection, and read-only companion chat. Preview achievements are illustrative; local
   achievements use your local records and actions.
+- A floating desktop summary, summoned companion and text chat, with native
+  pinning and hiding. The full dashboard remains available in a separate window.
 - Optional OpenAI or DeepSeek explanations, and voice input that produces an
   editable question draft before you send it.
 - An explicit, read-only Grok Bot in Cursor quota connection. It uses Cursor's
@@ -111,6 +125,11 @@ For the automated tests, use Node.js 22.20 or newer. The local checks ran on Nod
 ```sh
 npm run guardian:test
 ```
+
+Local validation passed **175 Node checks** (88 Guardian and 87 Cursor),
+**42 real Electron checks on Linux**, **37 widget browser checks**, and
+**45 full-dashboard browser checks** with isolated synthetic records.
+The native checks include the desktop launcher and shutdown of its owned backend.
 
 The focused tests cover metadata normalization, imports, detection, local storage,
 request handling, and mocked provider behavior. The local launcher and browser flows

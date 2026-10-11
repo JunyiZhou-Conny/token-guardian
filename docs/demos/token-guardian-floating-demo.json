@@ -1,0 +1,215 @@
+{
+  "recording": "actual Electron windows captured from Linux X11",
+  "platform": "linux",
+  "nativeMacVerified": false,
+  "syntheticPreviewData": true,
+  "isolatedPreferencesAndStore": true,
+  "realMicrophoneUsed": false,
+  "appPaidApiCalls": 0,
+  "tutorialCardsClearlyLabeled": true,
+  "checks": [
+    "No cloud chat or voice keys are configured",
+    "Unpin changes the native window level",
+    "Pin restores the native window level",
+    "Compact view is a real 400 by 270 window",
+    "Summon opens the real companion window",
+    "Summoning does not call chat",
+    "Recorded session evidence opens in the widget",
+    "The question remains a draft until Send",
+    "The actual handler returns one local explanation",
+    "Chat is a real 420 by 640 window",
+    "Cozy artwork loads in the real widget",
+    "Dashboard and widget share the companion preference",
+    "The separate dashboard is visible while the widget stays pinned",
+    "Native chat exposes the browser voice action",
+    "A native microphone request produces no audio stream",
+    "Hide removes the native widget",
+    "The app menu restores the hidden widget",
+    "Hiding keeps the local service available",
+    "No uncaught JavaScript errors in the recorded native views"
+  ],
+  "errors": [],
+  "chatModes": [
+    "local"
+  ],
+  "scenes": [
+    {
+      "start": 0.400125053,
+      "end": 6.402397752000001,
+      "caption": "Floating Token Guardian \u00b7 actual Electron windows \u00b7 synthetic preview data"
+    },
+    {
+      "start": 6.403872772,
+      "end": 14.407822944,
+      "caption": "Compact summary \u00b7 pin above other windows"
+    },
+    {
+      "start": 14.410121045,
+      "end": 25.41289441,
+      "caption": "Summon your champion \u00b7 inspect a session and its evidence"
+    },
+    {
+      "start": 25.41309445,
+      "end": 36.417153894,
+      "caption": "Ask in floating chat \u00b7 local evidence explanation"
+    },
+    {
+      "start": 36.417341101999995,
+      "end": 47.418714221,
+      "caption": "Ahri, Jinx and Jhin \u00b7 classic and cozy outfits"
+    },
+    {
+      "start": 47.41891556699999,
+      "end": 56.420262448,
+      "caption": "Full dashboard in a separate window \u00b7 same companion preferences"
+    },
+    {
+      "start": 56.420446631,
+      "end": 64.42167146,
+      "caption": "Voice stays in your browser \u00b7 native microphone permission is off"
+    },
+    {
+      "start": 64.422678183,
+      "end": 73.42236562600002,
+      "caption": "Dismiss, hide and restore \u00b7 the local service keeps running"
+    },
+    {
+      "start": 73.422568306,
+      "end": 83.42340641700001,
+      "caption": "Install the desktop runtime \u00b7 Node 22.20+ \u00b7 no Xcode \u00b7 unsigned prototype"
+    }
+  ],
+  "narration": {
+    "provider": "fal.ai",
+    "endpoint": "fal-ai/elevenlabs/tts/turbo-v2.5",
+    "voice": "Rachel",
+    "syntheticVoice": true,
+    "userVoiceCloning": false,
+    "generationSeparateFromApp": true,
+    "paidCallsDuringRecording": 0,
+    "scriptOnly": true,
+    "segments": [
+      {
+        "scene": 0,
+        "text": "Meet your floating Token Guardian, using synthetic preview data.",
+        "sourceFile": "floating-narration.mp3",
+        "sourceSeconds": 4.397,
+        "tempo": 1.0,
+        "sourceStart": 0.0,
+        "sourceEnd": 4.397,
+        "start": 0.46,
+        "end": 4.857
+      },
+      {
+        "scene": 1,
+        "text": "A small champion keeps your usage summary nearby. Pin the widget above other windows.",
+        "sourceFile": "floating-narration.mp3",
+        "sourceSeconds": 5.779,
+        "tempo": 1.0,
+        "sourceStart": 4.76,
+        "sourceEnd": 10.539,
+        "start": 6.464,
+        "end": 12.243
+      },
+      {
+        "scene": 2,
+        "text": "Summon the butler to inspect the trail, understand the largest recorded session, and review suggested next steps.",
+        "sourceFile": "floating-narration.mp3",
+        "sourceSeconds": 6.998,
+        "tempo": 1.0,
+        "sourceStart": 11.087,
+        "sourceEnd": 18.085,
+        "start": 14.47,
+        "end": 21.468
+      },
+      {
+        "scene": 3,
+        "text": "Ask in the floating chat. Local explanations stay on this computer. OpenAI and DeepSeek are optional.",
+        "sourceFile": "floating-narration.mp3",
+        "sourceSeconds": 7.533,
+        "tempo": 1.0,
+        "sourceStart": 18.633,
+        "sourceEnd": 26.166,
+        "start": 25.473,
+        "end": 33.006
+      },
+      {
+        "scene": 4,
+        "text": "Choose Ahri, Jinx, or Jhin, then try a cozy outfit. Collect good habits, without spending more tokens.",
+        "sourceFile": "floating-narration.mp3",
+        "sourceSeconds": 7.556,
+        "tempo": 1.0,
+        "sourceStart": 26.47,
+        "sourceEnd": 34.026,
+        "start": 36.477,
+        "end": 44.033
+      },
+      {
+        "scene": 5,
+        "text": "The full dashboard opens in a separate window, while your companion stays nearby.",
+        "sourceFile": "floating-narration.mp3",
+        "sourceSeconds": 4.839,
+        "tempo": 1.0,
+        "sourceStart": 34.214,
+        "sourceEnd": 39.053,
+        "start": 47.479,
+        "end": 52.318
+      },
+      {
+        "scene": 6,
+        "text": "For voice input, open the dashboard in your browser. The native window keeps microphone access off.",
+        "sourceFile": "floating-narration.mp3",
+        "sourceSeconds": 6.348,
+        "tempo": 1.0,
+        "sourceStart": 39.241,
+        "sourceEnd": 45.589,
+        "start": 56.48,
+        "end": 62.828
+      },
+      {
+        "scene": 7,
+        "text": "Dismiss the butler or hide the widget. You can return from the app menu whenever you want.",
+        "sourceFile": "floating-narration.mp3",
+        "sourceSeconds": 5.14,
+        "tempo": 1.0,
+        "sourceStart": 45.836,
+        "sourceEnd": 50.976,
+        "start": 64.483,
+        "end": 69.623
+      },
+      {
+        "scene": 8,
+        "text": "Use the desktop setup script, then launch Token Guardian. The Mac source launcher needs no Xcode. This prototype is unsigned.",
+        "sourceFile": "floating-narration.mp3",
+        "sourceSeconds": 8.437,
+        "tempo": 1.0,
+        "sourceStart": 51.223,
+        "sourceEnd": 59.66,
+        "start": 73.483,
+        "end": 81.92
+      }
+    ]
+  },
+  "media": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "codec_type": "video",
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "codec_name": "aac",
+        "codec_type": "audio",
+        "sample_rate": "48000",
+        "channels": 1
+      }
+    ],
+    "format": {
+      "duration": "83.840000",
+      "size": "1857972"
+    }
+  }
+}

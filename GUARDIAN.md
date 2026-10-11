@@ -9,7 +9,32 @@ The included collectors have not all been verified end to end against real
 accounts on a Mac. Codex is the OpenAI coding-tool source, rather than an account-
 wide OpenAI or ChatGPT usage integration.
 
-## Run on macOS
+## Floating desktop companion
+
+Install Node.js 22.20 or newer, then run from the repository:
+
+```sh
+npm --prefix desktop ci
+node scripts/start-floating-guardian.cjs
+```
+
+The dependency install is a one-time setup for the isolated Electron package.
+The first launch may download the platform's runtime and needs an internet connection.
+Afterward, double-click **Start Floating Guardian.command** on macOS if you
+prefer. The runtime provides a compact usage widget, a summoned champion butler,
+and text chat, while keeping the full dashboard available separately. Pin the
+widget above other windows, dismiss the butler, or hide and restore the widget
+from the app menu. Desktop widget and dashboard preferences share the same origin.
+
+The native host denies microphone and camera permissions. Use **Open dashboard
+in browser** from the app menu for browser voice input, or launch the browser
+version below. The native text companion does not record audio.
+
+This source launcher needs no Xcode. It uses a development Electron runtime;
+there is no signed or notarized Guardian DMG. A real Mac pilot remains necessary
+to verify window behavior and provider collection.
+
+## Browser dashboard on macOS
 
 Install Node.js 20 or newer. The guardian needs no npm dependencies:
 
@@ -168,7 +193,10 @@ Use Refresh to request current quota data or disable the connection to stop
 queries. Quota adapter tests use mocked responses; real provider access still
 requires a signed-in Cursor check.
 
-## macOS app source
+## Optional inherited Swift macOS app source
+
+These build instructions apply to the inherited Swift menu-bar app. The floating
+Electron launcher above does not require this build or Xcode.
 
 The existing Swift menu-bar app now opens `/guardian/?app=1`. The Node bundle script
 includes guardian assets and server code. Upstream automatic updates are disabled
@@ -191,6 +219,13 @@ The current test runner command uses Node.js 24:
 npm run guardian:test
 node test/cursor-config.test.js
 ```
+
+Local validation passed 175 Node regression checks (88 Guardian and 87 Cursor),
+45 full-dashboard browser checks, 37 widget-preview browser checks, and 42 real
+Linux/Electron checks. Native coverage includes the desktop launcher, window
+controls, shared preferences, permission boundaries, and owned-backend shutdown.
+Browser and desktop checks use isolated synthetic metadata. Real Mac collection,
+macOS window behavior, and live provider checks remain part of the friends pilot.
 
 The source snapshot is pinned to xiufengsun/TokenTracker commit
 `c388d675e2e7512264c44ede1610b7a28100307e`. LICENSE retains the original MIT notice.

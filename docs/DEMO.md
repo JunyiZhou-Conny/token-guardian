@@ -1,17 +1,43 @@
-# Token Guardian demo
+# Token Guardian demos
 
 [Watch or download the video](demos/token-guardian-demo.mp4) ·
 [Subtitle file](demos/token-guardian-demo.srt) ·
 [Recording manifest](demos/token-guardian-demo.json)
 
-The video is **79 seconds**, H.264 MP4 at 1280 × 720, about **1.5 MB**, with burned
-English subtitles. It is silent. Eleven walkthrough checks passed, and the
+The full dashboard video is **79 seconds**, H.264 MP4 at 1280 × 720, about **2.2 MB**,
+with spoken English narration and burned subtitles. Eleven walkthrough checks passed, and the
 recording reported no browser JavaScript errors.
 
 The recording is a walkthrough of the actual browser app and production local
 request handler. It uses an isolated temporary data directory, labeled preview
 usage, and synthetic imported metadata. No real conversations, user account
-usage, credentials, or paid provider calls are recorded.
+usage, or credentials are recorded. No paid app chat or speech-recognition calls
+are used. Tutorial narration was generated separately through fal.ai using the
+ElevenLabs Turbo v2.5 **Rachel** preset; it uses the public walkthrough script,
+not a user's voice or private usage.
+
+## Floating companion tour
+
+[Watch or download the floating desktop video](demos/token-guardian-floating-demo.mp4) ·
+[Subtitles](demos/token-guardian-floating-demo.srt) ·
+[Recording manifest](demos/token-guardian-floating-demo.json)
+
+The floating tour is **84 seconds**, H.264 MP4 at 1280 × 720, about **1.9 MB**,
+with spoken narration and subtitles. Nineteen walkthrough assertions passed
+without uncaught JavaScript errors.
+
+This tour records the actual Electron app on a Linux X11 desktop with isolated
+preferences and synthetic preview data. It shows the compact usage summary,
+native pinning, the summoned companion, session evidence, local text chat,
+classic and cozy outfits, and a separate full dashboard window. It also shows
+hiding and restoring the widget from the real app menu. Linux desktop behavior
+does not establish macOS window behavior.
+
+The native window denies microphone access. Its **Voice in browser** action
+opens the full browser dashboard; the floating tour shows the control and
+permission boundary without recording speech or opening an external browser.
+Use the full dashboard tour for the explicitly synthetic dictation example.
+Both tours have spoken English narration from the public tutorial script.
 
 ## Follow along
 
@@ -57,8 +83,32 @@ destination. Set `--chromium /path/to/chromium` if it is not at
 `/usr/bin/chromium`. `--publish-copy` also copies a video smaller than 20 MB and
 its subtitles into `docs/demos/`.
 
-The recorder delegates all app requests to the production handler through the
-existing browser bridge, blocks outbound browser requests, and provides an empty
+Existing narration clips and their public text plan are included under
+`docs/demos/narration/guardian/`. Recording reuses those clips and makes no TTS
+provider calls. Use `--silent` for a caption-only recording. To add the existing
+narration to a previously verified MP4/JSON/SRT set without recording the UI
+again, use `--narrate-existing`. Narration is aligned to the scene times, slightly
+sped up where necessary, and mixed into an AAC audio track; it does not replace
+or simulate the app's voice-input feature.
+
+For the floating tour, first install the isolated desktop package with
+`npm --prefix desktop ci`. On a developer Linux machine with a running X11
+desktop and window manager, run:
+
+```sh
+DISPLAY=:91 python scripts/record-floating-demo.py --publish-copy
+```
+
+Replace `:91` with your display. This recorder uses Playwright's Electron API,
+the repository's isolated desktop fixture, and ffmpeg's X11 capture. It does
+not install recording tools, start a display server, or use real account data.
+It captures real native windows, rather than the widget's browser preview.
+The distinct backdrop and installation screen are labeled tutorial cards.
+Its combined narration clip and exact script are under
+`docs/demos/narration/floating/`; no provider calls are made during recording.
+
+The full-dashboard recorder delegates all app requests to the production handler
+through the existing browser bridge, blocks outbound browser requests, and provides an empty
 provider environment. Browser dictation is mocked with one disclosed synthetic
 phrase; no audio is captured or transmitted. Installation and ending cards are tutorial instructions;
 the middle of the video is the actual app. The script asserts key states and
@@ -66,6 +116,11 @@ records any browser errors in the manifest. A failed flow stops recording rather
 than substituting a fabricated feature.
 
 ## What remains to verify
+
+The broader local validation passed 175 Node checks (88 Guardian and 87 Cursor),
+42 actual Electron checks on Linux, 37 widget browser checks, and 45 full-dashboard
+browser checks. These checks use isolated synthetic records and mocked provider
+responses where applicable.
 
 - Collection and attribution against real Codex, Claude Code, Cursor, and Gemini
   CLI accounts on macOS, including available Cursor automation identifiers.

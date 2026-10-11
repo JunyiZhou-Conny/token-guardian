@@ -1,72 +1,72 @@
 1
-00:00:00,608 --> 00:00:06,608
+00:00:00,577 --> 00:00:06,577
 Install Node.js 20+, download the source, and start the local app.
 This is a browser prototype; a signed macOS installer is still pending.
 
 2
-00:00:07,728 --> 00:00:13,728
+00:00:07,804 --> 00:00:13,804
 The overview combines Codex, Claude Code, Cursor, and Gemini CLI.
 All usage in this walkthrough is synthetic; check the Preview data label.
 
 3
-00:00:13,854 --> 00:00:19,854
+00:00:13,933 --> 00:00:19,933
 Find the largest attributed sessions and compare the available evidence.
 Missing identifiers remain unknown; aggregate totals cannot invent a session.
 
 4
-00:00:19,919 --> 00:00:25,919
+00:00:20,023 --> 00:00:26,023
 Open a session to inspect its usage trail and recommended next steps.
 Guardian helps you investigate; it cannot stop jobs in the originating app.
 
 5
-00:00:26,147 --> 00:00:30,147
+00:00:26,271 --> 00:00:30,271
 Ask: Which session used the most tokens? Read the answer and its evidence.
 This recording uses local explanations; OpenAI and DeepSeek are optional.
 
 6
-00:00:30,164 --> 00:00:35,164
+00:00:30,308 --> 00:00:35,308
 Review grounded suggestions: inspect the job, reduce repeated context, or try caching.
 Suggestions require your judgment; Guardian cannot promise exact savings.
 
 7
-00:00:35,520 --> 00:00:38,520
+00:00:35,682 --> 00:00:38,682
 Dictation demo: a synthetic browser transcription is being injected.
 No real microphone, audio upload, or speech-model call is used here.
 
 8
-00:00:38,530 --> 00:00:44,530
+00:00:38,691 --> 00:00:44,691
 Review or edit the dictated draft before sending it.
 Browser speech may use its vendor service; OpenAI audio is a separate opt-in.
 
 9
-00:00:44,748 --> 00:00:51,748
+00:00:44,870 --> 00:00:51,870
 Grok Bot inside Cursor has an optional read-only quota connection.
 Percent used and reset time are quota measures, not token counts. It is off here.
 
 10
-00:00:51,963 --> 00:00:54,963
+00:00:52,081 --> 00:00:55,081
 Choose Ahri, Jinx, or Jhin; switch between classic and cozy outfits.
 
 11
-00:00:55,004 --> 00:00:59,004
+00:00:55,110 --> 00:00:59,110
 Cute companions and stickers celebrate attention and good habits.
 You do not have to spend more tokens to collect them.
 
 12
-00:00:59,098 --> 00:01:02,098
+00:00:59,200 --> 00:01:02,200
 Your companion and outfit choice stay in this browser.
 
 13
-00:01:02,547 --> 00:01:07,547
+00:01:02,449 --> 00:01:07,449
 Import a Cursor CSV or normalized metadata JSON into local storage.
 Local data in this recording still comes from a synthetic demo fixture.
 
 14
-00:01:07,695 --> 00:01:12,695
+00:01:07,583 --> 00:01:12,583
 Reimport the same export: duplicate records are skipped.
 Included plan usage, estimated cost, and extra charges stay distinct.
 
 15
-00:01:13,242 --> 00:01:18,242
+00:01:13,134 --> 00:01:18,134
 Try the source prototype and send anonymized feedback through GitHub issues.
 Live provider and macOS checks remain; the video demonstrates the actual UI.
