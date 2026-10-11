@@ -150,7 +150,11 @@ mkdir -p "$TT_DIR/bin"
 
 cp "$REPO_ROOT/bin/tracker.js" "$TT_DIR/bin/"
 cp -R "$REPO_ROOT/src" "$TT_DIR/src"
+cp -R "$REPO_ROOT/guardian" "$TT_DIR/guardian"
+cp -R "$REPO_ROOT/guardian-server" "$TT_DIR/guardian-server"
 cp "$REPO_ROOT/package.json" "$TT_DIR/"
+cp "$REPO_ROOT/LICENSE" "$TT_DIR/"
+cp "$REPO_ROOT/THIRD_PARTY_NOTICES.md" "$TT_DIR/"
 # The lockfile pins transitive versions; without it `npm install` resolves
 # whatever is newest at build time (undici 8.11.0 shipped in 1.0.2 this way).
 cp "$REPO_ROOT/package-lock.json" "$TT_DIR/"

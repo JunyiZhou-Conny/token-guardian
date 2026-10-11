@@ -168,6 +168,7 @@ const {
   fetchCursorUsageCsv,
   parseCursorCsv,
 } = require("../lib/cursor-config");
+const { writeCursorGuardianEvents } = require("../lib/guardian-events");
 const { purgeProjectUsage } = require("../lib/project-usage-purge");
 const {
   fetchTraeCnUsageWithAuth,
@@ -2107,6 +2108,14 @@ async function cmdSync(argv, context = {}) {
           }
           const csvText = await cursorUsageFetcher({ cookie: cursorAuth.cookie });
           const records = parseCursorCsv(csvText);
+          // Retain usage metadata and provider-issued automation IDs locally
+          // before half-hour aggregation removes their investigative value.
+          // A guardian-sidecar failure must not interrupt normal usage sync.
+          try {
+            await writeCursorGuardianEvents({ trackerDir, records });
+          } catch (err) {
+            if (!opts.auto) process.stderr.write(`Guardian metadata: ${err.message}\n`);
+          }
           if (records.length > 0) {
             if (progress?.enabled) {
               progress.start(

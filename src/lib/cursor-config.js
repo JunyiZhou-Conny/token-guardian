@@ -467,6 +467,8 @@ function parseCursorCsv(csvText) {
   const costIdx = columnIndex.get("Cost");
   const kindIdx = columnIndex.get("Kind");
   const maxModeIdx = columnIndex.get("Max Mode");
+  const automationIdIdx = columnIndex.get("Automation ID");
+  const cloudAgentIdIdx = columnIndex.get("Cloud Agent ID");
 
   const required = [dateIdx, modelIdx, inputWithIdx, inputWithoutIdx, cacheReadIdx, outputIdx, totalIdx, costIdx];
   if (required.some((idx) => idx === undefined)) return [];
@@ -485,6 +487,12 @@ function parseCursorCsv(csvText) {
       kind: kindIdx !== undefined ? stripQuotes(fields[kindIdx]) : "unknown",
       model: stripQuotes(fields[modelIdx]),
       maxMode: maxModeIdx !== undefined ? stripQuotes(fields[maxModeIdx]) : "No",
+      automationId: automationIdIdx !== undefined
+        ? stripQuotes(fields[automationIdIdx] || "").trim() || null
+        : null,
+      cloudAgentId: cloudAgentIdIdx !== undefined
+        ? stripQuotes(fields[cloudAgentIdIdx] || "").trim() || null
+        : null,
       sourceScope: CURSOR_SOURCE_SCOPE,
       billableKind: isCursorBillableKind(kindIdx !== undefined ? fields[kindIdx] : "unknown")
         ? "billable"

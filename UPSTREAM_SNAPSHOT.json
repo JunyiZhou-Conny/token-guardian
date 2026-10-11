@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "repository": "https://github.com/xiufengsun/TokenTracker",
+  "upstreamCommit": "c388d675e2e7512264c44ede1610b7a28100307e",
+  "upstreamTree": "e7be6ae19c5e10e5d38dc9da6b75fad6b7f6eff5",
+  "snapshotDate": "2026-10-10",
+  "localBaselineCommit": "205dc105d1780adc21ba8dc3cbe0fa6965d83741",
+  "upstreamTrackedFileCount": 1613,
+  "exportedSourceFileCount": 1612,
+  "verification": {
+    "gitBlobShaMatches": 1612,
+    "fileModeMatches": 1612,
+    "performedBeforeGuardianChanges": true
+  },
+  "excludedUpstreamPaths": [
+    {
+      "path": "docs/screenshots/menubar.gif",
+      "bytes": 1961320,
+      "reason": "Documentation animation omitted from the source export; runtime source and other assets are present."
+    }
+  ],
+  "localHistory": "The local baseline is a source snapshot with a new import commit; it does not contain upstream Git history.",
+  "licenseFile": "LICENSE",
+  "thirdPartyNoticesFile": "THIRD_PARTY_NOTICES.md",
+  "guardianChanges": "Guardian additions and changes are committed after the source-import baseline. See the repository commit history for the exact change set.",
+  "existingManifestFiles": [
+    "dashboard-upstream-manifest.json"
+  ]
+}

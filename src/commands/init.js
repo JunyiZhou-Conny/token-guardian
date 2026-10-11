@@ -2245,6 +2245,13 @@ async function installLocalTrackerApp({ appDir }) {
   await fs.copyFile(binFrom, binTo);
   await fs.chmod(binTo, 0o755).catch(() => {});
   await fs.copyFile(packageJsonFrom, path.join(appDir, "package.json")).catch(() => {});
+  for (const directory of ["guardian", "guardian-server"]) {
+    const from = path.join(packageRoot, directory);
+    if (await isDir(from)) await fs.cp(from, path.join(appDir, directory), { recursive: true });
+  }
+  for (const notice of ["LICENSE", "THIRD_PARTY_NOTICES.md"]) {
+    await fs.copyFile(path.join(packageRoot, notice), path.join(appDir, notice)).catch(() => {});
+  }
   if (await isDir(dashboardDistFrom)) {
     await fs.cp(dashboardDistFrom, dashboardDistTo, { recursive: true });
   }

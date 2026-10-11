@@ -1,23 +1,19 @@
-name: Bug report
-description: Something is broken or behaving unexpectedly
+name: Token Guardian bug
+description: Report a reproducible problem with usage tracking, investigations, or the companion
 title: "[bug]: "
 labels: ["bug"]
 body:
-  - type: checkboxes
-    id: preflight
+  - type: markdown
     attributes:
-      label: Preflight checklist
-      options:
-        - label: I searched [existing issues](https://github.com/xiufengsun/TokenTracker/issues) and didn't find a duplicate.
-          required: true
-        - label: I'm on the [latest version](https://github.com/xiufengsun/TokenTracker/releases).
-          required: true
+      value: |
+        Thank you for helping improve Token Guardian. Check [existing Guardian issues](https://github.com/JunyiZhou-Conny/token-guardian/issues) before filing. This issue is public.
+        Share only anonymized usage metadata. Remove API keys, cookies, access tokens, prompts, conversation text, account identifiers, and private paths from screenshots or examples.
 
   - type: textarea
-    id: description
+    id: problem
     attributes:
-      label: What happened?
-      description: A clear description of the bug. Screenshots welcome.
+      label: What happened, and what did you expect?
+      description: Include whether you were viewing local data or the labeled demo.
     validations:
       required: true
 
@@ -25,84 +21,49 @@ body:
     id: reproduce
     attributes:
       label: Steps to reproduce
-      description: Smallest set of steps to reproduce the issue.
       placeholder: |
-        1. Run `tokentracker ...`
-        2. ...
-        3. See error
+        1. Start Token Guardian.
+        2. Open Investigations or import anonymized usage metadata.
+        3. Describe the unexpected result.
     validations:
       required: true
-
-  - type: textarea
-    id: expected
-    attributes:
-      label: Expected behavior
-    validations:
-      required: false
-
-  - type: dropdown
-    id: regression
-    attributes:
-      label: Is this a regression?
-      description: Did this work in an earlier version?
-      options:
-        - "Yes — it worked in a previous version"
-        - "No — it never worked"
-        - "Not sure"
-    validations:
-      required: false
 
   - type: input
     id: version
     attributes:
-      label: TokenTracker version
-      description: Output of `tokentracker --version` or the macOS app version
-      placeholder: e.g. 0.40.0
+      label: Guardian version or Git commit
+      description: Include the application version or the commit you checked out.
+      placeholder: e.g. a short Git commit SHA
     validations:
       required: true
 
   - type: input
-    id: node
+    id: platform
     attributes:
-      label: Node.js version
-      description: Output of `node --version` (CLI users only)
-      placeholder: e.g. v20.11.0
+      label: Platform and runtime
+      description: Operating system, browser, and Node.js version if running from source.
+      placeholder: e.g. macOS 15, Safari 18, Node.js 24
     validations:
-      required: false
+      required: true
 
   - type: dropdown
-    id: install
+    id: source
     attributes:
-      label: How did you install it?
+      label: Affected usage source
       options:
-        - npm / npx (CLI)
-        - macOS DMG (TokenTrackerBar)
-        - Windows installer / zip
-        - From source
-    validations:
-      required: true
-
-  - type: input
-    id: os
-    attributes:
-      label: OS / version
-      placeholder: e.g. macOS 15.1, Windows 11, Ubuntu 22.04
+        - Cursor
+        - Codex / OpenAI
+        - Claude
+        - Gemini
+        - Demo data
+        - Multiple sources / interface
     validations:
       required: true
 
   - type: textarea
-    id: doctor
+    id: evidence
     attributes:
-      label: Output of `tokentracker doctor` (if applicable)
-      description: Paste the full output. Helps diagnose hook / provider issues.
-      render: shell
-    validations:
-      required: false
-
-  - type: textarea
-    id: extra
-    attributes:
-      label: Anything else?
-      description: Logs, config snippets, related issues, hypotheses.
+      label: Anonymized evidence (optional)
+      description: A minimal synthetic or anonymized record, error message, or screenshot. Include timestamps, token counts, and whether cost is estimated, included, or charged when relevant. Do not upload raw conversations or credentials.
     validations:
       required: false

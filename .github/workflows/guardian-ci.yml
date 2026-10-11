@@ -1,0 +1,55 @@
+name: Guardian CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: guardian-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: Guardian checks (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ["22", "24"]
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      # The guardian and these parser regressions use only Node built-ins.
+      # No dependency install, provider credentials, or backend service is needed.
+      - name: Run guardian regressions
+        run: npm run guardian:test
+
+      - name: Run Cursor parser and usage regressions
+        run: node --test --experimental-test-isolation=none test/cursor-config.test.js test/cursor-store.test.js test/cursor-migration.test.js test/cursor-billable-total-tokens.test.js
+
+      - name: Check JavaScript syntax
+        shell: bash
+        run: |
+          while IFS= read -r -d '' source_file; do
+            node --check "$source_file"
+          done < <(find guardian guardian-server guardian-test src bin scripts -type f \( -name '*.js' -o -name '*.cjs' -o -name '*.mjs' \) -print0)
+
+      - name: Check macOS launcher and bundle script syntax
+        shell: bash
+        run: |
+          for script_file in "Start Token Guardian.command" TokenTrackerBar/scripts/bundle-node.sh; do
+            bash -n "$script_file"
+          done

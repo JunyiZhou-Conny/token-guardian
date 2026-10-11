@@ -1,51 +1,43 @@
-name: Feature request
-description: Suggest a new feature, improvement, or AI tool integration
+name: Token Guardian idea
+description: Suggest an improvement to tracking, investigations, the companion, or collections
 title: "[feature]: "
 labels: ["enhancement"]
 body:
   - type: textarea
     id: problem
     attributes:
-      label: What problem does this solve?
-      description: Describe the use case or pain point. Skip the solution for now.
+      label: What would you like to do?
+      description: Describe the problem and who would benefit.
     validations:
       required: true
 
   - type: textarea
     id: proposal
     attributes:
-      label: Proposed solution
-      description: How would you like it to work? Mock UI, command names, config snippets all welcome.
+      label: How should it work?
+      description: Describe the expected behavior or attach a mockup. Keep examples free of credentials, prompts, and private usage records.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Usage source / import
+        - Investigation / alerts
+        - Companion chat
+        - Champions / collectibles
+        - macOS experience
+        - Accessibility / interface
+        - Documentation
     validations:
       required: true
 
   - type: textarea
     id: alternatives
     attributes:
-      label: Alternatives considered
-      description: What workarounds have you tried? What would also solve the problem?
-    validations:
-      required: false
-
-  - type: dropdown
-    id: kind
-    attributes:
-      label: Category
-      options:
-        - New AI tool integration
-        - Dashboard / web UI
-        - macOS menu bar app
-        - Desktop widget
-        - CLI command
-        - Documentation
-        - Other
-    validations:
-      required: true
-
-  - type: textarea
-    id: extra
-    attributes:
-      label: Anything else?
-      description: Links, references, prior art.
+      label: Current workaround (optional)
+      description: Explain how you handle the problem today.
     validations:
       required: false

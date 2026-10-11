@@ -43,6 +43,12 @@ final class UpdateChecker {
 
     func check(silent: Bool = false) {
         guard !isBusy else { return }
+        // This fork has its own UI and collector changes. An upstream update
+        // would replace them; enable updates when our release channel exists.
+        guard Bundle.main.object(forInfoDictionaryKey: "TokenGuardianEnableUpstreamUpdates") as? Bool == true else {
+            if !silent { statusText = "Fork updates are not configured" }
+            return
+        }
 
         // Auto-update toggle: silent checks are exclusively launch-time background
         // checks whose success path downloads and installs without prompting, so the

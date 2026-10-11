@@ -64,3 +64,17 @@ official Devin "nodes" mark published by Cognition at
 are trademarks of Cognition; the mark is bundled solely to identify the Devin
 CLI source and subscription quota in the dashboard, recoloured to `currentColor` like the
 other provider marks.
+
+## Token Guardian prototype champion avatars
+
+`guardian/assets/champions.png` contains generated reference-based illustrations
+of Ahri, Jinx, and Jhin. The user's supplied Red Note screenshots credit the cute
+avatar references to **AiBaker** (Red Note ID: AiBaker). The prototype atlas was
+generated with OpenAI image generation on 2026-10-10.
+
+League of Legends and its champion characters belong to Riot Games. The software
+MIT license does not grant rights to these characters or to AiBaker's artwork.
+No public artwork license or permission from AiBaker is documented here. This is
+an unofficial fan prototype with no affiliation or endorsement from Riot Games
+or AiBaker. Full source and asset context is recorded in
+[guardian/assets/PROVENANCE.md](guardian/assets/PROVENANCE.md).

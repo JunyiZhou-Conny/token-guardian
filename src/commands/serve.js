@@ -116,7 +116,9 @@ async function cmdServe(argv) {
 
   // 2. Resolve paths
   const queuePath = resolveQueuePath();
-  const dashboardDir = resolveDashboardDir();
+  const guardianDir = path.resolve(__dirname, "..", "..", "guardian");
+  const guardianAvailable = fssync.existsSync(path.join(guardianDir, "index.html"));
+  const dashboardDir = resolveDashboardDir() || (guardianAvailable ? guardianDir : null);
 
   // 2.1 Refresh LiteLLM pricing data in the background. The seed snapshot is
   //     already loaded synchronously at require-time, so cost calculation is
@@ -153,10 +155,25 @@ async function cmdServe(argv) {
     // package.json from disk.
     serverVersion: CURRENT_PACKAGE_VERSION,
   });
+  const handleGuardian = guardianAvailable
+    ? require("../../guardian-server/server").createGuardianServer({ staticDir: guardianDir }).listeners("request")[0]
+    : null;
 
   const server = http.createServer(async (req, res) => {
     try {
       const url = new URL(req.url || "/", `http://${req.headers.host || "localhost"}`);
+
+      if (handleGuardian && url.pathname === "/guardian") {
+        res.writeHead(302, { Location: `/guardian/${url.search}` });
+        res.end();
+        return;
+      }
+      if (handleGuardian && (url.pathname.startsWith("/guardian/") || url.pathname.startsWith("/api/guardian"))) {
+        const originalUrl = req.url;
+        if (url.pathname.startsWith("/guardian/")) req.url = url.pathname.slice("/guardian".length) + url.search;
+        try { await handleGuardian(req, res); } finally { req.url = originalUrl; }
+        return;
+      }
 
       // CORS preflight
       if (req.method === "OPTIONS" && !url.pathname.startsWith("/api/auth/")) {

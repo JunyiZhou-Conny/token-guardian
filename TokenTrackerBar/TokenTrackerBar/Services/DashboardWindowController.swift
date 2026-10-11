@@ -200,7 +200,7 @@ final class DashboardWindowController: NSObject, NSWindowDelegate, WKNavigationD
 
         // Load dashboard
         retryCount = 0
-        if let url = URL(string: Constants.serverBaseURL + "?app=1") {
+        if let url = URL(string: Constants.serverBaseURL + "/guardian/?app=1") {
             loadDashboard(url)
         }
 
@@ -220,7 +220,7 @@ final class DashboardWindowController: NSObject, NSWindowDelegate, WKNavigationD
         installLoadingOverlay(in: container)
         if let current = webView?.url, isLocalDashboardURL(current) {
             loadDashboard(current)
-        } else if let url = URL(string: Constants.serverBaseURL + "?app=1") {
+        } else if let url = URL(string: Constants.serverBaseURL + "/guardian/?app=1") {
             loadDashboard(url)
         }
     }
@@ -443,7 +443,7 @@ final class DashboardWindowController: NSObject, NSWindowDelegate, WKNavigationD
         }
         let delay = min(Double(retryCount) * 2, 10)
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
-            guard let self, let url = URL(string: Constants.serverBaseURL + "?app=1") else { return }
+            guard let self, let url = URL(string: Constants.serverBaseURL + "/guardian/?app=1") else { return }
             self.loadDashboard(url)
         }
     }
@@ -608,7 +608,7 @@ final class DashboardWindowController: NSObject, NSWindowDelegate, WKNavigationD
     func handleAuthDone() {
         DashboardPresentationCoordinator.shared.showDashboard()
         // Reload dashboard so InsForge SDK picks up session from server-side cookie relay
-        if let url = URL(string: Constants.serverBaseURL + "?app=1") {
+        if let url = URL(string: Constants.serverBaseURL + "/guardian/?app=1") {
             loadDashboard(url)
         }
     }

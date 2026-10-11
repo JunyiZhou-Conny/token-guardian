@@ -1,0 +1,3798 @@
+{
+  "repository": "xiufengsun/TokenTracker",
+  "ref": "c388d675e2e7512264c44ede1610b7a28100307e",
+  "scope": "dashboard/",
+  "excluded": [
+    "dashboard/package.json"
+  ],
+  "complete": true,
+  "verification": "Git blob SHA-1 and exact byte length checked before writing each downloaded file",
+  "files": [
+    {
+      "path": "dashboard/.env.example",
+      "sha": "5a60c36bab5d36d3e767143f3961decaca74b805",
+      "size": 344,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/.eslintrc.cjs",
+      "sha": "9b2e04ec7ce89472ab45e10aefee57b8f0352546",
+      "size": 1046,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/.gitignore",
+      "sha": "e928d024eca6e429276cf5b2dfbe2156c5dd25ba",
+      "size": 202,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/cloud/access.ts",
+      "sha": "859eee384fa66a704df5676602e9074243ed8ac0",
+      "size": 1997,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/cloud/alipay.ts",
+      "sha": "3db027132c1e0464a9855d1b2493b5023ba902cc",
+      "size": 8080,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/cloud/auth.ts",
+      "sha": "bc0446b45f6108c59f67748b70944c567ec54298",
+      "size": 2027,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/cloud/contracts.ts",
+      "sha": "0226d9354d8498c33ac944086111441eb78fd0a0",
+      "size": 3180,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/cloud/cryptography.ts",
+      "sha": "8196709611174627f4af021eed12f1e2a2f8d79c",
+      "size": 1823,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/cloud/gifts.ts",
+      "sha": "3a01e327a429e755a39aff2de0e62f142b01795b",
+      "size": 2395,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/cloud/paddle.ts",
+      "sha": "a866fadb70075532ed5035dd37dfbc7d7f1dd811",
+      "size": 14280,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/cloud/pro.ts",
+      "sha": "5f7d7717d81098502626d81eb424daadef240387",
+      "size": 895,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/cloud/runtime.ts",
+      "sha": "943ff72d2e05fe37030a3d65571f6579b7b33ab9",
+      "size": 8060,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/cloud/waffo-processing.ts",
+      "sha": "e64330742db0c68e63f6c4c6df50f5c48a63532e",
+      "size": 7506,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/cloud/waffo.ts",
+      "sha": "a2dfa9884e16c27a20baac286c603aca1caeb3b3",
+      "size": 35202,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/cloud/wechat.ts",
+      "sha": "49d02963e668f8e3e212d7925ef4472cb216947a",
+      "size": 9058,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/tokentracker-account-daily.ts",
+      "sha": "1e9ee3d1ca124ead1e06c9cea4b2ed4f356f2718",
+      "size": 49407,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/tokentracker-account-devices.ts",
+      "sha": "92beeeb28eb586c3a29d42cffb925f3692accaf9",
+      "size": 11323,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/tokentracker-account-heatmap.ts",
+      "sha": "11bbf1abe8d8cc8326a11c878ceb6d3cda8659b5",
+      "size": 16838,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/tokentracker-account-hourly.ts",
+      "sha": "dab689bd60651b77a3efb64fa478d1a92a4ebae4",
+      "size": 12830,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/tokentracker-account-model-breakdown.ts",
+      "sha": "a18ebb18bf8242538c7113da0821455d14a4c75d",
+      "size": 52331,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/tokentracker-account-monthly.ts",
+      "sha": "a57bf502668df6bb6fe377e6dc6bc74e9e0e62fc",
+      "size": 11027,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/tokentracker-account-skills.ts",
+      "sha": "e84ccd2e21ae0a63a0a19c32aacb1109a03ab4e4",
+      "size": 8797,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/tokentracker-account-summary.ts",
+      "sha": "2150f1137fc3e7f5b4ab4bbde1e4f316760684ec",
+      "size": 52659,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/tokentracker-alipay-webhook.ts",
+      "sha": "ad563eaefa82e78e6d5e91987a96e52659fc6c22",
+      "size": 1578,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/tokentracker-badge-svg.ts",
+      "sha": "7568c8587b262fd14ee409d099d9859577477169",
+      "size": 11217,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/tokentracker-billing.ts",
+      "sha": "4d2db462dbd1639de6489e24c087b70afc160d72",
+      "size": 19369,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/tokentracker-community-models.ts",
+      "sha": "69f0994c5c7117411025f202441a954fd385188c",
+      "size": 4959,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/tokentracker-device-flow-authorize.ts",
+      "sha": "cbec17f1e39bfff2033f7a8679d5fff007ef9bcf",
+      "size": 4690,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/tokentracker-device-flow-grant.ts",
+      "sha": "980c770017a6f18c7f4a04275084db788b0349e1",
+      "size": 4939,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/tokentracker-device-flow-poll.ts",
+      "sha": "d9cf2209b556a23c99a09c7c6830cdfc9e52d5c4",
+      "size": 5874,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/tokentracker-device-rename.ts",
+      "sha": "eea30166513a02decbed6e5b3855f2eca36f30b5",
+      "size": 7607,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/tokentracker-device-token-issue.ts",
+      "sha": "d782d96aabeb8a726c9f3d7bc088de8089494dd9",
+      "size": 8487,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/tokentracker-embed-svg.ts",
+      "sha": "6651d3d442fd46b6603cf60ac33b833a4bc35871",
+      "size": 12535,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/tokentracker-ingest.ts",
+      "sha": "2f22ce8774d18cdcca9422ec0cdfef140cd9e677",
+      "size": 9729,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/tokentracker-leaderboard-profile.ts",
+      "sha": "6ef6f066553aeb0a02b2c82c52e2c9ee54a7a1e2",
+      "size": 56824,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/tokentracker-leaderboard-refresh.ts",
+      "sha": "0af90488824cca769e1ac20c49a2f6ffe4eced56",
+      "size": 69986,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/tokentracker-leaderboard.ts",
+      "sha": "419b9469b909e39ce9654a994e6199b5014c823e",
+      "size": 11124,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/tokentracker-paddle-webhook.ts",
+      "sha": "afcb1a69ff2e43ba957b49538faf20c655c27c2e",
+      "size": 3539,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/tokentracker-profile-likes.ts",
+      "sha": "760a1dea653ad46ae211dde338ca0729d67b34e2",
+      "size": 16630,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/tokentracker-public-visibility.ts",
+      "sha": "17d91b06336ea3d77ee887cb5c386e810ca8b91f",
+      "size": 9627,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/tokentracker-telemetry.ts",
+      "sha": "bf75aac9641bd68bfa0686778e9215c314d1c6e3",
+      "size": 3675,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/tokentracker-waffo-webhook.ts",
+      "sha": "25ac7d5da72e63a3ae2f8d32cd7bb23a39c61e89",
+      "size": 2206,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/edge-patches/tokentracker-wechat-webhook.ts",
+      "sha": "b05a69ecf9feb3fd3f72fdfe570ae5cbd6581349",
+      "size": 1611,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/index.html",
+      "sha": "329053bac580f223a93954dfe63f58c84305db6f",
+      "size": 26549,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/package-lock.json",
+      "sha": "2288bebf13a58a59212eefe3be62abeaf3160b8b",
+      "size": 322025,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/pet.html",
+      "sha": "29cb09eaaee72f93a0ca4355324989385edfb956",
+      "size": 1037,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/postcss.config.cjs",
+      "sha": "12a703d900da8159c30e75acbd2c4d87ae177f62",
+      "size": 83,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/achievements/README.md",
+      "sha": "6d3301ce0e26ba6816d90a4ddb666a014339ced4",
+      "size": 2718,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/achievements/arctic-code-vault-contributor.png",
+      "sha": "85bc199e5964b9bcdb1c4916373c51011e500be2",
+      "size": 9411,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/achievements/big-day.png",
+      "sha": "e9345d2b0ac01c4dceedce5bae879e322de93b75",
+      "size": 27299,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/achievements/galaxy-brain.png",
+      "sha": "949df1f9b727ebfc49b7749bd8a04b75eb416544",
+      "size": 19633,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/achievements/heart-on-your-sleeve.png",
+      "sha": "3c78bc4e6d776a7dd8b8f2324ebdcfca9fa33dc9",
+      "size": 13078,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/achievements/marathoner.png",
+      "sha": "71dbdef7e46e8dd45b5a2be5666c95296657c47f",
+      "size": 34844,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/achievements/momentum.png",
+      "sha": "990bff7b7b9f41285f68b5ee8ad9b00e21bbc671",
+      "size": 37341,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/achievements/multitool.png",
+      "sha": "a1c861a315a702606a07ebf9658bfcdd37848a61",
+      "size": 30732,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/achievements/night-owl.png",
+      "sha": "e4bb67dd871d1f5946af0024c82a0c80e0a7a010",
+      "size": 35499,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/achievements/open-sourcerer.png",
+      "sha": "8efbafb116d5a03a10e12c4d29f7d3303f146895",
+      "size": 18711,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/achievements/pair-extraordinaire.png",
+      "sha": "1006ab1989accc7d8afe907cc1e6b85a1621e6c7",
+      "size": 17200,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/achievements/podium.png",
+      "sha": "42a3d1bd457a70b7c668c9f66803d0f4d7eb311e",
+      "size": 35590,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/achievements/polyglot.png",
+      "sha": "4fcc1295f792b4f2204da1f27744ccb664f9b1bc",
+      "size": 32783,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/achievements/project-devotion.png",
+      "sha": "f9d72fe2957cf76f701ebf6ea160f21c5e2b1d39",
+      "size": 23737,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/achievements/project-hopper.png",
+      "sha": "dd42cf2708e2fe7bcf37eee5612ca912e73e7855",
+      "size": 26731,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/achievements/proxima-pioneer.png",
+      "sha": "952707897e2c0dca34f08da50e3923ffd3fccb45",
+      "size": 15760,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/achievements/proxima-staffshipper.png",
+      "sha": "14c665675a0515c3d6557d1b5c2a0dd02ca62d2c",
+      "size": 19650,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/achievements/proxima-staffuser.png",
+      "sha": "6a35c6064c2a424ad3ec0759b02a2df30b98b0e0",
+      "size": 13430,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/achievements/public-sponsor.png",
+      "sha": "b7f41a8a10306db188c918f1606e45db6f8cc218",
+      "size": 10020,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/achievements/pull-shark.png",
+      "sha": "ec948f69f9d10149822ec9b449005a5dab1a39e4",
+      "size": 17723,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/achievements/quickdraw.png",
+      "sha": "df9b2fda2503f5851ca96a997fc370b62d3b2acf",
+      "size": 16441,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/achievements/starstruck.png",
+      "sha": "28629b66b7caedd8a5d0f7cd9f35d259e3b1ec4e",
+      "size": 18610,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/achievements/streak.png",
+      "sha": "fb6de23768753907122ded12f9eb7c6f877f9dae",
+      "size": 35414,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/achievements/token-titan.png",
+      "sha": "cfcb1acf625f726aaa46deb539953d8485941560",
+      "size": 39769,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/achievements/trendsetter.png",
+      "sha": "18cf43a7a27749bd0e6e024c543d0eea10aea08d",
+      "size": 31933,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/achievements/veteran.png",
+      "sha": "5028b1d03fd67793ef45cdca5d7b8347ff22f65a",
+      "size": 30316,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/achievements/weekend-warrior.png",
+      "sha": "8eb3ad4f386f4f031943af75a496c79a2afcd8fd",
+      "size": 33118,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/achievements/wordsmith.png",
+      "sha": "e38ccb27b014773117e5d81c8693c10070af85c7",
+      "size": 35438,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/app-icon.png",
+      "sha": "8236d95534fa73b2112fd9595a1059af5d563d59",
+      "size": 3310,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/apple-touch-icon.png",
+      "sha": "6aafef57a594298b1de4a2de2d6af66f9d69b532",
+      "size": 2846,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/acode-dark.png",
+      "sha": "f4d76480b88a753f546209194a1f55d821af3442",
+      "size": 32382,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/acode.png",
+      "sha": "5541b5e9f1b6bdbe9937c784792f37b091dc5f4f",
+      "size": 29654,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/antigravity.svg",
+      "sha": "4df965a0c9ed292f5af57ac8d25b860563a5329a",
+      "size": 7610,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/anythingllm.svg",
+      "sha": "fc69a00f73343e40e0c3ae6528a90efc8fec11bb",
+      "size": 1034,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/claude-code.svg",
+      "sha": "62dc0db12dafd49c6232d9275c671237dea6a10a",
+      "size": 1696,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/cline.png",
+      "sha": "ef4b30b6b8ad5c7871fb50dcc1b82ad07ad3d48d",
+      "size": 6190,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/codebuddy.svg",
+      "sha": "ec353e26418e2afe916d1b449298780a3873fc2e",
+      "size": 1589,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/codex.svg",
+      "sha": "547611bb2703a8b22321013e4100d52417dc988c",
+      "size": 4106,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/commandcode.svg",
+      "sha": "f27a1daee758b00da0bebb4f00312b92d39e5ba6",
+      "size": 2752,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/copilot.svg",
+      "sha": "3cbf22a599ec1949030e9f6680f395ae4c00e75b",
+      "size": 2019,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/cursor.svg",
+      "sha": "a5b2ee3b1edeea3785e73ed16bd0476109dce6c7",
+      "size": 547,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/deepseek.svg",
+      "sha": "3fc2302406e22f064f3efda71d8a7bcf0fc1dd41",
+      "size": 2164,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/devin.svg",
+      "sha": "4dcd62ab48912cfaaeea60c2e934d543b178c5c9",
+      "size": 980,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/dots.png",
+      "sha": "5dc728db38d2a701a46bb7e0a7dba1276303e6a8",
+      "size": 2802,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/gemini.svg",
+      "sha": "ecc24b6c2e6e2e4d32ee85b512794e8c92bc2f1c",
+      "size": 8712,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/grok.svg",
+      "sha": "efb1a6183cbd9d1b68471805dc6c663e2a6fd7ff",
+      "size": 756,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/hermes.svg",
+      "sha": "4fa03274d26318b29300563a43c4978322055719",
+      "size": 19781,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/kilo.svg",
+      "sha": "2a4e0aaabc0d40b03d76a3417c295a603a30e03f",
+      "size": 804,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/kimi.svg",
+      "sha": "8f95bd7fc8877dcbe99702bbb0ac9bbaf87fa5dd",
+      "size": 787,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/kiro.svg",
+      "sha": "a3e49c146ac8a44b9718125ff90396a4d5187b24",
+      "size": 767,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/lmstudio.svg",
+      "sha": "76ac28a51156c6cd3115cc96b80a4e3996b58783",
+      "size": 1650,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/mimo.svg",
+      "sha": "15f0675413bd4f525f93caf9eb3a3a9ad1148576",
+      "size": 261,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/omp.svg",
+      "sha": "312de745dd5cd1e029c9fa5589b4d51a81e818b6",
+      "size": 1696,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/openclaw.svg",
+      "sha": "3af39d05545e00911d8436f8fca6ab308cef8abf",
+      "size": 1909,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/opencode.svg",
+      "sha": "b27b35383cae0f60f6f69dff949c3b483094e8fc",
+      "size": 149,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/pi.svg",
+      "sha": "620c68554cd933eff36c6bdb46e700113f9782c8",
+      "size": 591,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/qoder-cn.svg",
+      "sha": "710c072017665819134d81d1beefbb220f2c550e",
+      "size": 1436,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/qoder.svg",
+      "sha": "76910d30aa6020581a5282fab630217af717b51f",
+      "size": 6220,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/reasonix.png",
+      "sha": "9844decd7023d9bd2de1bd91b9e61e917f05f498",
+      "size": 45985,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/trae.svg",
+      "sha": "a7ccfe3db6fd549e252694356c8dad91ed92e251",
+      "size": 398,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/unsloth.svg",
+      "sha": "1af8eb842d4f13337e87478fdfde453cf8c208a0",
+      "size": 2916,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/volcano-ark.svg",
+      "sha": "0b78db174399f32b6263ba971198f840dc87756e",
+      "size": 832,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/brand-logos/zcode.svg",
+      "sha": "495380d119da1a013c93e672c804395f624a71c5",
+      "size": 323,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/happy.svg",
+      "sha": "df3c8b939477b1130f0e7164debbab0a63a2246e",
+      "size": 5697,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/idle/collapse.svg",
+      "sha": "a277dc348c3ad3610aef779d5cac89dfe34ee126",
+      "size": 3367,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/idle/doze.svg",
+      "sha": "29a160a02759094ec74522c51ca506dbe9ba24fa",
+      "size": 2232,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/idle/follow.svg",
+      "sha": "4d194712a06dad143fc7934ff52757159c430999",
+      "size": 1914,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/idle/living.svg",
+      "sha": "1241b1e966182f68036c2d7d1f41f5923f5bba25",
+      "size": 7832,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/idle/look.svg",
+      "sha": "9b2dce6b93b834834285182cbeea76da33d5ecc2",
+      "size": 3969,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/idle/yawn.svg",
+      "sha": "ba76637a8caec7841523db0777c67092bb369efb",
+      "size": 5300,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/mini/alert.svg",
+      "sha": "e15c55833fa1684846efad40c4d5811d3c15cc51",
+      "size": 4373,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/mini/crabwalk.svg",
+      "sha": "d2bb4f58b25c5fcda8785ee712802701599ff79a",
+      "size": 3080,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/mini/enter-sleep.svg",
+      "sha": "f072686d19ff9d9d561074f0e04db44413e9d774",
+      "size": 1797,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/mini/enter.svg",
+      "sha": "63f6124f716a7c6ca0efa2abf6d52a13f1186acf",
+      "size": 2874,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/mini/happy.svg",
+      "sha": "d0756f57a2aca9391029dc2156ac4506d8fb5c78",
+      "size": 4343,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/mini/idle-tight.svg",
+      "sha": "46a869e8f7423844ee2f50b463438bc43f7f48b2",
+      "size": 567,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/mini/idle.svg",
+      "sha": "468840553224d91ab75d81ae8b196c46f9ed95a1",
+      "size": 2690,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/mini/peek.svg",
+      "sha": "7a71f7d7466462cd9aa6079efa50405b328928c3",
+      "size": 2343,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/mini/sleep.svg",
+      "sha": "2e5ed8279df88f1ed56bc7459ccce1e6a65aa935",
+      "size": 3936,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/react/double.svg",
+      "sha": "a96bfd23a5d1afbccc1b90a9410377126167beda",
+      "size": 3759,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/react/drag.svg",
+      "sha": "21610940f0646b90b7771664fe0319354144250c",
+      "size": 3228,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/react/left.svg",
+      "sha": "b5169b3f4ab1768ed284db442da5b3061683d0c6",
+      "size": 3322,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/react/right.svg",
+      "sha": "bc495d1c8b54f21497afc26a0986b00b0438a53f",
+      "size": 3351,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/sleep/collapse-sleep.svg",
+      "sha": "2f9eeb878002e8f0c0fb450f97aa95e988e079d3",
+      "size": 9858,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/sleep/sleeping.svg",
+      "sha": "31a6a2fce98cd7ed554f2cc569f0fd9cb2fb3e2a",
+      "size": 4554,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/sleep/wake.svg",
+      "sha": "16c71a1e82d731b72f51f4431da778904051d402",
+      "size": 6568,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/static-base.svg",
+      "sha": "c53f324abd15f47ae825a99329aec26dbadf5361",
+      "size": 920,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/status/disconnected.svg",
+      "sha": "89eef5ed1179186564b368cf90f7a6d5830131b9",
+      "size": 4932,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/status/error.svg",
+      "sha": "80f31624be3a86ec3f8385819e776b5f7b39a029",
+      "size": 3118,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/status/notification.svg",
+      "sha": "f1502d6c42bb755825df45aee72e686adb61871c",
+      "size": 5717,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/working/building.svg",
+      "sha": "90adcccdadaaa46f619765605edaf30468b868b6",
+      "size": 8323,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/working/carrying.svg",
+      "sha": "77c38abe3179f3c6b84c2f13ce8948cda75b2648",
+      "size": 3834,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/working/conducting.svg",
+      "sha": "19cde123aa1ea8c5dfe0da90adda6ea490dd38df",
+      "size": 4000,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/working/confused.svg",
+      "sha": "4adcde78499e1488b0c5b2a588bb1a410fb846db",
+      "size": 4124,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/working/debugger.svg",
+      "sha": "69e474017e1c38d33f3a4208dd47380aaf8f2f54",
+      "size": 3640,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/working/juggling.svg",
+      "sha": "c6ce6888f3e2a9e55c870e975566efde2b22331f",
+      "size": 2773,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/working/overheated.svg",
+      "sha": "09b5dedbe7a0717f0a592796d89c1932ebd7ece1",
+      "size": 2362,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/working/pushing.svg",
+      "sha": "6643479d36feb30925ea4432fe5c174859133467",
+      "size": 4452,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/working/sweeping.svg",
+      "sha": "bfa88f47e4d3411c8bb190d1d02698337082c327",
+      "size": 2647,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/working/thinking.svg",
+      "sha": "faa151ebb8cecf7317fd263cab4db8397f320e5d",
+      "size": 4129,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/working/typing.svg",
+      "sha": "e6134d1338dfc195476dc7349443fbb004de35b4",
+      "size": 5374,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/working/ultrathink.svg",
+      "sha": "b2b0cb33cbc283fbc0562b1d4726980f3d67caaf",
+      "size": 5874,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/clawd/working/wizard.svg",
+      "sha": "f7c8d6cbf1f18ce2db0e7ab1534a11b19d675dc5",
+      "size": 3401,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/dashboard-dark.png",
+      "sha": "1ddb82b9c5dd20c7d03d4da7773314c8088be65a",
+      "size": 675668,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/favicon-16.png",
+      "sha": "2f8d42ee094379d1f384c019b4582bf859d0f651",
+      "size": 497,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/favicon-32.png",
+      "sha": "09735ff0d5f40ceb78e071e9a3463971d85b883c",
+      "size": 736,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/favicon.ico",
+      "sha": "89f8be4c698efe6372572773d6e7a7f668e4cb7e",
+      "size": 4414,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/feed.xml",
+      "sha": "39179531c5f836724d6f524ccdfa04c40f34079a",
+      "size": 1790,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/icon-192.png",
+      "sha": "dc1083877aa9e489ac32b4b8a286826bcc07a69b",
+      "size": 3037,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/icon-512.png",
+      "sha": "2afa0a1be64baf331ed57f3fb5f6f4ce66eefd3c",
+      "size": 10119,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/legal.css",
+      "sha": "04868e47f516bc6cbfdac4cabdaffe2c3118a459",
+      "size": 1179,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/llms.txt",
+      "sha": "6dfde9fc077b6429b3a3e14a08f62d46f9e85e7e",
+      "size": 2884,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/neon_bg.png",
+      "sha": "e954333da3ff1730e77b67321ff11bf35cbb5f26",
+      "size": 589700,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/pets/byte/spritesheet.webp",
+      "sha": "dd8246547f68e3f81b9faee142d13fb3bcab4b16",
+      "size": 583728,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/pets/ember/spritesheet.webp",
+      "sha": "f09c101f887a4aee23f81f456845cff64a56f5f4",
+      "size": 701412,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/pets/sprout/spritesheet.webp",
+      "sha": "6ffe815bfe722c0dd5d22ed0de1bbe657614c8fc",
+      "size": 667024,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/pricing.html",
+      "sha": "17ad6afafc20ae1aa6ec98264cc0ab2c6804202c",
+      "size": 3060,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/privacy.html",
+      "sha": "2f6893888ce6dffea6b2bfa588048b4d72e2d1d6",
+      "size": 16850,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/robots.txt",
+      "sha": "8307342e02dc4fde56c14ca2a805d6256398d686",
+      "size": 192,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/sitemap.xml",
+      "sha": "6f52cd12f3252579e04ab3917ad89580405f4b0d",
+      "size": 773,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/terms.html",
+      "sha": "d49519b15be36bc0302d6477f7fd3fd4b7b00cfc",
+      "size": 7977,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/public/widgets-overview.png",
+      "sha": "67e41bf1394d394e70febcabc8b71c0d94d70f03",
+      "size": 76941,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/quota.html",
+      "sha": "f00eb6239a6d1a212e1092ee507f7a98b3e3c7bb",
+      "size": 351,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/scripts/capture-dashboard-screenshot.mjs",
+      "sha": "43e80e5713b11ae22f239cdb737811d49fd1b48c",
+      "size": 2302,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/scripts/compare-visual-baselines.mjs",
+      "sha": "3fc14167c935eb1a37d99fcf4ee47aa8bdd8fd27",
+      "size": 9631,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/scripts/copy-registry-plugin.mjs",
+      "sha": "f5ea72ccc0603ba86df182b3ca0c882356ff3c29",
+      "size": 2753,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/scripts/verify-share-clipboard.mjs",
+      "sha": "0160a04c3d3a55d58b23dc920a222c6968d9b5d4",
+      "size": 1469,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/scripts/visual-baseline-config.js",
+      "sha": "cd814373b90c3d6ee4de00c385f4cc7bdd7ebc5f",
+      "size": 642,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/share.html",
+      "sha": "fd12f4ee16957c3030dfe085d520d97169b816e6",
+      "size": 6680,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/App.cloud.test.jsx",
+      "sha": "69346ddc3a3c712b37b6535073142b1e8384e2f4",
+      "size": 4397,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/App.jsx",
+      "sha": "2c54f0642d7b68b54387269d5919c3201e036d6c",
+      "size": 17887,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/App.navigation-preload.test.jsx",
+      "sha": "f86cb1cefe0a4880eac6456871f3124b4fc70a7c",
+      "size": 6190,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/App.preload.test.jsx",
+      "sha": "c714d57d2ff5432fb966d9a40fb820e1a381bf21",
+      "size": 9980,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/DashboardSkeleton.jsx",
+      "sha": "8d80faef89072b5dd68730277f5f1d6ed7505ebf",
+      "size": 5515,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/ErrorBoundary.jsx",
+      "sha": "8ca38af7925c047ddf9af2ee4b0231c88e993f24",
+      "size": 2675,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/InsforgeUserHeaderControls.jsx",
+      "sha": "cde683adf090074f21166bf1f01eed8dd1346d24",
+      "size": 10779,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/InsforgeUserHeaderControls.test.jsx",
+      "sha": "80984bcad3c66c0c588b771bd97d85ac0fda5767",
+      "size": 11481,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/LeaderboardAvatar.jsx",
+      "sha": "dcb9aae45adb3e3cc3ce845ba558118fc4120b33",
+      "size": 2047,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/LeaderboardAvatar.test.jsx",
+      "sha": "84e8b74d3d42711cd13439d75a967264942c3940",
+      "size": 2094,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/LeaderboardProBadge.jsx",
+      "sha": "906cce5cbd03f6dc507b22422448331016a595d1",
+      "size": 1108,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/LeaderboardProviderColumnHeader.jsx",
+      "sha": "a78b5682e04a40f7107c3d7490cfdcd91bbe91db",
+      "size": 950,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/LeaderboardProviderColumnHeader.test.jsx",
+      "sha": "952ba207601b80d441b94f5803e1f15d2aec19a8",
+      "size": 889,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/LeaderboardSkeleton.jsx",
+      "sha": "216f535c28831eedc4f9b936c5eecb4b1a00ca08",
+      "size": 4682,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/LeaderboardSummaryCard.jsx",
+      "sha": "9127f3c479345b335b3de79971fc70d586d9cf9d",
+      "size": 4951,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/LeaderboardSummaryCard.test.jsx",
+      "sha": "aebc55e079d4e834294a76f449b199382a105b8a",
+      "size": 2205,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/LimitsPageSkeleton.jsx",
+      "sha": "49434df06f51f690d11df31478f59c360d641a59",
+      "size": 1721,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/LimitsSettingsPanel.jsx",
+      "sha": "0d040405d77662ea7da956379ec7363f534bb79e",
+      "size": 4763,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/LocalOnlyNotice.jsx",
+      "sha": "095d4df52ab22523d2ee4d7da5a6f40e8253b1a8",
+      "size": 2370,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/LoginCard.jsx",
+      "sha": "ec74b2c32f456e5ac3dc0b2b866477e7d8bccc6f",
+      "size": 28164,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/LoginModal.jsx",
+      "sha": "6777d8cb7e40d0922b0b9f8e3b7ad185d63bb77f",
+      "size": 2413,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/SortableColumnHeader.jsx",
+      "sha": "0af67466401703800742641193e0269fa438250b",
+      "size": 3014,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/cloud/CloudBillingParts.jsx",
+      "sha": "cbbef29f7dc7a356079ab5c7f41859f2367407fb",
+      "size": 8047,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/cloud/CloudContextualPrompt.jsx",
+      "sha": "23822967129b4f32221205b81ad850185fbb63b0",
+      "size": 3569,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/cloud/CloudContextualPrompt.test.jsx",
+      "sha": "8f11a70b57726c59668ed73cf166261bb3d6e055",
+      "size": 7124,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/cloud/CloudMembershipCard.jsx",
+      "sha": "5497c62113ea86e1356cd74f453d057316ed400f",
+      "size": 27659,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/cloud/CloudMembershipCard.test.jsx",
+      "sha": "5500756a710ccd3e66068baaa04f85aaadcd2468",
+      "size": 28036,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/cloud/CloudUsageExport.jsx",
+      "sha": "49067a21923c1cbb408f0bf57ea6b8ed69d2f5f2",
+      "size": 7037,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/cloud/CloudUsageExport.test.jsx",
+      "sha": "affe5349135e4585ae29d2c1866d7c45827fac51",
+      "size": 8411,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/cloud/RedeemProCode.jsx",
+      "sha": "56042eaff06ada96b6c520393fdb5c85b40fbfe3",
+      "size": 6879,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/cloud/RedeemProCode.test.jsx",
+      "sha": "b982ae90ac2caf01d52add2565f52ade59d1a928",
+      "size": 10667,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/leaderboard/CommunityStatsModal.jsx",
+      "sha": "539d76e3e1985396b9cb47ee1090ee3d492fa2c0",
+      "size": 25935,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/leaderboard/CommunityStatsModal.test.jsx",
+      "sha": "eef618abc720b19bccba423f394bcca3516bae4a",
+      "size": 5469,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/leaderboard/LeaderboardProfileModal.jsx",
+      "sha": "53997cf67da6fdd95688b24f4aa5f19758dff2fb",
+      "size": 32190,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/leaderboard/LeaderboardProfileModal.pro.test.jsx",
+      "sha": "677bda803ae06fd3ddac09a6f3a00a00caaa8698",
+      "size": 1756,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/settings/AccountSection.cloud-prompt.test.jsx",
+      "sha": "e1e025c2fe331c664380f68ec7b0995a34b20776",
+      "size": 3345,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/settings/AccountSection.jsx",
+      "sha": "d5a34aa61d31b0ac03808b4cddb655815d982f4a",
+      "size": 6043,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/settings/AccountSectionParts.jsx",
+      "sha": "f7b8ac6dab278894e990cde74a529e3f4559dc93",
+      "size": 8521,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/settings/AccountSectionUtils.js",
+      "sha": "6190f9b665eb7a86c1873383c528336060e269d9",
+      "size": 1229,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/settings/AppearanceSection.jsx",
+      "sha": "fdb76e93c59a8d79fc6991439308e2002bc2ef97",
+      "size": 7270,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/settings/Controls.jsx",
+      "sha": "68c5a16df624ddb8a1bfb0476ab237241fab8366",
+      "size": 3380,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/settings/LabsSection.jsx",
+      "sha": "06249f3a74f4179388dfb9584bb023a0c4521f82",
+      "size": 3426,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/settings/MenuBarSection.jsx",
+      "sha": "ac8bd49af0c57a5e117deff3ec144816bab20e57",
+      "size": 10188,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/settings/MenuBarSection.test.jsx",
+      "sha": "b4e1e96a7556385b87063690b8c17f71aa72a497",
+      "size": 2615,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/settings/NetworkSection.jsx",
+      "sha": "9d84db92f5f5d1a7004e5d292780e6d5c29a67e4",
+      "size": 9695,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/settings/NetworkSection.test.jsx",
+      "sha": "ec338ea7b5db66a88712eac988390e1a6b02514f",
+      "size": 5577,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/settings/useAccountProfileSettings.js",
+      "sha": "ba62c42a7f225230782814c364b287586f57289b",
+      "size": 11121,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/components/settings/useAccountProfileSettings.self-host.test.jsx",
+      "sha": "a4649517a6e75f5a8b3644003b0abf5d75e17cfd",
+      "size": 1424,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/content/copy.csv",
+      "sha": "a6ed62449c32feb3af5e84459ce4713efcd02a8b",
+      "size": 224202,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/content/i18n/de/core.json",
+      "sha": "ef0f498c9f6616752f8d3755d1b0dbe696338cc1",
+      "size": 36922,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/content/i18n/de/dashboard.json",
+      "sha": "4ed65965746ce0f97739d8e87e6683bcae8c9001",
+      "size": 42171,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/content/i18n/de/marketing.json",
+      "sha": "ab53752e009f16d9933059db83c81ededc2ede63",
+      "size": 9659,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/content/i18n/ja/core.json",
+      "sha": "425a16e0de3c0e55c75c7d27b774ab08ea6ce420",
+      "size": 41183,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/content/i18n/ja/dashboard.json",
+      "sha": "3cfc2955af9a165f5eae1c8ee310d8d53cf0c8f2",
+      "size": 46139,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/content/i18n/ja/marketing.json",
+      "sha": "7dc8203bc2a61900e12f6b7ae6acc69120335529",
+      "size": 10634,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/content/i18n/ko/core.json",
+      "sha": "f3bc665357234a0826e1b323df98426171f179d1",
+      "size": 38209,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/content/i18n/ko/dashboard.json",
+      "sha": "b3905720d043b4186c749124658c6e72fd617c51",
+      "size": 42264,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/content/i18n/ko/marketing.json",
+      "sha": "12ff144040a2fbc63d63f7c796010b0327b8df35",
+      "size": 9886,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/content/i18n/zh-TW/core.json",
+      "sha": "d0163b560a94856ef41bd6916c989109592b0adb",
+      "size": 47573,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/content/i18n/zh-TW/dashboard.json",
+      "sha": "ec70efc7ab9098e37f8d9ce386c9352870b16b18",
+      "size": 73365,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/content/i18n/zh-TW/marketing.json",
+      "sha": "0eaae7ea8fc1e200096e1050bb43d425c2042577",
+      "size": 12482,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/content/i18n/zh/core.json",
+      "sha": "41031c8af51d6b84b3ef5a8020fc73d01f780db0",
+      "size": 51142,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/content/i18n/zh/dashboard.json",
+      "sha": "6915d29313c4c1bbc1b3681a23beeb732f5fb6a0",
+      "size": 69109,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/content/i18n/zh/marketing.json",
+      "sha": "538f303e8420393d31cab10285c41d340be8fc24",
+      "size": 12428,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/contexts/AccountViewContext.jsx",
+      "sha": "96a2e1ae26950e26beb5e03f7801d5f411187485",
+      "size": 5788,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/contexts/AccountViewContext.test.jsx",
+      "sha": "8082927c8047cd870a65fe8cdb2ff994c65a822b",
+      "size": 1927,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/contexts/InsforgeAuthContext.d.ts",
+      "sha": "6a5eaa30fa572356d28c257df8a4f22e59f5f20a",
+      "size": 1057,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/contexts/InsforgeAuthContext.jsx",
+      "sha": "c18a2d5caaad5053acb0c0e3ff87fffbfc663fb6",
+      "size": 14899,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/contexts/LoginModalContext.jsx",
+      "sha": "a7e55801c847388984d5523ca587c892ee7c6d54",
+      "size": 665,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/contexts/__tests__/InsforgeAuthContext.account-owner.test.jsx",
+      "sha": "74004990b8ddd9c00af8adebf5ba2007d862cce0",
+      "size": 7457,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/contexts/__tests__/InsforgeAuthContext.initialization.test.jsx",
+      "sha": "7e3dc28c7185d1c86cf360dd8b72c3c01a7e5848",
+      "size": 3286,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/contexts/__tests__/InsforgeAuthContext.native-oauth.test.jsx",
+      "sha": "6b2de96a9b977a4ba4cd588078e71b862be35287",
+      "size": 4858,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/contexts/__tests__/InsforgeAuthContext.signout.test.jsx",
+      "sha": "9690cf8db6834596e00af279a37ca5694153cabd",
+      "size": 4343,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/contexts/__tests__/InsforgeAuthContext.test.jsx",
+      "sha": "6ef6ccfddadb0c5e275eae0b2b7087d1f826c217",
+      "size": 4552,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-account-devices.test.tsx",
+      "sha": "cfbea95338ebc01380a03f3dca0276a2214f8bd8",
+      "size": 1554,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-account-devices.ts",
+      "sha": "f45de5ef6eefcb8086c4fbd1719cd629948a021b",
+      "size": 2702,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-achievements.js",
+      "sha": "360506580fbaa796569d6beac47bbf159e9c4070",
+      "size": 1416,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-activity-heatmap.test.ts",
+      "sha": "85d62f7be7d3427c1555b08c9cdf49dcec52dc27",
+      "size": 4400,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-activity-heatmap.ts",
+      "sha": "df845259c1575a6359489ecef2cceb3a42d20c44",
+      "size": 12183,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-cloud-billing.js",
+      "sha": "1be19409834bbcc14b60980f0a0b6e4d4cc6a238",
+      "size": 6030,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-cloud-billing.test.jsx",
+      "sha": "3244dd01dfddc92ca0d934aad341aeb57faf925c",
+      "size": 9761,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-cloud-usage-sync.test.tsx",
+      "sha": "3e675ae09859a495fb5e549854654f37e51f3be1",
+      "size": 5024,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-cloud-usage-sync.ts",
+      "sha": "2321aafb5e3f9c74d9fb57ac2ec9409f8ecc6ddb",
+      "size": 3084,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-column-order.js",
+      "sha": "f2e0ec966945aae3cc370b6269b86cc3d48c55ee",
+      "size": 371,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-community-stats.js",
+      "sha": "9c73b900e3081b04b9f179915672e67fb50948a1",
+      "size": 9068,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-community-stats.test.js",
+      "sha": "2943dd58404a0ec64d8bbdd21debdb527f1ffacf",
+      "size": 6553,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-dashboard-card-order.js",
+      "sha": "93b24175a4efac9a5a9715f342aaf565eacb075b",
+      "size": 939,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-latest-request-guard.ts",
+      "sha": "75e0ff331e025f90aa1215114b8e3cd0e9ed9d99",
+      "size": 1445,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-limit-alert-prefs.ts",
+      "sha": "4a8f669c894b2fb355644a219bf65bda0a34a63f",
+      "size": 1161,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-limits-display-prefs.d.ts",
+      "sha": "f81391255593613ca4d797fee203119c1143b41f",
+      "size": 998,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-limits-display-prefs.js",
+      "sha": "da664843b2234a2ec16b6739f4f2debe60e73f52",
+      "size": 15409,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-limits-display-prefs.test.js",
+      "sha": "4441bcdc83ebc3ce072df1b0a86560bbe8239baa",
+      "size": 28673,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-native-settings.js",
+      "sha": "4969f079cad99c168869b8fd95e8c63a0980d56f",
+      "size": 1553,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-ordered-list.js",
+      "sha": "2ca4bda4897a52c3e5094bbffbd30465eff19464",
+      "size": 2744,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-pet-catalog.js",
+      "sha": "541bd8878cb92495b37413d1c797ca6d56ca1e05",
+      "size": 1024,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-pet-settings.js",
+      "sha": "4cf096a4b0c05bf0ad988c1d82f0436123830f42",
+      "size": 1803,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-project-usage-detail.test.tsx",
+      "sha": "8f1d71c35c669d63bb96bd4d387d7c37cfa19d8f",
+      "size": 1375,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-project-usage-detail.ts",
+      "sha": "eab03cd19f0b9b748b2445b5fe6ff4f54f670a64",
+      "size": 1596,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-project-usage-summary.ts",
+      "sha": "db1a3ad85521b7e31e9ed8ede956a246c02bbeaa",
+      "size": 2614,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-proxy-settings.js",
+      "sha": "f5bc23cf1684813d17e52ae7d29e5a4f376f9098",
+      "size": 4521,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-proxy-settings.test.js",
+      "sha": "3a5caea49cd3d0f0ff39a80fb909f434d7232668",
+      "size": 7051,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-quality-per-dollar-pref.js",
+      "sha": "51ecc31e33c2c9ac50361c915c78e7ef3cd70944",
+      "size": 1608,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-quality-per-dollar.ts",
+      "sha": "06ed226212512737fe0f88e02121884e2552bac3",
+      "size": 1809,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-session-efficiency-pref.js",
+      "sha": "ff8ef175daf7cd2e930e7a06193c4c9a68fe11aa",
+      "size": 1235,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-trend-data.issue360.test.tsx",
+      "sha": "5acb175018ae276e513ad5f72aef08ecea7577f9",
+      "size": 2612,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-trend-data.test.tsx",
+      "sha": "0c510931d0e727ef3c3dc8416d6ccda544aa9b3e",
+      "size": 14436,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-trend-data.ts",
+      "sha": "7f22e5f688c1964254904d11ce72d05e97e2f9b3",
+      "size": 28866,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-usage-data.account-resolving.test.ts",
+      "sha": "286d07f89c11af0018044f11bb00639c12081cd5",
+      "size": 5528,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-usage-data.device.test.tsx",
+      "sha": "ff124586bed836bf0c06bcecc2d058952b1fdd53",
+      "size": 4250,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-usage-data.ts",
+      "sha": "910c92bf83a48945d99ee782597c3ddc36e2d303",
+      "size": 16613,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-usage-limits.test.ts",
+      "sha": "13295297493d8dd9c4cb70ada9b693b77c801e6e",
+      "size": 13506,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-usage-limits.ts",
+      "sha": "27d75a62e061ed75b946912701e6429763d3d220",
+      "size": 16044,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-usage-model-breakdown.test.tsx",
+      "sha": "201678322469288654e5aee747af329413fd72a3",
+      "size": 2404,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/use-usage-model-breakdown.ts",
+      "sha": "f6c22b8525aa99e5a57448a0953f23db8d4e9a6f",
+      "size": 6912,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/useClawdState.js",
+      "sha": "41728b8d91c067a1381666428013ba7723e5e702",
+      "size": 1311,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/useCurrency.js",
+      "sha": "41039c70f5895d3320f1d0f77077845a6c560739",
+      "size": 732,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/useLocale.js",
+      "sha": "f2ed680ab09fb47f5faed29b6e94cca84ca8359d",
+      "size": 302,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/useTheme.js",
+      "sha": "4a5edef7ef264fdda923cbba3e23738fd7e7e713",
+      "size": 612,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/hooks/useTokenFormat.js",
+      "sha": "9cb9f57dcc9b6c54561fdd9497e48275d9001774",
+      "size": 660,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/__tests__/api-public-visibility.test.ts",
+      "sha": "c08e4193a1e95b003f230cf3af08b81d41ee2772",
+      "size": 5757,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/__tests__/auth-token.test.ts",
+      "sha": "b9cb830336afd552da4b67c8fbb0905140aeb85a",
+      "size": 2301,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/__tests__/leaderboard-columns.test.js",
+      "sha": "850a72e41473723e67312ad51acc2257ff67b6cf",
+      "size": 843,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/__tests__/leaderboard-ui.test.js",
+      "sha": "d8aaa375212d6e290c9efc91ebacef851bdcc4d1",
+      "size": 3875,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/activity-heatmap.ts",
+      "sha": "d52f1c6574ce073dff33cde96f3089d1c8f9ee24",
+      "size": 5710,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/adaptive-refresh.test.ts",
+      "sha": "f27b04eb42c2ce821f1c5303363847fe322a9d67",
+      "size": 1079,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/adaptive-refresh.ts",
+      "sha": "e4d60a5385ecfc46eeba4cf26d3b85414264cee1",
+      "size": 1026,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/analytics.js",
+      "sha": "2f3c0cfb6b81b56a87cf5a20d192cc64ead7f950",
+      "size": 3198,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/api-request-coalescing.test.ts",
+      "sha": "ab38f9adb520cc57889e4cebf8403575c3eb8a2b",
+      "size": 2903,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/api.account-cache.test.ts",
+      "sha": "80982128e74aa417260b19415514472bd410136a",
+      "size": 8866,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/api.cloud-prompt.test.ts",
+      "sha": "5b351c53b53011cd2da03ad56af0386cefe55abd",
+      "size": 1582,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/api.device.test.ts",
+      "sha": "fb17bfbe5299966f06ee2ac36b6f1dd336e10acd",
+      "size": 3580,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/api.local-sync.test.ts",
+      "sha": "8f869b521230876d40c6243e479f1b97a685cb23",
+      "size": 1562,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/api.ts",
+      "sha": "40d341feaebfe47f82075f9b737b83faf7bb246d",
+      "size": 37679,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/auth-token.d.ts",
+      "sha": "359704e3612422cb7e21d43378f0fe52d91c1ed6",
+      "size": 708,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/auth-token.js",
+      "sha": "ae488b6a26dc7534577d5ed5f2abef102141d30e",
+      "size": 3914,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/bot-appearance.js",
+      "sha": "0417aa71f9ba7502d1480f785c8875759b17d776",
+      "size": 5572,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/bot/README.md",
+      "sha": "2e4b2d5f3430cabe5fe24e7f5efdde88301eec88",
+      "size": 3819,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/bot/cycles.test.ts",
+      "sha": "6b392e71e7e887f0fd472a1accc19d22e194ef76",
+      "size": 8496,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/bot/cycles.ts",
+      "sha": "9b4f4b0dd18899ed68d73b3c5065fa2b0ca7f785",
+      "size": 8924,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/bot/decor.ts",
+      "sha": "d4f3e5c9f1a95d92fd4959f0614f179f5b22208c",
+      "size": 8652,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/bot/engine.test.ts",
+      "sha": "a330e072561ff248c241d4e4c66170cbd503ba56",
+      "size": 22209,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/bot/engine.ts",
+      "sha": "f8aa414ba3e5961d18e4b6900a683abf071d4e70",
+      "size": 22227,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/bot/expressions.test.ts",
+      "sha": "94141c56d63b1617ddc1371aac8019ad45f36311",
+      "size": 5913,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/bot/expressions.ts",
+      "sha": "5a9050b2e50cf31de89ccf67c76e5cf8ee84f2eb",
+      "size": 5539,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/bot/eyefit.ts",
+      "sha": "7ea575d741a8cd0425b8433732d5bcc7d710da0e",
+      "size": 18589,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/bot/face.test.ts",
+      "sha": "fbb8ee0269b1054e3368cd59306aa0cf0d010fd7",
+      "size": 3503,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/bot/face.ts",
+      "sha": "5abac450913cf57b60abf578301b3bd6773b580e",
+      "size": 5832,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/bot/math.ts",
+      "sha": "9de00b2864885cd38dab1d91878d6bc1885c8de0",
+      "size": 1566,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/bot/profiles.ts",
+      "sha": "fd8bef1426a94b99f82622e00255e52b9f16d648",
+      "size": 2077,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/bot/repere.ts",
+      "sha": "c8c8b9adc1a000d3586fca7d9ed5878952ccdf65",
+      "size": 1317,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/bot/shape.test.ts",
+      "sha": "32e2a63ef00c49301efc234d6c03bdb0cb7ea970",
+      "size": 4169,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/bot/shape.ts",
+      "sha": "12adcebb385e48b75b57697c4cd9ab3a09bb23b9",
+      "size": 10222,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/bot/skins.test.ts",
+      "sha": "91c19377392d9e219a29609842518ab86765e3b5",
+      "size": 13165,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/bot/skins.ts",
+      "sha": "b7af8dbd28b661857f82b841baa2ba400c9a93fe",
+      "size": 4785,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/bot/states.ts",
+      "sha": "7b886c6f0d9042d86b21a82474cf847cff56f96c",
+      "size": 17031,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/cloud-billing.test.js",
+      "sha": "44f859b5ceb7ab48adbe0829a46d317f588ff71d",
+      "size": 8618,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/cloud-billing.ts",
+      "sha": "0f594f3f272c74392b802da22f84aa990317e544",
+      "size": 6463,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/cloud-checkout.js",
+      "sha": "bcc521c8e36a47c040c0d11094f6397fda804367",
+      "size": 4314,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/cloud-external.test.js",
+      "sha": "a10fa8cf0accb9882458a7e2972b2313d2157e4b",
+      "size": 3248,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/cloud-instance-namespace.test.js",
+      "sha": "57b326a01531c253592d44220c1963904632a326",
+      "size": 2219,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/cloud-prompt-policy.d.ts",
+      "sha": "a0b593d7e4c41bb501c5f2699969b8dc1fb2acb1",
+      "size": 2062,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/cloud-prompt-policy.js",
+      "sha": "a082c8791c031e16524e1f182a0b11068f2516e3",
+      "size": 10541,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/cloud-prompt-policy.test.js",
+      "sha": "c48be37de11d539495b1bb8f7462527614556d96",
+      "size": 12629,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/cloud-request-instance.test.ts",
+      "sha": "15b106015ed476253fa3cfcfa91bb8dc3e58e2e3",
+      "size": 3850,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/cloud-sync-prefs.test.ts",
+      "sha": "eb6ab2e7795afe204d48f899469afd1d86c63bad",
+      "size": 3772,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/cloud-sync-prefs.ts",
+      "sha": "85fe654adba556f97aa3223aa23c100e21195ead",
+      "size": 7827,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/cloud-sync.test.ts",
+      "sha": "06a2b304c8f7c4f61fb402adab429370e24b3200",
+      "size": 10964,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/cloud-sync.ts",
+      "sha": "7d1d93cb174e94519ede45803e907fb38b1aabd2",
+      "size": 9041,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/cloud-usage-export.test.js",
+      "sha": "73c80d88eb9bdfa66bb7f965ee415a69835b3351",
+      "size": 8941,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/cloud-usage-export.ts",
+      "sha": "64703e7df7b1daa6c69df081e980d0571b339d7d",
+      "size": 9759,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/cn.ts",
+      "sha": "a5ef193506d07d0459fec4f187af08283094d7c8",
+      "size": 169,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/config.ts",
+      "sha": "e6d5cc668e53e735baba35a7b16f7bcbbf656cfb",
+      "size": 1895,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/copy.ts",
+      "sha": "e12e1d232163ca3eb24c3c0f937e564b094e4dac",
+      "size": 3204,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/currency.test.ts",
+      "sha": "1062033c99c5eea564d8c9d0fb4132334a6970cc",
+      "size": 5465,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/currency.ts",
+      "sha": "f87d773a3b5f3b5f4a48e7fdb2ab33f300412ebd",
+      "size": 5476,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/daily-breakdown.test.ts",
+      "sha": "fe5c96c34c52d6659ad60bd491b0751bf6f9ce94",
+      "size": 1232,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/daily-breakdown.ts",
+      "sha": "00b90ac491f0a86a262159bb33e1d10d8d13908d",
+      "size": 1456,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/daily.ts",
+      "sha": "f65e9fc589775c59cd24d19851606438a2c5ba04",
+      "size": 1373,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/dashboard-preload.d.ts",
+      "sha": "267f907690af682623d438d41027a3d7e44363ae",
+      "size": 3997,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/dashboard-preload.js",
+      "sha": "7dc627ff221e5ffea3509babf714f4bac60bb61f",
+      "size": 14215,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/dashboard-preload.leaderboard.test.js",
+      "sha": "91849c84845fa10dc107360e9b797533a0cdc685",
+      "size": 11716,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/dashboard-preload.silent.test.js",
+      "sha": "298c8e344fd7f4926cd5dc41ab0073c39a6a847e",
+      "size": 1778,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/dashboard-preload.test.js",
+      "sha": "ce7ca577927f3bcc82b8295a0ee6e10eb0fd6ed5",
+      "size": 11965,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/dashboard-refresh.test.ts",
+      "sha": "b420df4219081cc7bf90025871a380b0a65a4be6",
+      "size": 1273,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/dashboard-refresh.ts",
+      "sha": "cfb556d49aa56415ef2966eec0afc6e736fa7f70",
+      "size": 677,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/date-range.ts",
+      "sha": "3ebc8edde8e953be6b64687265031a1ee656f7a3",
+      "size": 2932,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/desktop-quota.js",
+      "sha": "23c6bb67d5ad597a94e07d4ad57b6783373cf5d8",
+      "size": 3280,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/desktop-quota.test.js",
+      "sha": "7f118f9eceaeab400407d3af4274c457938cb277",
+      "size": 4129,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/detail-sort.ts",
+      "sha": "fd9719b70cb4e3d4df2864a79f683643a0776cab",
+      "size": 4561,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/details.ts",
+      "sha": "4e9417a91f0130608c0d94f4a1d672687bb8c4de",
+      "size": 1534,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/device-label.js",
+      "sha": "b2de835c68942b53d2a78d7331369adef3fba073",
+      "size": 1756,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/device-label.test.js",
+      "sha": "becb798815f4ef8c1cc5f52b6046fda19def464b",
+      "size": 1516,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/exchange-rate.test.ts",
+      "sha": "8debc971bafe39c404b4f4b829f678aafb90e50b",
+      "size": 2726,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/exchange-rate.ts",
+      "sha": "437f9b672547b36c497ac92e1962d2b9f56de39d",
+      "size": 2357,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/format-grouping.test.ts",
+      "sha": "b385157cb119593162c8ffafef26c959967d5857",
+      "size": 1990,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/format-tokens.js",
+      "sha": "917f90c508b7b471ad8a5c0d5ecf09032d0ae669",
+      "size": 413,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/format.test.ts",
+      "sha": "e31561f255d125d03d9e3491809e135b3167067e",
+      "size": 5306,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/format.ts",
+      "sha": "6b8e40d63a260b87540ab4143fc84d784d6e0d3f",
+      "size": 7058,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/function-url.test.ts",
+      "sha": "5ce64503b659ad596b9d82343f1c9dcd4adffa97",
+      "size": 2164,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/function-url.ts",
+      "sha": "58492a7918eb9228e3f9b2b33a0df7a37f7cfadd",
+      "size": 1080,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/heatmap-compact.d.ts",
+      "sha": "fc498b620efa7a4764d6706dd35cb376511f288d",
+      "size": 57,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/heatmap-compact.js",
+      "sha": "41f4cb6b51f322e3c42476472087086d121642d7",
+      "size": 2968,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/host-mode.ts",
+      "sha": "9299c233c365eeca040398277e3f4945a43eda01",
+      "size": 726,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/insforge-config.test.ts",
+      "sha": "05ade9f2756500160389ee5bfed3262c96b3104b",
+      "size": 4900,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/insforge-config.ts",
+      "sha": "cdb24e1bd7b4870dabf2b7d95daa199f21d9cd99",
+      "size": 6991,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/insforge-deployment-config.d.mts",
+      "sha": "8b72294de35ef819f6f0e5ee959ec341604f89a0",
+      "size": 508,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/insforge-deployment-config.mjs",
+      "sha": "32882da4a12a1db2f9cc21ab240f844a9e139047",
+      "size": 2269,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/insforge-deployment-config.test.js",
+      "sha": "af3a3c25afe7d6d02eac355a45f439d7b029bb6c",
+      "size": 5422,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/insforge-session-recovery.mjs",
+      "sha": "95c0c30ed485fa2734d1c632596ceacb458d1d1b",
+      "size": 1740,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/install-status.js",
+      "sha": "3dbd4dcc384f1a2eecdeae942391c4b89b24f338",
+      "size": 344,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/leaderboard-columns.js",
+      "sha": "f1330735c40cb4d9b81fc68e571cec1748c730a5",
+      "size": 4050,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/leaderboard-ui.js",
+      "sha": "a5ee447f781387377c23ed20626fe41c51521531",
+      "size": 2965,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/limit-alerts.d.ts",
+      "sha": "8943831b50f02224d483e35170f3aa6f3ea3a60a",
+      "size": 370,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/limit-alerts.js",
+      "sha": "5bbe01c48bae29af61c0b4a171339be9d2f432f3",
+      "size": 3136,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/limit-alerts.test.js",
+      "sha": "be46174fba6a4f7f1864fac93d635ce0e2bdbf00",
+      "size": 941,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/limit-pace.js",
+      "sha": "3b7de165f39267d3d965b3c3a114d36c76550c13",
+      "size": 3544,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/limit-pace.test.js",
+      "sha": "024de2213d7bd23746e814c3e360c34a4f1a4eda",
+      "size": 1684,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/limits-providers.js",
+      "sha": "4edd81cce454c4e11d8c5e3b88bd971d1aca0105",
+      "size": 2881,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/local-api-auth.ts",
+      "sha": "c00ffae0fdb64af0883a43ad66b4d1627b9335b2",
+      "size": 1011,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/local-storage-lru.ts",
+      "sha": "aa9850b2c79b9f19dfe966c571e4a68511fc158e",
+      "size": 1121,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/local-usage-auto-refresh.test.ts",
+      "sha": "97b2469778017ec68bf2978b7ea34b91346a7e66",
+      "size": 3271,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/local-usage-auto-refresh.ts",
+      "sha": "88820948df7a9d32a5cb4d76c56b269878516988",
+      "size": 2563,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/locale.test.ts",
+      "sha": "91f3643c847eb8c4aa53661ae7fdd5d88fd280b2",
+      "size": 3930,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/locale.ts",
+      "sha": "bfa0026be5bd49e67433516b4922d4623868a6f2",
+      "size": 2674,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/menu-bar-display.js",
+      "sha": "6cb07f55b6fad3553a9338935236af67298bbd83",
+      "size": 3659,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/menu-bar-display.test.js",
+      "sha": "011570bcbec9e4b2ed34fa762947e54a2d04a9a1",
+      "size": 1516,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/mock-data.ts",
+      "sha": "a329c60faa70b89a5ea26ec3888d1d64a9360128",
+      "size": 40505,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/mock-mode.ts",
+      "sha": "19a6754b87015612d53cb0165a1152fffacd2e7d",
+      "size": 578,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/model-breakdown.test.ts",
+      "sha": "478ec7844df0c6e17e00b18a7dd9a672a7e9a819",
+      "size": 7959,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/model-breakdown.ts",
+      "sha": "66e2e4c98f578004fcf62f5b2e981e65e4cd5a5f",
+      "size": 15251,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/native-bridge.cloud-export.test.js",
+      "sha": "b715d49d8c62005a34354de884413066d5b61093",
+      "size": 5267,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/native-bridge.d.ts",
+      "sha": "87f18d474e25990b60faee080a3f724a8aa579b1",
+      "size": 192,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/native-bridge.js",
+      "sha": "40689af816dd639686ca3a8577f4e7c45d44e464",
+      "size": 12181,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/native-bridge.oauth.test.js",
+      "sha": "23d83afd36058a9bdd1f69e44e81dfacb5983169",
+      "size": 954,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/notification-permission.d.ts",
+      "sha": "632b87819e2a79c14442b84146ca967757a8537d",
+      "size": 220,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/notification-permission.js",
+      "sha": "5b3671e7732bcdaa5bfc2eec6f7f888ad0f8d850",
+      "size": 2246,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/notification-permission.test.js",
+      "sha": "7ba99f4b2c5c89e848884e874179a476994a7042",
+      "size": 1744,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/oklch-fallback.js",
+      "sha": "313ea8808347f868ba5cf3baa74c502a9c8e76e5",
+      "size": 2485,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/os.ts",
+      "sha": "4c843bcaad269d346a30a1b9e7e502a95e3414f3",
+      "size": 1343,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/pet-appearance.js",
+      "sha": "65ce67368168aaff55e68847d1cc1a265a9708d2",
+      "size": 1230,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/pet-appearance.test.js",
+      "sha": "e5fcece56548cd64b1297e28f2457964a9f9f9e3",
+      "size": 471,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/pet-linux-host.js",
+      "sha": "2902ef2f649098582173f330e30a5f316ce09821",
+      "size": 11214,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/pet-linux-host.test.js",
+      "sha": "1f067e60622c83b7c5c2ca3a794ce5dc91bcde36",
+      "size": 8010,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/pet-personality.js",
+      "sha": "2b3c74f5767cd371f36c4f4a9a11c9baa2848f02",
+      "size": 2811,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/pet-personality.test.js",
+      "sha": "1bb748f25b734bb25b0846e00a517ab0669c23ab",
+      "size": 1378,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/pet-quips.js",
+      "sha": "4b2f9d393c2244d6b1cebf7b861dbb441e431ec9",
+      "size": 30764,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/pet-quips.test.js",
+      "sha": "2f202ce0e8936cd52fdd68e8950c6ae4ddb3b04f",
+      "size": 6480,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/pets-api.js",
+      "sha": "f00341f7267163c1cd4a11d15892427ae2849e54",
+      "size": 2981,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/pets-api.test.js",
+      "sha": "06de5e3853f7b66d01cdb09ab96a741c6cfca5da",
+      "size": 966,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/provider-display.js",
+      "sha": "a3e5cc8be72e667fa31d746aea47e82e66a16725",
+      "size": 2565,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/provider-display.test.js",
+      "sha": "c4362f2dc60e6d58630fe3a4eed5d0271a6c9e65",
+      "size": 3872,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/safe-browser.ts",
+      "sha": "4c8473f37d51b8a696659397f71ca510fac6b2da",
+      "size": 2057,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/screenshot-mode.js",
+      "sha": "bc99ecd4fe9fc7dab0504819102cb2218e336628",
+      "size": 282,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/session-format.js",
+      "sha": "d203747f8ed1ac2bbc66273a68ab7fe1a5530fd7",
+      "size": 1105,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/sessions-api.ts",
+      "sha": "57b9cf1c6392fae31d2d833962de5f91c5396720",
+      "size": 5985,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/sessions-insights.js",
+      "sha": "9714e9e8e0f44c5e35650c5b9f3bf66dcdbba2de",
+      "size": 5166,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/sessions-insights.test.js",
+      "sha": "f69f142dd062cef92e201359f2745c5a0ea906a2",
+      "size": 3998,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/single-flight.js",
+      "sha": "e9f723961f8e5c8e173b44e096ef375878413e19",
+      "size": 976,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/single-flight.test.js",
+      "sha": "2095ff350cde262d789344389d4281c5c73ee680",
+      "size": 1601,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/skills-api.ts",
+      "sha": "ef3986a751d5cab9481536ab36a1fe23a678fc85",
+      "size": 5550,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/skills-inventory.test.ts",
+      "sha": "cf24f63f4e50aeb3d678f04a533fd5036cabe55b",
+      "size": 6337,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/skills-inventory.ts",
+      "sha": "33459a9b2da90f72edbded0f02901fdac7130db7",
+      "size": 6486,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/subscription-display.js",
+      "sha": "d9201eb32b5b525dd3bb8c756d2b2b45b9319a66",
+      "size": 7546,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/subscription-display.test.js",
+      "sha": "b83c94dd863ddaf7216066079f5f7f30c9b35474",
+      "size": 7141,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/subscription-manager-api.js",
+      "sha": "10b472a33a3fd860d0d6465ac96e49c1bcd7d1be",
+      "size": 1447,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/timezone.ts",
+      "sha": "2c0d7e42b20f3f0c2d38459c7d2989c30668d8b3",
+      "size": 4765,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/token-format.js",
+      "sha": "e97471971446743b4b87e878008110c533722bbe",
+      "size": 5055,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/token-format.test.js",
+      "sha": "a2afb838204f1eaad6a7b139e7cb554ae2cfbeb0",
+      "size": 5107,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/token-grouping.test.js",
+      "sha": "6322b7819ce9673fe487e58c4e7083840f4613ca",
+      "size": 1022,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/trend-stats.js",
+      "sha": "16a91a8225101c25c894f3bcac83282ae6577d64",
+      "size": 7542,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/lib/trend-stats.test.js",
+      "sha": "f3ed887a9dce0aa29727871e620f289ddb18d276",
+      "size": 5177,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/main.jsx",
+      "sha": "27e430fdd7089ab89dc52e4b20529f6d439f9ae4",
+      "size": 1318,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/AchievementsPage.jsx",
+      "sha": "d47460cfa792bb5c2548f949ab6343d60e53b70a",
+      "size": 8396,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/AchievementsPage.test.jsx",
+      "sha": "dbe6470b9b9f42677737728c44ae6db06924547a",
+      "size": 1974,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/CloudCheckoutPage.jsx",
+      "sha": "91b9c61f155490665ea00f6621ac6c46623c84a0",
+      "size": 27297,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/CloudCheckoutPage.test.jsx",
+      "sha": "c2d5272be317239d4ef6337b0720ee99d640dec0",
+      "size": 45212,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/CloudPage.jsx",
+      "sha": "912f830f82c5436c7a1c41bb6d0474e0f791b605",
+      "size": 18492,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/DashboardPage.jsx",
+      "sha": "e10bc183742faf11fa573a460d1128db3e855d8b",
+      "size": 53921,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/DevicePage.jsx",
+      "sha": "38dadb0da76b2fa5b60d2563799ba6c7af3860cc",
+      "size": 7017,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/IpCheckPage.jsx",
+      "sha": "d9fa7a052357cc57a758c7ea6dd4001cb878da4f",
+      "size": 69115,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/LandingPage.jsx",
+      "sha": "17d216f4a87451042578517fc17bdf4596d72bed",
+      "size": 3393,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/LeaderboardPage.jsx",
+      "sha": "d7aa8ca5b1c25b41b0a080b0e522fe523a87f18f",
+      "size": 53617,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/LeaderboardPage.test.jsx",
+      "sha": "4650917a8dd33bdc7536a722d72a93083c10e094",
+      "size": 20538,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/LeaderboardProfilePage.jsx",
+      "sha": "f4bfef9e1e597d6dd55b4f39acb63e7585590f26",
+      "size": 8036,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/LimitsPage.jsx",
+      "sha": "bd814cc843dfc75f2a3430adb2521e37d9a2add2",
+      "size": 11305,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/LimitsPage.test.jsx",
+      "sha": "7539b8bce282792f6aa145cdce1a7b48a54f5bd7",
+      "size": 7633,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/LoginPage.jsx",
+      "sha": "5613d5ace31775d2aef25fd159a17ce40667735a",
+      "size": 5633,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/LoginPage.oauth-return.test.jsx",
+      "sha": "9e45da2aa2d7743750cfa0b9a6160598922ba54c",
+      "size": 2489,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/NativeAuthCallbackPage.jsx",
+      "sha": "e577c0804ffe2d6500ae822c66a91989657e3998",
+      "size": 6534,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/PetPage.jsx",
+      "sha": "19c8fe746dc0c1578a9042ac8cbe7945ea7e64c7",
+      "size": 32120,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/PetPage.test.jsx",
+      "sha": "d4d6160ee070de4e83bab342017f964b89bc0492",
+      "size": 7992,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/ResetPasswordPage.jsx",
+      "sha": "5936ae52f93364d396c12ec81123b6210d3afffd",
+      "size": 2583,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/ResetPasswordPage.test.jsx",
+      "sha": "095b412532801a0ad9700d4fcb3151951a1bd3e0",
+      "size": 3560,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/SelfHostPage.jsx",
+      "sha": "13431edd1ddac1521894e87c924526d085b7c483",
+      "size": 4240,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/SelfHostPage.test.jsx",
+      "sha": "1dfe5bac69c15a8b6df8fabd03baccff78eb950d",
+      "size": 2097,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/ServiceStatusPage.jsx",
+      "sha": "f8a01a15647ceb85354a6a30ab92cef4237d98fd",
+      "size": 12681,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/ServiceStatusPage.test.jsx",
+      "sha": "544fd6744f3207796300f0024b64691c17b1341c",
+      "size": 5101,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/SessionsPage.jsx",
+      "sha": "332ae0fa94c58830efafbc6ce4a0ccd4621ba4fa",
+      "size": 42848,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/SessionsPage.test.jsx",
+      "sha": "ca5f20b1983997aed128c13e5fae61901e4be834",
+      "size": 32371,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/SettingsPage.jsx",
+      "sha": "d77dc6a291975a85e7d04f9721049252c0d817ce",
+      "size": 13307,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/SettingsPage.test.jsx",
+      "sha": "7045f95507e7c36f0ff01248ccb00fac2aaefb81",
+      "size": 10640,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/SkillDetailPanel.jsx",
+      "sha": "bef784575322558a55718cb0133ffdc29ff658cd",
+      "size": 17798,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/SkillsPage.jsx",
+      "sha": "1ee8722228399cc9f5a3c8cf7ccf75f9525ba75f",
+      "size": 79859,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/SkillsPage.test.jsx",
+      "sha": "09c3c74de8ee8b8809702d743bf8755e073f7a21",
+      "size": 15794,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/WidgetsPage.jsx",
+      "sha": "75689b860b5558db977cf56ef1cdfa449fc4fe30",
+      "size": 29356,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/WidgetsPage.test.jsx",
+      "sha": "583c0f828dcade3a9dc3b13bb9a3d54c0c91d220",
+      "size": 5786,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/WrappedPage.jsx",
+      "sha": "e43bfb036d502040958227cef3629329d5b55ddf",
+      "size": 9747,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/sessions-layout.css",
+      "sha": "c1f69c0982d7952e01c52b3673904d85c7c2814a",
+      "size": 3212,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pages/should-defer-mount.js",
+      "sha": "86def0367992da5dbffa3fa36b97605b565a20df",
+      "size": 172,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/pet.jsx",
+      "sha": "2283de202c94a1a4fe0c8e1fd3af044bf337701c",
+      "size": 39917,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/quota.css",
+      "sha": "285a94d7ec8b61e2cbaee81829d79ebf507654c6",
+      "size": 6088,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/quota.jsx",
+      "sha": "f303094810670b9db9040b0d43dfeae5a241b1ac",
+      "size": 7593,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/quota.test.jsx",
+      "sha": "8e19bfb9d3ddc80d74a927be2e176792a4d479a1",
+      "size": 2264,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/styles.css",
+      "sha": "de4e2eb984f7aa08fa901f0dd206a5f05769152b",
+      "size": 30232,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/test/setupTests.ts",
+      "sha": "efb702d1fd1b01a2499fc36e0c504d0b69b69a63",
+      "size": 754,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/test/test-utils.tsx",
+      "sha": "2a07eca232d65c6a1f7f0e624c760c58a6ee5db8",
+      "size": 69,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/achievements/AchievementBadge.jsx",
+      "sha": "e688c51e2617f849ff03ab586db060adf8d07bfb",
+      "size": 3091,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/achievements/AchievementsSection.jsx",
+      "sha": "fbc55cd0eae8424f6d7d409537e5bfcc96181fd0",
+      "size": 6789,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/achievements/AchievementsSection.test.jsx",
+      "sha": "9cc0ebcaa219cde722e581d2ab525ab6ba4e22c3",
+      "size": 3676,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/achievements/AvatarWithBadge.jsx",
+      "sha": "0badd16e3aaabe3e6299a5dfd7d891322da2883b",
+      "size": 952,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/achievements/Badge3DCoin.jsx",
+      "sha": "b4cc329538ac0003b6ed332b1a9820cd8c446cdf",
+      "size": 11780,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/achievements/BadgeDetailModal.jsx",
+      "sha": "5e41fac1d2d41d6bf1225db2f053a596bad30afd",
+      "size": 10634,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/achievements/BadgeDetailModal.test.jsx",
+      "sha": "ad166dc3da20a30d73f65c5b570dc87668febe65",
+      "size": 859,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/achievements/BadgeMini.jsx",
+      "sha": "26a7832150094f5c22a8922bf69b16333f313d88",
+      "size": 1590,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/achievements/BadgeStrip.jsx",
+      "sha": "a1cf1ccb7c35ac84c2ade316827bd03ef436677f",
+      "size": 2188,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/achievements/achievement-format.js",
+      "sha": "2ecabfff649ce86ca9300256be741394e88c2f7d",
+      "size": 1519,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/achievements/badge-catalog.js",
+      "sha": "6008f0b90d2461f363b31d62a3a5503d2d884d9b",
+      "size": 3240,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/achievements/tier-palette.js",
+      "sha": "4d48bc60cd8aee643634b40fd5a9d1d8398e6b1c",
+      "size": 1814,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/components/Badge.jsx",
+      "sha": "b9c7f0ae1f463778b59009c22337e34b701e0a14",
+      "size": 1359,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/components/Button.jsx",
+      "sha": "bd341824302442955b2483fabed10ff80f48ad29",
+      "size": 2649,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/components/Card.jsx",
+      "sha": "1197207110cfa7ecc53b932d35aff5857e9075df",
+      "size": 993,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/components/ConfirmModal.jsx",
+      "sha": "f277ceed312eadc1674d6f5602c61ab84a2805dd",
+      "size": 2971,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/components/CountUp.jsx",
+      "sha": "710b02011c21e0abe5f289ebdd1cf16a4e4be543",
+      "size": 3493,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/components/Counter.jsx",
+      "sha": "148c2726bb74ebcae01648fa3659bd8208b3b9e2",
+      "size": 7744,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/components/DismissibleHint.jsx",
+      "sha": "6900245c621e5dda2d2643f6ae8e4594d3a211c0",
+      "size": 2779,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/components/HeaderGithubStar.jsx",
+      "sha": "e178d311d976cb4d80e2781dc3b43937ba6fc91a",
+      "size": 2641,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/components/HoverTooltip.jsx",
+      "sha": "be4151f7de7165dfa34be81b945b629cdd17edac",
+      "size": 1336,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/components/Input.jsx",
+      "sha": "2564ca5b8fe0bd6b7a6098a041b2bd8cd2f10a6e",
+      "size": 2386,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/components/LegalLinks.jsx",
+      "sha": "415795f51d931a7fb527b29fe8aab84c823df97d",
+      "size": 610,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/components/SearchableSelect.jsx",
+      "sha": "0c8fdcec79b855fda78fb4a86f1f6916cdf71190",
+      "size": 7496,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/components/SearchableSelect.test.jsx",
+      "sha": "9facaac19528aecf0642c52574f7e2bffd10b77c",
+      "size": 2633,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/components/SegmentedControl.jsx",
+      "sha": "07e3d7646797c7b217a6664b74189b12bbf0b150",
+      "size": 5037,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/components/SegmentedControl.test.jsx",
+      "sha": "0de9dd246c740dc2f22f3fd92a091947e70e49bb",
+      "size": 1258,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/components/Select.jsx",
+      "sha": "10018477c27e738300588dcffd4856aea3c8a713",
+      "size": 5355,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/components/Shell.jsx",
+      "sha": "db606f3bfc6a55aef4b1ec6bad7829c77faabe0c",
+      "size": 2237,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/components/Sidebar.jsx",
+      "sha": "6b50ab58023f7b1ca4a4d8cf41bb2459daea3104",
+      "size": 25926,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/components/Sidebar.test.jsx",
+      "sha": "90fe19f9073311b5790b4d662de5e531e5597255",
+      "size": 7164,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/components/Toast.jsx",
+      "sha": "5a0c26cb7366faabdc595cd47ca6900f507633ad",
+      "size": 2804,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/components/__tests__/Counter.test.jsx",
+      "sha": "b3e53bef3737cafb6ab0d806b2d444442a19909c",
+      "size": 704,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/components/index.js",
+      "sha": "a09ebfb1abbbf6215399953eaa7d7d97b44db29e",
+      "size": 602,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/ActivityHeatmap.jsx",
+      "sha": "2fb9a393d9f6299bc3a79e65a8da2d1f72ff5063",
+      "size": 46840,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/ActivityHeatmap3D.jsx",
+      "sha": "a1cfb8997884e79fb2525145fb077024648c3364",
+      "size": 32975,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/CommandPalette.jsx",
+      "sha": "a180b6565a54c396de313dead9f5a8ca22246447",
+      "size": 9011,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/ContextBreakdownPanel.jsx",
+      "sha": "f8e44cd2079ea65352a3c75665269a438b66b5bf",
+      "size": 43691,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/CostAnalysisModal.jsx",
+      "sha": "57b1ce5fcaca4ac395b1734b93cd387f554fe505",
+      "size": 10742,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/DataDetails.jsx",
+      "sha": "020de8b5a81a2cbe3ad8f169ee691e9e09ded5f4",
+      "size": 13955,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/DateRangePopover.jsx",
+      "sha": "e9a9e4a3f43c41e33fa364ed7f66d16f4151fc87",
+      "size": 5097,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/DeviceUsageCard.jsx",
+      "sha": "67874b99459b673fe6e09280ce11348a59894e35",
+      "size": 15858,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/DeviceUsageCard.test.jsx",
+      "sha": "82d9037acbcc13a6e5eb110a08aa6ed2fb444c1f",
+      "size": 5864,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/IslandOnboardingCard.jsx",
+      "sha": "fbb8901d80eb51bd82014a910c6d057b71bec9fe",
+      "size": 11277,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/IslandOnboardingCard.test.jsx",
+      "sha": "cf2f30b4bbf2a0ad073c15c24920e5ae9b7cda7a",
+      "size": 4362,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/LikeButton.jsx",
+      "sha": "b17dc6a56519362cc8f4d6efb6e42ea4b55b8271",
+      "size": 10438,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/LinuxPetCard.jsx",
+      "sha": "41c169f4815cc47cce085e743a8ec59fd80108a1",
+      "size": 4805,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/LinuxPetCard.test.jsx",
+      "sha": "efacd0e1fb3d14aed6e4ce7c0416fd0cbbcd3978",
+      "size": 3641,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/LinuxTopBarCard.jsx",
+      "sha": "ef5d06d03663908c3d61ac766152e3fc8ae5d0bb",
+      "size": 6958,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/LinuxTopBarCard.test.jsx",
+      "sha": "afaf2542bffcde6d003714f6cb7574e8f1cc1936",
+      "size": 2466,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/MacAppBanner.jsx",
+      "sha": "4a66c2060d79ededfb8ead72b8d727080e9dead0",
+      "size": 5881,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/ProjectDetailModal.jsx",
+      "sha": "f9c3699ee940be856416ed0d18f47c56ba9922c3",
+      "size": 20920,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/ProviderIcon.jsx",
+      "sha": "7ba018c34611af28cf674362f3ba3cc0ed0a8736",
+      "size": 55737,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/ProviderIcon.test.jsx",
+      "sha": "24da94e595b3a45c4f710456befefcf7a863bc43",
+      "size": 8845,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/QualityPerDollarCard.jsx",
+      "sha": "8fcfab8209e455f03eb99e18fb966564770622ea",
+      "size": 5496,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/SessionDetailModal.jsx",
+      "sha": "ea3bfe78b2d10601e738ec62216a61e25f1f43d9",
+      "size": 18420,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/SessionInsightsCard.jsx",
+      "sha": "ddfb0389ec4eee433425cc1653713291537680f4",
+      "size": 9734,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/SessionInsightsCard.test.jsx",
+      "sha": "8675b97ee67406743ff94622f4ecad0893b2b2b8",
+      "size": 4841,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/SessionPerformance.jsx",
+      "sha": "580c3daa7b9d8f0356881d5b87646924335a3ea0",
+      "size": 606,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/SortableCard.jsx",
+      "sha": "bf13918c3f976ab9d30c34de80488f348bf4746a",
+      "size": 3888,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/StatsPanel.jsx",
+      "sha": "135d17a4f70e60ed830519af90c245acab00a913",
+      "size": 8036,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/SubscriptionSettingsCard.jsx",
+      "sha": "819d0f7e3bce16a9f4aa551b47a9e2d344d2d01a",
+      "size": 21995,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/SubscriptionSettingsCard.test.jsx",
+      "sha": "22f4ea9ac9d162d6a3ff6befa0d68bd4182c2e6a",
+      "size": 12655,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/TrendMonitor.jsx",
+      "sha": "6611b227845d5e6c87b1310570de6a45f5f8f8b0",
+      "size": 35918,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/TrendMonitorZoomModal.jsx",
+      "sha": "e15454b0aa1d9ca0c03c66dc5b2370547f68fcc5",
+      "size": 20988,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/TrendMonitorZoomModal.test.jsx",
+      "sha": "939c028a184d4eec8f7b4248001c23bd62e9aa15",
+      "size": 1776,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/UsageLimitsPanel.jsx",
+      "sha": "194408378e831cba741b8a5fadbfb9562692683e",
+      "size": 52578,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/UsageLimitsPanel.pace.test.js",
+      "sha": "9861f29dff839e789c0d369d605d1d87f26f24c8",
+      "size": 3610,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/UsageLimitsPanel.test.jsx",
+      "sha": "c93c6f63b25b5675552255e3847ceb4925bd6ac9",
+      "size": 36829,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/UsageOverview.device.test.jsx",
+      "sha": "8c0d2675aa5f56c3cb814cbabed53faeb023a9da",
+      "size": 2391,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/UsageOverview.jsx",
+      "sha": "8d8c97a21ad010487170bd3442a8c1209233945a",
+      "size": 42170,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/WidgetOnboardingCard.jsx",
+      "sha": "f794c1f82c4a28af512e38004ed26795a7e5c71c",
+      "size": 3622,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/__tests__/ActivityHeatmap.test.jsx",
+      "sha": "0bb0cf32b7f06954000e46bac4e26957a8bdfa6c",
+      "size": 4587,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/__tests__/ActivityHeatmap3D.test.jsx",
+      "sha": "ee4ef844bfc72f89f41861ac03d9b8e5209df480",
+      "size": 3060,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/__tests__/ContextBreakdownPanel.test.jsx",
+      "sha": "4f5ece2cde9d24d1935869da5b50509e4f3a5a40",
+      "size": 26041,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/__tests__/CostAnalysisModal.test.jsx",
+      "sha": "e4a5b7319bbc2dace8d3f7def67ed20717477bd9",
+      "size": 2920,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/__tests__/DataDetailsProjects.test.jsx",
+      "sha": "23839b78bafcaa5de0e5f926fb4d2968f8aefdb8",
+      "size": 6488,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/__tests__/StatsPanel.test.jsx",
+      "sha": "e18a3cdd6092af9e053d8c92a79a7988870b37d3",
+      "size": 3413,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/__tests__/TrendMonitor.test.jsx",
+      "sha": "15ef0ee3d0f20bbdf63b60eadaa175cfdf93c5eb",
+      "size": 13556,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/__tests__/UsageOverview.test.jsx",
+      "sha": "884e534233cfe8dff018803469cdc5b9c9d8f72e",
+      "size": 19386,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/project-usage-utils.jsx",
+      "sha": "f8932e1260c240650636295582f8149f1127ca4d",
+      "size": 1987,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/usage-limits-provider-specs.js",
+      "sha": "395bc2e11c3870356442050c3ea7478e8d689479",
+      "size": 12947,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/usage-limits-reset-bank.js",
+      "sha": "49c9ed78bbf0f42409048be17e0915be82f808b5",
+      "size": 2141,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/components/usage-limits-reset-bank.test.jsx",
+      "sha": "73093dfd83adaee918b3e7cfcc520165ffdb1189",
+      "size": 12151,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/util/should-fetch-github-stars.js",
+      "sha": "58c7021ba59d4fc9a8b768bf26aa7178d1a821e8",
+      "size": 184,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/dashboard/views/DashboardView.jsx",
+      "sha": "622ccb691e5f06fe9378b5cfe569ebb18a82ba2d",
+      "size": 19394,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/foundation/BotAnimated.jsx",
+      "sha": "c6a40c24749e58b26ca7aaa05bffdec385e6864f",
+      "size": 10208,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/foundation/BotAnimated.test.jsx",
+      "sha": "4555bdb45f11ac7380bbbebca94512074a501fe9",
+      "size": 6179,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/foundation/ClawdAnimated.jsx",
+      "sha": "e7e4674b79980a6f8230f3cc78dd2a8b3886d0ae",
+      "size": 6445,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/foundation/CurrencyProvider.jsx",
+      "sha": "948b2daf85ccb950165f6fb6740755c7f66b17c0",
+      "size": 3523,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/foundation/FadeIn.jsx",
+      "sha": "297a44b1ea5283d0a226a3823b611c14e807202f",
+      "size": 1760,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/foundation/LocaleProvider.jsx",
+      "sha": "3a026b59c72b6a7bdb7bb19a52c3f76ed09dd15e",
+      "size": 2152,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/foundation/PetAtlasAnimated.jsx",
+      "sha": "edb6d4dff456a4db9cf89dd34786c1df670df971",
+      "size": 4927,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/foundation/PetAtlasAnimated.test.jsx",
+      "sha": "0fe32cdc1b66f6051e75d89c4801b63ab9d9ac2e",
+      "size": 2375,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/foundation/README.md",
+      "sha": "7b0332dba31cf9caaff41e94cabb60838f0c9ca7",
+      "size": 567,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/foundation/ThemeProvider.jsx",
+      "sha": "673f8e9abc8ef1222e71a0c653ab773b55370ff9",
+      "size": 5853,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/foundation/ThemeToggle.jsx",
+      "sha": "0b76ed82a2606fc0e1205e4a10a5814ba1a0221b",
+      "size": 4128,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/foundation/TokenFormatProvider.jsx",
+      "sha": "89fedaddebfd42f05da314fbaf9ee67fb2afa3fc",
+      "size": 5276,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/foundation/__tests__/LocaleProvider.test.jsx",
+      "sha": "fcea3b5aa255854f60377828b487b2086db16f07",
+      "size": 2634,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/foundation/__tests__/TokenFormatProvider.test.jsx",
+      "sha": "1d450390f10a1b4aa8fa4307f6fb4d7c5e0fa3b9",
+      "size": 6254,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/marketing/LogoCarousel.jsx",
+      "sha": "a902867c6827df5b45ec46ff386d04e84938110d",
+      "size": 5715,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/marketing/LogoCarousel.test.jsx",
+      "sha": "e92d73101b1bf610a72df1e3ed2f0df5e9349c47",
+      "size": 1645,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/marketing/MarketingLanding.jsx",
+      "sha": "b1f014ae60039ee9f9d79a31dedc12aa7150a07a",
+      "size": 9650,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/marketing/agent-logos.js",
+      "sha": "df5fbe485223fd64b0fbf00b8bb416f491e1e9f2",
+      "size": 2924,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/marketing/components/BorderGlow.jsx",
+      "sha": "99bdcdce5a3e6223472daa2126b244d3cd344531",
+      "size": 9636,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/marketing/components/SpotlightCard.jsx",
+      "sha": "5a9fad77fbe1d2c2a1691694b8359bac3964b8ac",
+      "size": 1454,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/marketing/v3/CapabilitiesSection.jsx",
+      "sha": "275509e722c18d01e86880cee3ae63db407cedda",
+      "size": 6249,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/marketing/v3/DownloadButtons.jsx",
+      "sha": "ef6b27b10e1ba70adabd883dd6b3c0494f26b11b",
+      "size": 2998,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/marketing/v3/DownloadSection.jsx",
+      "sha": "682441ea7a43cd6e61c14336a5085d202776a1bc",
+      "size": 5166,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/marketing/v3/HeroSection.jsx",
+      "sha": "f72373f4302319e2b0915520b5cfd73c6f30e19f",
+      "size": 9159,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/marketing/v3/HeroSection.test.jsx",
+      "sha": "27831a62c682c969ede92d5cc2f0ca1f4193c0e9",
+      "size": 560,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/marketing/v3/HowItWorksSection.jsx",
+      "sha": "2f1d08019564a317af069c607c4c753dd138cb71",
+      "size": 9360,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/marketing/v3/InstallCommand.jsx",
+      "sha": "6a182e5fb84925542e4bca795e09c8953936723c",
+      "size": 3404,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/marketing/v3/LeaderboardSection.jsx",
+      "sha": "6aae5e2202b470cf3f49a6204ff809e8fc71ed94",
+      "size": 8341,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/marketing/v3/PrivacySection.jsx",
+      "sha": "6e2fa2cb51fcb1100a949d8141ab66e2889ab497",
+      "size": 4194,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/marketing/v3/TokenGalaxy.jsx",
+      "sha": "d38333435d17519fc5b8a48f5b9d24c9eec241b9",
+      "size": 20646,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/marketing/v3/TokenGalaxy.test.jsx",
+      "sha": "549154e977df06c307e47f4e09852fcff0fecf05",
+      "size": 3410,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/marketing/v3/ToolsStrip.jsx",
+      "sha": "a4f3ae5697a1efce6c75791b357a0230cb7919d7",
+      "size": 1637,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/marketing/v3/galaxy-config.js",
+      "sha": "b78ddf9da9bc69146d10605d710fff5d6a3818ce",
+      "size": 16234,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/marketing/v3/gsap.js",
+      "sha": "0c5619055cc4699f5fa65f67f4191fa10bea83ff",
+      "size": 358,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/marketing/v3/icons.jsx",
+      "sha": "2de7e42025c7a6c51f8cf89799b5d7c0b0ff1b16",
+      "size": 1716,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/marketing/v3/palette.js",
+      "sha": "47d80af040e5abfb25f7d7cb32139fabe2d1627d",
+      "size": 2239,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/share/HeatmapStrip.jsx",
+      "sha": "40b186f4c4eaefc428ca1ca7a4c60f07606d187e",
+      "size": 1908,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/share/ShareCard.d.ts",
+      "sha": "3784d531ced56c61edbc09d212f2e9a02c600032",
+      "size": 482,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/share/ShareCard.jsx",
+      "sha": "ccd589e7360b9ea0931824dd370862c696f3dd7b",
+      "size": 1370,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/share/ShareModal.tsx",
+      "sha": "3a12e89da7f0db6d9d194e2a34609cd79c4ea6c7",
+      "size": 18719,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/share/build-share-card-data.ts",
+      "sha": "e6018e8beef57c19d8484bfc7a41b438571fb842",
+      "size": 8256,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/share/capture-share-card.ts",
+      "sha": "97bbc22495d52b16644fd4bfef22b96778b7933d",
+      "size": 3493,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/share/native-save.ts",
+      "sha": "fb23006983f735eb02b01b93ad6fc4c1019d09c5",
+      "size": 4029,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/share/share-card-constants.ts",
+      "sha": "8c5a49e33f2cadf9650021a74c10359693a564ab",
+      "size": 258,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/share/use-share-card-data.ts",
+      "sha": "a172e56700ce3a33ab21092d0a7c01ccc3457448",
+      "size": 2601,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/share/variants/AnnualReportCard.jsx",
+      "sha": "8e70c8482e383bfc2a3b61ea14ccc18e811ffbf8",
+      "size": 12021,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/ui/share/variants/BroadsheetCard.jsx",
+      "sha": "455dc84bf55f49bd320853bafbc5c2c51aebc6fe",
+      "size": 12224,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/src/vite-env.d.ts",
+      "sha": "48fb70e0d1d6ef78b8c62ee859282162393509b1",
+      "size": 1597,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/tailwind.config.cjs",
+      "sha": "968f0ace6a765f20568a985d52185673a5079d2a",
+      "size": 6272,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/tsconfig.json",
+      "sha": "9677cc807e884d7b086c03af41efce640efa9237",
+      "size": 308,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/vercel.json",
+      "sha": "44ec6fe59028fdd27d8e3f858806386fa119ed75",
+      "size": 1082,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/vite.config.js",
+      "sha": "fba9bab8befe49115bb35abd0e152a3b802417a1",
+      "size": 53168,
+      "status": "downloaded"
+    },
+    {
+      "path": "dashboard/vitest.config.ts",
+      "sha": "19c8cce486fc7af84a400c7c9101402681c31fd6",
+      "size": 394,
+      "status": "downloaded"
+    }
+  ]
+}
