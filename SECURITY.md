@@ -1,44 +1,49 @@
-# Security Policy
+# Security policy
 
-## Supported Versions
+Token Guardian is a source prototype. Security review and fixes currently focus
+on the latest source on the default branch; no packaged Guardian release line
+or signed DMG is supported yet.
 
-Only the **latest minor release** is supported with security fixes. This is a small project — please run a recent version.
+## Report privately
 
-## Reporting a Vulnerability
+When private reporting is enabled, use this repository's
+[GitHub private vulnerability reporting form](https://github.com/JunyiZhou-Conny/token-guardian/security/advisories/new).
 
-**Please do not open a public GitHub issue for security reports.**
+Include the affected Git commit, platform, a minimal reproduction, expected
+behavior, and potential impact. Use synthetic records and dummy credentials.
+Do not publish secrets, conversation content, or exploit details in a public
+issue.
 
-Instead, use one of these private channels:
+If GitHub private reporting is unavailable, open a public issue asking the
+maintainer to enable it, without disclosing the vulnerability. No alternative
+email address or response-time guarantee is established for this prototype.
 
-- **GitHub Private Vulnerability Reporting**: [Report a vulnerability](https://github.com/xiufengsun/TokenTracker/security/advisories/new)
-- **Email**: open a GitHub issue asking the maintainer to enable an alternative private channel if you can't use GitHub Security Advisories
+## Areas to review
 
-When reporting, please include:
+- **Local HTTP service:** `guardian-server/server.js` serves the interface and
+  import/chat routes. The standalone launcher binds to `127.0.0.1`. Review
+  request-origin checks, input limits, path traversal, and file exposure.
+- **Imports and local storage:** usage metadata is allowlisted and stored in the
+  documented local data directory. Review validation, permissions, deduplication,
+  malformed data handling, and disclosure of private identifiers or paths.
+- **Optional OpenAI chat:** without a key, explanations run locally. Opt-in chat
+  sends the user's question and bounded usage metadata to OpenAI. Review key
+  handling, output/call reservations, prompt injection through metadata, and
+  accidental disclosure. Keys must not be exposed by the API or committed.
+- **Inherited collectors:** `src/` reads local tool records and, where supported,
+  provider usage APIs. Review authentication handling, parser privacy, and
+  correct boundaries between local collection and optional upstream services.
 
-- A clear description of the issue
-- Steps to reproduce
-- Affected version(s)
-- Your assessment of impact (data exposure, privilege escalation, etc.)
-- Any suggested mitigation, if you have one
+Original prompts, code, responses, and conversation bodies must not enter
+Guardian's stored usage records or provider evidence bundle. Optional chat
+questions are separate user inputs and may be sent to OpenAI when enabled.
 
-You can expect an initial response within a few days. Once a fix is ready, it will ship in the next release with a credit to you (or anonymously if you prefer).
+The Guardian launcher does not install hooks, start upstream sync, or stop other
+applications. The inherited dashboard and desktop sources need separate review
+before they are distributed as Guardian builds.
 
-## Scope
+## Fixes and disclosure
 
-TokenTracker is a local-first tool that reads AI CLI tool logs from your home directory. The most sensitive areas to consider when reviewing security:
-
-- **`src/lib/rollout.js`** — parses logs from 8 different AI CLI tools. Privacy rule: only token counts and timestamps may be extracted, never prompt or response content.
-- **`src/lib/cursor-config.js`** — reads Cursor's local SQLite to extract auth tokens for the Cursor usage API. Tokens must never leave the user's machine.
-- **`src/lib/local-api.js`** — local HTTP server bound to `127.0.0.1`. Should not accept connections from other hosts.
-- **`TokenTrackerBar/`** — macOS app, ad-hoc signed. Has filesystem access via macOS TCC permissions; should never write outside its own data directories or the documented snapshot/queue paths.
-- **`insforge/`** — optional cloud edge functions. Only used if the user opts into the leaderboard.
-
-## Out of Scope
-
-- Issues only reproducible with arbitrary modifications to the user's local files outside the documented data paths
-- Vulnerabilities in dependencies that have already been disclosed and patched upstream — please report those upstream first
-- Social engineering, phishing, or other non-technical attack vectors
-
-## Privacy Commitment
-
-TokenTracker's foundational privacy rule: **token counts and timestamps only — never any prompt content, response content, or file contents from user code**. Any change that risks violating this is treated as a security issue.
+Security fixes follow reproduction, focused regression checks, and reviewed pull
+requests. Coordinate disclosure through the private report before posting details.
+Do not include real credentials or private usage records in a patch or test.
