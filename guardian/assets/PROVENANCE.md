@@ -17,3 +17,16 @@ artwork license or permission from AiBaker is documented in this repository. Thi
 is an unofficial fan prototype with no affiliation or endorsement from Riot Games
 or AiBaker. See [THIRD_PARTY_NOTICES.md](../../THIRD_PARTY_NOTICES.md) for the other
 included asset notices.
+
+## Cozy outfit variations
+
+`champion-variants.png` adds coordinated outfit variations of the same Ahri,
+Jinx, and Jhin avatars, in that order: Ahri's pastel star cloak, Jinx's blue and
+pink hoodie with goggles, and Jhin's violet tailored coat. The transparent
+three-column atlas was generated with OpenAI image generation on 2026-10-11,
+using `champions.png` as its visual reference. The original atlas is preserved.
+
+These generated variations remain unofficial fan illustrations. They do not
+establish ownership of the champions, grant a license to AiBaker's artwork, or
+imply endorsement by Riot Games or AiBaker. Their provenance and artwork rights
+remain separate from the software MIT license.

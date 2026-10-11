@@ -3,7 +3,7 @@
 const fs = require("node:fs/promises");
 const path = require("node:path");
 const os = require("node:os");
-const { SOURCES, hash, normalizeEvent, latestTrackerBuckets, summarize, detectIncidents, demoEvents } = require("./engine");
+const { SOURCES, hash, clean, normalizeEvent, normalizeSessionSnapshot, buildSessionInsights, latestTrackerBuckets, summarize, detectIncidents, demoEvents } = require("./engine");
 
 const MAX_FILE_BYTES = 64 * 1024 * 1024;
 
@@ -119,22 +119,26 @@ function reconcileBuckets(buckets, raw, warnings) {
   return [...residuals, ...raw].sort((a, b) => a.timestamp.localeCompare(b.timestamp) || a.id.localeCompare(b.id));
 }
 
-function safeSessions(rows) {
+function safeSessions(rows, warnings = []) {
   const latest = new Map();
-  for (const row of rows) {
+  for (const [index, row] of rows.entries()) {
     if (!SOURCES.includes(row?.source)) continue;
-    const id = row.session_hash || row.session_id;
+    const id = clean(row.session_hash) || clean(row.session_id);
     if (!id) continue;
-    // Session totals are not added to usage: they overlap the tracker queue.
-    latest.set(id, {
-      id: String(id), source: row.source, sessionId: row.session_id || null,
-      project: typeof row.project_ref === "string" ? row.project_ref.slice(0, 500) : null,
-      title: typeof row.title === "string" ? row.title.slice(0, 240) : null,
-      startedAt: row.started_at || null, endedAt: row.ended_at || null,
-      note: "Local session metadata; not linked to account buckets by timestamps alone.",
-    });
+    latest.set(JSON.stringify([row.source, id]), { row, index });
   }
-  return [...latest.values()].slice(-200);
+  const logical = new Map();
+  let invalid = 0;
+  for (const { row } of [...latest.values()].sort((a, b) => a.index - b.index)) {
+    try {
+      const entry = normalizeSessionSnapshot(row);
+      // Native/WSL references can differ while their actual session ID agrees.
+      // A row is a whole-session revision, never an additional usage fragment.
+      logical.set(entry.id, { ...entry, insightId: entry.id, id: String(row.session_hash || row.session_id) });
+    } catch { invalid++; }
+  }
+  if (invalid) warnings.push(`${invalid} latest local session snapshots have invalid usage metadata and were skipped; their previous revisions were not summed.`);
+  return [...logical.values()];
 }
 
 function createStore({ trackerHome = process.env.TOKENTRACKER_GUARDIAN_DATA_DIR || path.join(os.homedir(), ".tokentracker"), now = () => Date.now() } = {}) {
@@ -186,11 +190,12 @@ function createStore({ trackerHome = process.env.TOKENTRACKER_GUARDIAN_DATA_DIR 
     const imports = normalizeLedger(importedRows, warnings);
     const raw = mergeRawDatasets([ledger, imports], warnings);
     let events = reconcileBuckets(buckets, raw, warnings);
-    const localSessions = safeSessions(sessionRows.length ? sessionRows : directSessionRows);
-    const selectedMode = mode === "demo" || (mode === "auto" && !events.length) ? "demo" : "local";
+    const localSessions = safeSessions(sessionRows.length ? sessionRows : directSessionRows, warnings);
+    const selectedMode = mode === "demo" || (mode === "auto" && !events.length && !localSessions.length) ? "demo" : "local";
     if (selectedMode === "demo") events = demoEvents(now());
     const demoReason = selectedMode === "demo" ? mode === "demo" ? "Simulation explicitly selected." : "No supported local tracker records or imported events were found." : null;
     const incidents = detectIncidents(events);
+    const sessionInsights = buildSessionInsights(events, selectedMode === "local" ? localSessions : [], incidents);
     const notes = [
       "Usage data stays on this machine. Imports retain only an explicit metadata allowlist.",
       "Reported usage value, model-price estimates, subscription inclusion and extra charges are distinct.",
@@ -202,7 +207,7 @@ function createStore({ trackerHome = process.env.TOKENTRACKER_GUARDIAN_DATA_DIR 
     ];
     return {
       mode: selectedMode, demoReason, events, summary: summarize(events), incidents,
-      sessions: selectedMode === "local" ? localSessions : [],
+      sessions: selectedMode === "local" ? localSessions.slice(-200) : [], sessionInsights,
       coverage: {
         providers: SOURCES.map((source) => {
           const rows = events.filter((event) => event.source === source);

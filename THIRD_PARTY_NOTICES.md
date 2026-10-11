@@ -78,3 +78,9 @@ No public artwork license or permission from AiBaker is documented here. This is
 an unofficial fan prototype with no affiliation or endorsement from Riot Games
 or AiBaker. Full source and asset context is recorded in
 [guardian/assets/PROVENANCE.md](guardian/assets/PROVENANCE.md).
+
+The companion outfit atlas `guardian/assets/champion-variants.png` was generated
+with OpenAI image generation on 2026-10-11 from the original prototype atlas.
+It depicts the same Ahri, Jinx, and Jhin characters in alternate cozy outfits.
+The same character, reference-artwork, and non-endorsement notices above apply;
+the software MIT license does not grant rights to these fan illustrations.

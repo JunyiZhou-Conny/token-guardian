@@ -2,7 +2,9 @@
 
 A League of Legends inspired source prototype built on the existing TokenTracker,
 with a macOS focus. The Guardian view targets records from **Codex, Claude Code,
-Cursor and Gemini CLI**. Ahri, Jinx and Jhin are selectable prototype companions.
+Cursor and Gemini CLI**. Ahri, Jinx and Jhin are selectable prototype companions,
+each with classic and cozy outfits. The [installation guide](docs/INSTALL.md)
+provides download steps; [docs/DEMO.md](docs/DEMO.md) explains the recorded walkthrough.
 The included collectors have not all been verified end to end against real
 accounts on a Mac. Codex is the OpenAI coding-tool source, rather than an account-
 wide OpenAI or ChatGPT usage integration.
@@ -72,22 +74,99 @@ invoice. Bucket-only data may have unknown costs and attribution.
 ## Companion chat
 
 Chat works without a key using a local explanation engine, labeled as such.
-Optionally set `OPENAI_API_KEY` in the server environment to enable the OpenAI
-Responses API for local-data questions. The UI shows whether a model is configured;
-simulation questions use local explanations without a paid API call.
+It can answer **“Which session used the most tokens?”**, rank available attributed
+sessions, cite the supporting records, and suggest steps you can review in the
+originating application. The Sessions view exposes the same evidence and limits.
+Request-level attribution and local session summary totals are different evidence
+bases; session summaries do not get added to account usage totals.
 
-The model receives the user's question and a bounded selection of usage metadata.
-Original prompts, code and conversation bodies are not collected. Questions are
-not saved as a server transcript. Default limits are 10 calls/day and 350 output
-tokens/call, with a daily output-token reservation cap of 3,500. These are call
-and token limits, not a guaranteed dollar spending cap.
+Optionally set `OPENAI_API_KEY` or `DEEPSEEK_API_KEY` in the server environment.
+OpenAI uses the Responses API; DeepSeek uses its official chat-completions API.
+The UI shows which providers are configured and allows a local explanation or an
+available model to be selected. Simulation questions always use local explanations
+without a paid API call.
+The browser starts with Local even when a server key is available; explicitly
+choose the configured provider when you want a model explanation.
+
+The selected model receives the user's question and a bounded selection of usage
+metadata. Local project paths, session titles, and vendor session identifiers are
+excluded from the remote evidence bundle. Original prompts, code, and conversation
+bodies are not collected. The question is sent as you type it, so identifiers or
+private details you put into that question are not automatically removed.
+Questions are not saved as a server transcript. OpenAI
+requests use `store: false`; provider processing still follows the provider's
+policies. Default limits are 10 calls/day and 350 output tokens/call, with a daily
+output-token reservation cap of 3,500 shared across both chat providers. These are
+call and token limits, not a guaranteed dollar spending cap. Provider failures or
+exhausted limits return a clearly labeled local explanation.
 
 Optional environment settings:
 
-- `TOKENTRACKER_GUARDIAN_CHAT_MODEL` (default `gpt-4.1-mini`)
+- `TOKENTRACKER_GUARDIAN_CHAT_PROVIDER` (`local`, `openai`, or `deepseek`)
+- `TOKENTRACKER_GUARDIAN_CHAT_MODEL` (overrides the default provider's model)
+- `TOKENTRACKER_GUARDIAN_CHAT_OPENAI_MODEL` (default `gpt-4.1-mini`)
+- `TOKENTRACKER_GUARDIAN_CHAT_DEEPSEEK_MODEL` (default `deepseek-chat`)
 - `TOKENTRACKER_GUARDIAN_CHAT_DAILY_CALLS`
 - `TOKENTRACKER_GUARDIAN_CHAT_OUTPUT_TOKENS`
 - `TOKENTRACKER_GUARDIAN_CHAT_DAILY_OUTPUT_TOKENS`
+
+For direct API clients that do not specify a provider, an OpenAI key selects
+OpenAI, a DeepSeek key alone selects DeepSeek, and no key selects local
+explanations. This server default does not override the browser's Local choice.
+Configure keys using your
+preferred local secret environment; do not put them in browser settings, usage
+imports, GitHub issues, or committed files.
+
+## Voice input
+
+Voice input creates an editable question draft. It never sends a question to the
+companion automatically. Choose a method in the chat drawer and review the
+privacy text before starting:
+
+- **Browser dictation:** uses the browser's speech-recognition capability when
+  available. Its implementation may send audio to the browser vendor's service;
+  this option is not guaranteed to be offline. Guardian does not receive that
+  audio through its own transcription endpoint.
+- **OpenAI transcription:** records audio only after you start the microphone
+  control, then explicitly uploads it through the local service to OpenAI. It
+  requires a server-side OpenAI key, even if chat uses DeepSeek. DeepSeek chat
+  configuration does not provide speech recognition.
+
+The default transcription model is `gpt-4o-mini-transcribe`; change it with
+`TOKENTRACKER_GUARDIAN_VOICE_MODEL`. The default daily call allowance is six,
+configurable with `TOKENTRACKER_GUARDIAN_VOICE_DAILY_CALLS` up to 20. Voice has its
+own persistent reservation counter, separate from the chat budget. Uploads are
+limited to 2 MiB, the browser recorder stops after 30 seconds, and the provider
+request times out after 15 seconds. The server's byte limit does not establish the
+duration of an arbitrary uploaded clip, and these limits are not a dollar cap.
+
+Cancel to discard a recording. The local service does not persist audio or save a
+transcript history. Text appears in the draft so you can correct it, clear it, or
+send it yourself. Live microphone and provider transcription still need a real
+browser/account test; the recorded walkthrough discloses a synthetic dictation
+fixture.
+
+Optional read-aloud uses the browser's speech synthesis and starts only when you
+request it. A browser or operating-system voice may have its own service behavior.
+
+## Grok Bot inside Cursor
+
+Grok Bot runs inside Cursor, so its token records belong to Cursor's existing
+usage stream. Guardian does not add a fifth token provider or double-count them.
+Optional quota support uses Cursor's existing local sign-in and read-only
+first-party access and usage endpoints. It reports quota percentage and reset
+time only when the provider exposes them; a percentage cannot be converted into
+an exact number of tokens.
+
+Enable the connection explicitly under Cursor's card in Overview. The browser
+keeps that choice as a preference and makes quota requests only when enabled.
+
+No additional API key or npm package is required. A missing Cursor sign-in is
+reported as unavailable; the adapter does not refresh credentials or write them.
+Results are cached for 60 seconds, and a request has an eight-second deadline.
+Use Refresh to request current quota data or disable the connection to stop
+queries. Quota adapter tests use mocked responses; real provider access still
+requires a signed-in Cursor check.
 
 ## macOS app source
 
@@ -100,8 +179,9 @@ Native compilation requires a Mac with Xcode and XcodeGen. Follow the preserved
 upstream macOS build instructions in [README.upstream.md](README.upstream.md#building-the-macos-app)
 after installing dependencies and building the original dashboard. Icon Composer
 assets require Xcode 26 or newer; the committed .icns icon is the fallback for
-older Xcode versions. There is no compiled or signed Guardian DMG yet, and the
-prototype has not yet received a browser visual check.
+older Xcode versions. There is no compiled or signed Guardian DMG yet. Browser
+checks use Chromium with isolated synthetic records; they do not verify native
+compilation or real macOS collection.
 
 ## Verification and source credit
 

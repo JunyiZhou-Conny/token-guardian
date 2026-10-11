@@ -81,6 +81,8 @@ Thumbs.db
 *.sublime-workspace
 
 # Build & cache
+__pycache__/
+*.pyc
 .eslintcache
 .parcel-cache
 .turbo
