@@ -9,6 +9,26 @@ The included collectors have not all been verified end to end against real
 accounts on a Mac. Codex is the OpenAI coding-tool source, rather than an account-
 wide OpenAI or ChatGPT usage integration.
 
+## Codex subscription activity
+
+On the Overview page, choose **Connect Codex** to read account activity and quota
+from the locally installed `codex app-server` using its existing supported ChatGPT
+sign-in. This opt-in request contacts OpenAI and may refresh Codex authentication;
+Guardian does not read or store credentials. The connection lasts only for the
+current browser view, and refresh requires another click. The separate card can
+appear alongside clearly marked preview records; those records remain simulated.
+
+Account summaries, local event records, and quota percentages have different
+coverage and may overlap. Guardian never adds the card to local totals, treats a
+missing value as zero, or claims it represents a subscription invoice. Coverage
+across ChatGPT products and devices is not established. It was validated with a
+ChatGPT-signed-in Codex app server on one Mac, not every plan or installation.
+Claude and Cursor subscription account connections are future work.
+
+This feature is inspired by [Token Monitor](https://github.com/Javis603/token-monitor),
+which distinguishes subscription allowances from local token statistics. Guardian
+is built on the credited TokenTracker source; it does not copy Token Monitor code.
+
 ## Floating desktop companion
 
 Install Node.js 22.20 or newer, then run from the repository:

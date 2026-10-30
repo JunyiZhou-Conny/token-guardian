@@ -7,7 +7,7 @@
     voiceInBrowser:'Voice in browser',voiceDesktopNote:'Microphone input opens in your browser. The desktop app keeps text chat and does not access your microphone.',voiceBrowserOpenError:'The browser dashboard could not open. Please try again.',
     localNote: 'A little company. A clearer picture.', watching: 'Your guardian is here', companion: 'Your companion', change: 'Change',
     greeting: 'Your tokens. In good company.', greetingSub: 'A clearer view of your AI usage, with a friend by your side.', today: 'Today', week: '7 days', month: '30 days',
-    demo: 'Preview data', demoNote: 'You’re exploring sample activity. These numbers are not your actual usage.', import: 'Import usage', refresh: 'Refresh usage',
+    demo: 'Preview data', demoNote: 'The activity records below are samples. The Codex subscription card is live only after you connect.', import: 'Import usage', refresh: 'Refresh usage',
     local: 'Local records', imported: 'Imported records', allProviders: 'All providers', usageValue: 'Recorded usage value', usageValueSub: 'Reported + estimated · not your subscription bill',
     totalTokens: 'Tokens recorded', tokensSub: 'Input, output, cache reads and writes', sessions: 'Attributed sessions', sessionsSub: 'Sessions with an observed identifier', sessionsUnknown: 'Session IDs unavailable in these records',
     providerHeading: 'Across your AI tools', providerSub: 'One little home for every token.', all: 'View all', noData: 'No records', preview: 'Preview', records: 'Recorded',
@@ -49,6 +49,7 @@
     voiceMethod: 'Voice input', voiceBrowser: 'Browser dictation', voiceOpenAI: 'OpenAI transcription', voiceStart: 'Start voice input', voiceStop: 'Finish voice input', voiceCancel: 'Cancel voice input', voiceListening: 'Listening. Finish to edit your draft.', voiceRecording: 'Recording', voiceTranscribing: 'Transcribing your audio…', voiceDraft: 'Your voice draft is ready. Review and edit before sending.', voiceIdle: 'Voice input creates an editable draft. It never sends a message automatically.', voiceBrowserPrivacy: 'Browser dictation may send audio to your browser’s speech service.', voiceOpenAIPrivacy: 'Recording sends audio to OpenAI for transcription. Maximum 30 seconds.', voiceUnsupported: 'Browser dictation is not supported here. Type your question or use configured OpenAI transcription.', voiceOpenAIUnavailable: 'OpenAI transcription requires a server-side key and microphone support.', voicePermission: 'Microphone access was denied. Check your browser permissions.', voiceNoSpeech: 'No speech was detected. You can try again or type your question.', voiceCanceled: 'Voice input canceled. Your existing draft is unchanged.', voiceTooLarge: 'Audio exceeds the 2 MB transcription limit. Try a shorter recording.', voiceError: 'Voice input could not finish. You can still type your question.', voiceRead: 'Read aloud', voiceReadStop: 'Stop reading', voiceReadNote: 'Read aloud uses your browser’s speech voices.',
     skinHeading: 'A familiar face, a fresh outfit.', skinSub: 'Classic or cozy. The same three companions, with a little variety.', skinClassic: 'Classic', skinCozy: 'Cozy', skinChoose: 'Companion outfit',
     voiceWaiting: 'Waiting for microphone permission…', voiceFinishingDictation: 'Finishing your dictation…', voiceFinishingRecording: 'Finishing your recording…', voiceShortened: 'Draft shortened to 2,000 characters.', cloudFallback: 'The selected cloud provider was not used. This is a local explanation.', serverFallback: 'The server explanation was unavailable; this answer was produced locally.',
+    codexHeading: 'Codex subscription activity', codexSub: 'Live account summary · separate from the records below', codexConnect: 'Connect Codex', codexRefresh: 'Refresh Codex', codexDisconnect: 'Disconnect', codexChecking: 'Checking your Codex account…', codexIntro: 'Connect to read your existing Codex sign-in through OpenAI. This sends a usage request to OpenAI; no API key is needed for a supported ChatGPT login.', codexLimit: 'Account coverage across ChatGPT products and devices is not established. This summary may overlap local records and is not added to the totals below. Token activity and quota are not your subscription bill. Claude and Cursor subscription accounts are not connected by this card.', codexLifetime: 'Lifetime tokens reported', codexPeak: 'Peak daily tokens reported', codexDaily: 'Recent daily token activity', codexQuota: 'Codex allowance used', codexUnavailable: 'Unavailable', codexNoDaily: 'Daily activity is unavailable.', codexRecent: 'Most recent reported days', codexReset: 'Resets', codexChecked: 'Checked',
     grokHeading: 'Grok Bot · Cursor allowance', grokSub: 'Provider-reported quota percentage · separate from token usage', grokEnable: 'Enable quota check', grokRefresh: 'Refresh quota', grokDisable: 'Disable quota check', grokDisabled: 'Off by default. Enable to read the official Cursor quota using your local Cursor sign-in.', grokUnknown: 'Quota unavailable', grokUsed: 'of allowance used', grokNoTokens: 'This percentage is not a token count and is not added to Cursor totals.', grokChecking: 'Checking the official allowance…'
   };
   const PROVIDERS = [
@@ -107,7 +108,7 @@
     provider: 'all', companion: Object.hasOwn(COMPANIONS,saved.companion) ? saved.companion : 'ahri',
     preferences: {autoRefresh:true,notifications:false,budget:15,...saved.preferences}, reviewed: Array.isArray(saved.reviewed) ? saved.reviewed : [],
     skins: {ahri:'classic',jinx:'classic',jhin:'classic',...saved.skins}, chatProvider:['local','openai','deepseek'].includes(saved.chatProvider)?saved.chatProvider:'local',
-    mode: 'demo', events: [], incidents: [], sessionInsights: null, coverage: [], health:null, grok:null, grokBusy:false, loaded: false, loading: false, connected: false, chatOpen:false, chatBusy:false, chatMode:'local', draft:'', messages:[], mobileOpen:false, queryMode:null, refreshedAt:null,
+    mode: 'demo', events: [], incidents: [], sessionInsights: null, coverage: [], health:null, grok:null, grokBusy:false, codex:null, codexBusy:false, loaded: false, loading: false, connected: false, chatOpen:false, chatBusy:false, chatMode:'local', draft:'', messages:[], mobileOpen:false, queryMode:null, refreshedAt:null,
     voiceMethod:'browser', voice:{phase:'idle',message:'',seconds:0}, speechIndex:null
   };
   const save = () => { try { localStorage.setItem('token-guardian-preferences',JSON.stringify({...readPrefs(),tab:state.tab,period:state.period,companion:state.companion,skins:state.skins,chatProvider:state.chatProvider,preferences:state.preferences,reviewed:state.reviewed})); } catch {} };
@@ -215,7 +216,7 @@
   function renderOverview() {
     const events=filteredEvents(),incidents=matchingIncidents(),c=COMPANIONS[state.companion];
     const unfiltered=state.events.filter(e=>{ const start=new Date(); if(state.period==='today')start.setHours(0,0,0,0); else start.setTime(Date.now()-(state.period==='week'?7:30)*86400000);return new Date(e.timestamp)>=start;});
-    return `<div class="dashboard-grid"><div class="main-column">${renderStats(events)}${renderProviders(unfiltered)}${renderChart(events)}<section class="panel activity-panel"><div class="panel-head"><div><h2>${COPY.recentActivity}</h2><p>${COPY.recentSub}</p></div><button class="text-button" data-tab="activity">${COPY.all}${icon('arrow',12)}</button></div>${activityTable(events,4)}</section></div><aside class="companion-column"><section class="panel companion-card"><div class="companion-title"><p class="eyebrow">${COPY.companion}</p><button data-tab="collection">${COPY.change} ↗</button></div><div class="guardian-status"><i class="live-dot"></i>${state.mode==='demo'?'Exploring the watchtower':'Watching the recorded trail'}</div><div class="companion-art-wrap"><span class="sparkle one">✦</span><span class="sparkle two">✧</span><span class="sparkle three">✦</span>${championArt(state.companion)}</div><div class="companion-name">${c.name}</div><div class="companion-role">${c.role}</div><p class="companion-quote">${c.quote}</p><button class="primary-button" data-action="chat">${icon('message',14)}${COPY.ask} ${c.name}${icon('arrow',13)}</button></section>${incidents.length?renderIncidentCard(incidents[0]):`<section class="panel alert-panel quiet-panel"><div class="alert-eyebrow">${icon('shield',13)}Your watchtower</div><h3>${COPY.quietTitle}</h3><p>${COPY.quietDescription}</p></section>`}${renderQuests()}</aside></div>`;
+    return `<div class="dashboard-grid"><div class="main-column">${renderCodexAccount()}${renderStats(events)}${renderProviders(unfiltered)}${renderChart(events)}<section class="panel activity-panel"><div class="panel-head"><div><h2>${COPY.recentActivity}</h2><p>${COPY.recentSub}</p></div><button class="text-button" data-tab="activity">${COPY.all}${icon('arrow',12)}</button></div>${activityTable(events,4)}</section></div><aside class="companion-column"><section class="panel companion-card"><div class="companion-title"><p class="eyebrow">${COPY.companion}</p><button data-tab="collection">${COPY.change} ↗</button></div><div class="guardian-status"><i class="live-dot"></i>${state.mode==='demo'?'Exploring the watchtower':'Watching the recorded trail'}</div><div class="companion-art-wrap"><span class="sparkle one">✦</span><span class="sparkle two">✧</span><span class="sparkle three">✦</span>${championArt(state.companion)}</div><div class="companion-name">${c.name}</div><div class="companion-role">${c.role}</div><p class="companion-quote">${c.quote}</p><button class="primary-button" data-action="chat">${icon('message',14)}${COPY.ask} ${c.name}${icon('arrow',13)}</button></section>${incidents.length?renderIncidentCard(incidents[0]):`<section class="panel alert-panel quiet-panel"><div class="alert-eyebrow">${icon('shield',13)}Your watchtower</div><h3>${COPY.quietTitle}</h3><p>${COPY.quietDescription}</p></section>`}${renderQuests()}</aside></div>`;
   }
   function renderIncidentCard(i) {return `<section class="panel alert-panel"><div class="alert-eyebrow">${icon('search',13)}${COPY.notice}</div><h3>${escape(i.title)}</h3><p>${escape(i.description)}</p><div class="alert-footer"><span class="alert-evidence">${(i.evidenceIds||[]).length} ${COPY.evidence}</span><button data-incident="${escape(i.id)}">${COPY.investigate}${icon('arrow',12)}</button></div></section>`;}
   function renderQuests() {
@@ -269,6 +270,29 @@
     const session=availableSessions(true).find(s=>String(s.id)===String(id));if(!session)return;
     const tokenContext=session.totalTokens==null?'Its token total is unavailable.':'It has '+number(session.totalTokens)+' recorded tokens.';
     openChat();sendMessage('Explain session '+(session.sessionId||session.sessionHash||session.id)+' in '+provider(session.source).name+'. '+tokenContext+' Which models and cache usage contribute, and what does the evidence suggest I should investigate?',session.id);
+  }
+  function renderCodexAccount() {
+    const data=state.codex, enabled=Boolean(data?.enabled), summary=data?.summary, quota=Array.isArray(data?.rateLimits)?data.rateLimits:[], days=Array.isArray(data?.dailyUsageBuckets)?data.dailyUsageBuckets.slice(-7):[];
+    const value=n=>Number.isFinite(n)?number(n):'—';
+    const content=!enabled?'<p class="codex-intro">'+COPY.codexIntro+'</p>':
+      '<p class="codex-status" role="status">'+escape(data.message||COPY.codexUnavailable)+(data.checkedAt?' · '+COPY.codexChecked+' '+dateTime(data.checkedAt):'')+'</p>'+
+      '<div class="codex-metrics"><div><span>'+COPY.codexLifetime+'</span><strong>'+value(summary?.lifetimeTokens)+'</strong></div><div><span>'+COPY.codexPeak+'</span><strong>'+value(summary?.peakDailyTokens)+'</strong></div>'+
+      (quota.length?quota:[{}]).map(window=>'<div><span>'+COPY.codexQuota+'</span><strong>'+(Number.isFinite(window.usedPercent)?window.usedPercent.toFixed(1)+'%':'—')+'</strong>'+(window.limitId?'<small>'+escape(window.limitId)+' · '+escape(window.window||'')+'</small>':'')+(window.windowDurationMins!=null?'<small>'+number(window.windowDurationMins)+' minute window</small>':'')+(window.resetsAt?'<small>'+COPY.codexReset+' '+dateTime(window.resetsAt)+'</small>':'')+'</div>').join('')+'</div>'+
+      '<div class="codex-daily"><strong>'+COPY.codexDaily+'</strong><span>'+COPY.codexRecent+'</span><div class="codex-days">'+(days.length?days.map(day=>'<div><span>'+escape(day.startDate)+'</span><strong>'+value(day.tokens)+'</strong></div>').join(''):'<p>'+COPY.codexNoDaily+'</p>')+'</div></div>';
+    return '<section class="panel codex-panel" aria-label="'+COPY.codexHeading+'"><div class="codex-head"><div><h2>'+COPY.codexHeading+'</h2><p>'+COPY.codexSub+'</p></div><div class="codex-actions"><button class="secondary-button" data-action="codex-connect" '+(state.codexBusy?'disabled':'')+'>'+(enabled?COPY.codexRefresh:COPY.codexConnect)+'</button>'+(enabled?'<button class="text-button" data-action="codex-disconnect" '+(state.codexBusy?'disabled':'')+'>'+COPY.codexDisconnect+'</button>':'')+'</div></div>'+(state.codexBusy?'<p class="codex-status" role="status">'+COPY.codexChecking+'</p>':content)+'<p class="codex-note">'+COPY.codexLimit+'</p></section>';
+  }
+  async function refreshCodex(enabled=true) {
+    if(state.codexBusy)return;
+    state.codexBusy=true;renderShell();
+    if(!enabled){
+      try {await api('/api/guardian/codex?enabled=0');}
+      catch {}
+      finally {state.codex=null;state.codexBusy=false;renderShell();}
+      return;
+    }
+    try {state.codex=await api('/api/guardian/codex?enabled=1&refresh=1',{timeoutMs:25000,headers:{'X-Guardian-Intent':'codex-account'}});}
+    catch {state.codex={enabled:true,availability:'unavailable',message:COPY.codexUnavailable};}
+    finally{state.codexBusy=false;renderShell();}
   }
   function renderGrokCard() {
     const quota=state.grok,enabled=Boolean(state.preferences.grokEnabled),available=quota?.availability==='available'&&Number.isFinite(quota.usedPercent);
@@ -498,6 +522,8 @@
     if(action==='voice')voiceBusy()?finishVoice():startVoice();
     if(action==='voice-browser')openBrowserVoice();
     if(action==='voice-cancel'){stopVoice(true);document.getElementById('chat-input')?.focus();}
+    if(action==='codex-connect')refreshCodex(true);
+    if(action==='codex-disconnect')refreshCodex(false);
     if(action==='grok-enable'||action==='grok-refresh')refreshGrok(true);
     if(action==='grok-disable')refreshGrok(false);
     if(action==='menu'||action==='menu-close'){state.mobileOpen=action==='menu'?!state.mobileOpen:false;renderShell();}

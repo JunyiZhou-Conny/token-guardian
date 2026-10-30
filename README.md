@@ -10,6 +10,10 @@ The first focus is **macOS**, with a Guardian view for records from **Codex,
 Claude Code, Cursor, and Gemini CLI**. Codex covers the OpenAI coding-tool source;
 this is not a complete OpenAI account or ChatGPT subscription usage monitor.
 
+The project is also inspired by [Token Monitor](https://github.com/Javis603/token-monitor),
+which presents subscription allowances alongside local usage statistics. Guardian’s
+separate investigation and companion experience builds on TokenTracker.
+
 The companion can also float on your desktop while the full dashboard stays
 available. Use **Node.js 22.20+**, run `npm --prefix desktop ci` once, then
 `node scripts/start-floating-guardian.cjs`. First launch may download the Electron
@@ -60,6 +64,9 @@ TOKENTRACKER_GUARDIAN_DATA_DIR=/path/to/data-root TOKENTRACKER_GUARDIAN_PORT=768
 
 ## What is here
 
+- An opt-in Codex subscription activity card using your existing Codex sign-in.
+  It shows provider-reported account activity and available quota windows, separate
+  from local ledger totals and subscription charges.
 - An overview and activity trail for the four target sources, with reported,
   estimated, and unknown usage values kept distinct.
 - Investigation details with record links and available project, session,
@@ -90,6 +97,13 @@ identifiers remain unavailable, provider reports can arrive late, and a recurrin
 pattern is an investigation lead rather than proof of an unwanted job. Guardian
 does not pause or kill the originating application. Refreshes and browser alerts
 operate while its page is open.
+
+The Codex account card connects through the installed Codex app server and sends
+a request to OpenAI only when you choose **Connect Codex** or refresh it. It does
+not require an OpenAI API key when a supported ChatGPT login is already configured.
+The provider has not established which ChatGPT products or devices its activity
+summary covers. Account totals may overlap local records and are not added to them.
+Claude Code and Cursor subscription account integration is not yet verified.
 
 Recorded usage value is not necessarily your subscription bill. Included plan
 usage, estimated model cost, and extra on-demand charges are different measures.

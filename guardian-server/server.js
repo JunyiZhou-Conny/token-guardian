@@ -8,6 +8,7 @@ const { parseCursorCsv, parseEventJson } = require("./engine");
 const { createStore } = require("./store");
 const { createChat } = require("./chat");
 const { createGrokBot } = require("./grokbot");
+const { createCodexAccount } = require("./codex-account");
 const { createVoice, readAudio } = require("./voice");
 
 const MAX_BODY_BYTES = 2 * 1024 * 1024;
@@ -34,10 +35,11 @@ async function readBody(request) {
   return body;
 }
 
-function createGuardianServer({ store = createStore(), staticDir = path.join(__dirname, "..", "guardian"), env = process.env, fetchImpl, now, grokbot } = {}) {
+function createGuardianServer({ store = createStore(), staticDir = path.join(__dirname, "..", "guardian"), env = process.env, fetchImpl, now, grokbot, codexAccount } = {}) {
   const companion = createChat({ store, env, fetchImpl, now });
   const voice = createVoice({ store, env, fetchImpl, now });
   const quota = grokbot || createGrokBot({ env, now, fetchImpl });
+  const codex = codexAccount || createCodexAccount({ env, now });
   const server = http.createServer(async (request, response) => {
     try {
       const host = request.headers.host || "";
@@ -65,6 +67,16 @@ function createGuardianServer({ store = createStore(), staticDir = path.join(__d
         if (enabled !== null && !["0", "1"].includes(enabled)) return sendJson(response, 400, { error: "Grok Bot enabled must be 0 or 1." });
         if (refresh !== null && !["0", "1"].includes(refresh)) return sendJson(response, 400, { error: "Grok Bot refresh must be 0 or 1." });
         return sendJson(response, 200, await quota.status({ enabled: enabled === null ? undefined : enabled === "1", refresh: refresh === "1" }));
+      }
+      if (request.method === "GET" && url.pathname === "/api/guardian/codex") {
+        const enabled = url.searchParams.get("enabled");
+        const refresh = url.searchParams.get("refresh");
+        if (enabled !== null && !["0", "1"].includes(enabled)) return sendJson(response, 400, { error: "Codex account enabled must be 0 or 1." });
+        if (refresh !== null && !["0", "1"].includes(refresh)) return sendJson(response, 400, { error: "Codex account refresh must be 0 or 1." });
+        // A cross-site image/navigation can otherwise trigger this network read
+        // in browsers without Fetch Metadata. Custom headers require preflight.
+        if (enabled === "1" && request.headers["x-guardian-intent"] !== "codex-account") return sendJson(response, 403, { error: "Codex account access requires an explicit Guardian request." });
+        return sendJson(response, 200, await codex.status({ enabled: enabled === "1", refresh: refresh === "1" }));
       }
       if (request.method === "POST" && url.pathname === "/api/guardian/transcribe") {
         try {
