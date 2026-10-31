@@ -11,7 +11,19 @@ const TOKEN = "sk-ant-oat01-SYNTHETIC-TOKEN";
 const credsFile = JSON.stringify({
   claudeAiOauth: { accessToken: TOKEN, refreshToken: "SYNTHETIC-REFRESH", subscriptionType: "max", rateLimitTier: "default_claude_max_20x" },
 });
-const noKeychain = async () => { throw new Error("keychain should not be read"); };
+const keychainNotFound = Object.assign(new Error("security: item not found"), { code: 44 });
+
+// Records every `security` call so tests can assert whether the Keychain was read.
+function keychain(answer) {
+  const calls = [];
+  const run = async (command, args) => {
+    calls.push([command, ...args]);
+    if (answer instanceof Error) throw answer;
+    return answer;
+  };
+  run.calls = calls;
+  return run;
+}
 
 function deps(overrides = {}) {
   return {
@@ -19,7 +31,7 @@ function deps(overrides = {}) {
     home: HOME,
     platform: "linux",
     readFile: fakeFiles({ [CREDS_PATH]: credsFile }),
-    run: noKeychain,
+    run: keychain(new Error("unexpected Keychain read")),
     fetch: fakeFetch({ body: fixture("claude-usage.json") }),
     now,
     ...overrides,
@@ -48,25 +60,47 @@ test("never puts the access or refresh token in the result", async () => {
   }
 });
 
-test("prefers CLAUDE_CODE_OAUTH_TOKEN, then the file, then the macOS Keychain", async () => {
-  const fromEnv = fakeFetch({ body: fixture("claude-usage.json") });
-  await fetchClaudeLimits(deps({ env: { CLAUDE_CODE_OAUTH_TOKEN: "env-token" }, fetch: fromEnv }));
-  assert.equal(fromEnv.calls[0].headers.Authorization, "Bearer env-token");
+test("prefers CLAUDE_CODE_OAUTH_TOKEN over every stored sign-in", async () => {
+  const fetch = fakeFetch({ body: fixture("claude-usage.json") });
+  const run = keychain(credsFile);
+  await fetchClaudeLimits(deps({ env: { CLAUDE_CODE_OAUTH_TOKEN: "env-token" }, platform: "darwin", run, fetch }));
+  assert.equal(fetch.calls[0].headers.Authorization, "Bearer env-token");
+  assert.equal(run.calls.length, 0);
+});
 
-  const keychainCalls = [];
-  const fromKeychain = fakeFetch({ body: fixture("claude-usage.json") });
-  const result = await fetchClaudeLimits(deps({
-    platform: "darwin",
-    readFile: fakeFiles({}),
-    run: async (command, args) => {
-      keychainCalls.push([command, ...args]);
-      return credsFile;
-    },
-    fetch: fromKeychain,
-  }));
-  assert.deepEqual(keychainCalls, [["security", "find-generic-password", "-s", KEYCHAIN_SERVICE, "-w"]]);
-  assert.equal(fromKeychain.calls[0].headers.Authorization, `Bearer ${TOKEN}`);
+test("on macOS reads the Keychain before a possibly stale credentials file", async () => {
+  const keychainCreds = JSON.stringify({ claudeAiOauth: { accessToken: "keychain-token", subscriptionType: "pro" } });
+  const run = keychain(keychainCreds);
+  const fetch = fakeFetch({ body: fixture("claude-usage.json") });
+  const result = await fetchClaudeLimits(deps({ platform: "darwin", run, fetch }));
+  assert.deepEqual(run.calls, [["security", "find-generic-password", "-s", KEYCHAIN_SERVICE, "-w"]]);
+  assert.equal(fetch.calls[0].headers.Authorization, "Bearer keychain-token");
+  assert.equal(result.plan, "Pro");
+});
+
+test("on macOS falls back to the credentials file when the Keychain item does not exist", async () => {
+  const run = keychain(keychainNotFound);
+  const fetch = fakeFetch({ body: fixture("claude-usage.json") });
+  const result = await fetchClaudeLimits(deps({ platform: "darwin", run, fetch }));
+  assert.equal(run.calls.length, 1);
+  assert.equal(fetch.calls[0].headers.Authorization, `Bearer ${TOKEN}`);
   assert.equal(result.status, "ok");
+});
+
+test("says Keychain access was not allowed instead of 'not signed in'", async () => {
+  const denied = Object.assign(new Error("User interaction is not allowed."), { code: 51 });
+  const fetch = fakeFetch();
+  const result = await fetchClaudeLimits(deps({ platform: "darwin", run: keychain(denied), readFile: fakeFiles({}), fetch }));
+  assert.equal(result.status, "unavailable");
+  assert.equal(result.detail, "Keychain access not allowed");
+  assert.equal(fetch.calls.length, 0);
+});
+
+test("never reads the Keychain outside macOS", async () => {
+  const run = keychain(credsFile);
+  const result = await fetchClaudeLimits(deps({ readFile: fakeFiles({}), run }));
+  assert.equal(result.status, "notConfigured");
+  assert.equal(run.calls.length, 0);
 });
 
 test("honors CLAUDE_CONFIG_DIR", async () => {
@@ -89,6 +123,7 @@ test("reports notConfigured without a network call when there is no sign-in", as
 test("maps 401, 429, server errors, network errors and empty bodies to labeled statuses", async () => {
   const cases = [
     [{ status: 401 }, "expired", null],
+    [{ status: 403 }, "unavailable", "no permission to read usage"],
     [{ status: 429 }, "throttled", null],
     [{ status: 503 }, "unavailable", "HTTP 503"],
     [{ error: new TypeError("fetch failed") }, "unavailable", "network"],

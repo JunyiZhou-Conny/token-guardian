@@ -7,39 +7,30 @@ const path = require("node:path");
 const { app, BrowserWindow, Tray, Menu, nativeImage, ipcMain, screen, session } = require("electron");
 const { collectStatus } = require("./status");
 const { demoStatus } = require("./demo");
+const { createRefresher } = require("./refresher");
 
-const REFRESH_MS = 5 * 60_000; // unofficial endpoints: poll gently
-const MIN_MANUAL_REFRESH_MS = 60_000;
 const WINDOW_SIZE = { width: 360, height: 540 };
 const DEMO = process.env.TOKEN_MONITOR_DEMO === "1";
 const SHOW_ON_START = process.argv.includes("--show");
+// A tray click first blurs (and hides) the open window; don't let that same click reopen it.
+const BLUR_CLICK_GRACE_MS = 300;
 
 let tray = null;
 let win = null;
-let latest = null;
-let inFlight = null;
+let quitting = false;
+let lastBlurHideAt = 0;
 
-async function refresh({ force = false } = {}) {
-  const age = latest ? Date.now() - Date.parse(latest.generatedAt) : Infinity;
-  if (latest && age < (force ? MIN_MANUAL_REFRESH_MS : REFRESH_MS)) return latest;
-  if (!inFlight) {
-    inFlight = (DEMO ? Promise.resolve(demoStatus()) : collectStatus())
-      .then((status) => {
-        latest = status;
-        updateTray();
-        return status;
-      })
-      .finally(() => { inFlight = null; });
-  }
-  return inFlight;
-}
+const refresher = createRefresher({
+  load: () => (DEMO ? demoStatus() : collectStatus()),
+  onUpdate: (status) => updateTray(status),
+});
 
 // Menu-bar text: the most-used window across providers, e.g. "61%".
-function updateTray() {
-  if (!tray || !latest) return;
+function updateTray(status) {
+  if (!tray || !status) return;
   const lines = [];
   let highest = null;
-  for (const provider of latest.providers) {
+  for (const provider of status.providers) {
     for (const window of provider.windows) {
       lines.push(`${provider.provider} ${window.label}: ${Math.round(window.usedPercent)}% used`);
       if (highest === null || window.usedPercent > highest) highest = window.usedPercent;
@@ -88,7 +79,15 @@ function createWindow() {
   win.webContents.on("will-navigate", (event) => event.preventDefault());
   win.webContents.setWindowOpenHandler(() => ({ action: "deny" }));
   win.on("blur", () => {
-    if (!SHOW_ON_START) win.hide();
+    if (SHOW_ON_START || !win.isVisible()) return;
+    win.hide();
+    lastBlurHideAt = Date.now();
+  });
+  // Cmd+W hides instead of destroying, so the tray can always reopen the window.
+  win.on("close", (event) => {
+    if (quitting) return;
+    event.preventDefault();
+    win.hide();
   });
 }
 
@@ -97,6 +96,7 @@ function toggleWindow() {
     win.hide();
     return;
   }
+  if (Date.now() - lastBlurHideAt < BLUR_CLICK_GRACE_MS) return;
   positionWindow();
   win.show();
   win.focus();
@@ -110,7 +110,7 @@ function createTray() {
   tray.setToolTip("Token Monitor");
   const menu = Menu.buildFromTemplate([
     { label: "Show usage", click: () => toggleWindow() },
-    { label: "Refresh now", click: () => refresh({ force: true }).then(() => win.webContents.send("status:shown")) },
+    { label: "Refresh now", click: () => refresher.refresh({ force: true }).then(() => win.webContents.send("status:shown")) },
     { type: "separator" },
     { label: "Quit Token Monitor", role: "quit" },
   ]);
@@ -124,15 +124,18 @@ if (!app.requestSingleInstanceLock()) {
   app.quit();
 } else {
   app.on("second-instance", () => win && toggleWindow());
+  app.on("before-quit", () => {
+    quitting = true;
+    refresher.stop();
+  });
   app.whenReady().then(() => {
     if (process.platform === "darwin") app.dock?.hide();
     session.defaultSession.setPermissionRequestHandler((_wc, _permission, callback) => callback(false));
-    ipcMain.handle("status:get", (_event, options) => refresh({ force: Boolean(options?.force) }));
+    ipcMain.handle("status:get", (_event, options) => refresher.refresh({ force: Boolean(options?.force) }));
     ipcMain.handle("app:quit", () => app.quit());
     createWindow();
     createTray();
-    refresh();
-    setInterval(() => refresh(), REFRESH_MS);
+    refresher.refresh(); // also schedules every later automatic refresh
     if (SHOW_ON_START) win.once("ready-to-show", () => toggleWindow());
   });
   // Keep running in the menu bar when the window is closed.

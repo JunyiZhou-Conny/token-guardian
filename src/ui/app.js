@@ -19,6 +19,7 @@ const COPY = {
   left: (pct) => `${pct}% left`,
   resetsIn: (text) => `resets in ${text}`,
   resetUnknown: "reset time unknown",
+  resetPassed: "reset — updating soon",
   notStarted: "not started",
   updated: (text) => `Updated ${text}`,
   justNow: "just now",
@@ -40,7 +41,9 @@ function formatDuration(ms) {
 
 function resetText(window) {
   if (!window.resetsAt) return window.usedPercent === 0 ? COPY.notStarted : COPY.resetUnknown;
-  return COPY.resetsIn(formatDuration(Date.parse(window.resetsAt) - Date.now()));
+  const remaining = Date.parse(window.resetsAt) - Date.now();
+  // The app refreshes shortly after a reset; until then, don't present the old number as current.
+  return remaining <= 0 ? COPY.resetPassed : COPY.resetsIn(formatDuration(remaining));
 }
 
 function statusText(provider) {

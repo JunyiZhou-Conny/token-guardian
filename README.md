@@ -32,9 +32,10 @@ npm start
 A gauge icon and a percentage appear in the menu bar. Click it to open the usage window; right-click
 for **Refresh now** and **Quit**. The menu-bar number is your most-used window across all tools.
 
-The first time it reads your Claude sign-in, macOS asks whether Token Monitor may use the
-"Claude Code-credentials" Keychain item. Choose **Always Allow** so later refreshes stay quiet.
-Choosing **Deny** just shows Claude as "Not signed in".
+On macOS, Claude Code keeps its sign-in in the Keychain item "Claude Code-credentials", which Token
+Monitor reads with the built-in `security` tool. macOS may ask whether to allow that; choose
+**Always Allow** so later refreshes stay quiet. If access is denied, the Claude card says so instead of
+showing numbers. *(Whether and how this prompt appears still needs a real-Mac check.)*
 
 To look at the interface without any sign-in: `npm run demo`.
 
@@ -43,12 +44,14 @@ To look at the interface without any sign-in: `npm run demo`.
 Token Monitor reads the sign-in each tool already saved on your Mac and asks that tool's own usage
 service for the numbers its app shows you:
 
-- **Claude Code:** the OAuth token from `CLAUDE_CODE_OAUTH_TOKEN`, `~/.claude/.credentials.json`, or
-  the macOS Keychain, sent to `api.anthropic.com/api/oauth/usage`.
+- **Claude Code:** the OAuth token from `CLAUDE_CODE_OAUTH_TOKEN`, the macOS Keychain, or
+  `~/.claude/.credentials.json`, sent to `api.anthropic.com/api/oauth/usage`.
 - **Codex:** the ChatGPT sign-in in `~/.codex/auth.json`, sent to `chatgpt.com/backend-api/wham/usage`.
-  If that fails, it asks the local Codex CLI (`codex app-server`), which can refresh its own sign-in.
+  Only if there is no `auth.json` (Codex can keep its sign-in in the system keyring instead) does it
+  ask the local Codex CLI (`codex app-server`), which manages its own sign-in.
 
-It refreshes every 5 minutes, and **Refresh** is limited to once a minute.
+It refreshes every 5 minutes, and again shortly after a window resets. **Refresh** is limited to
+once a minute.
 
 These are the endpoints the tools' own apps use. **They are not documented public APIs** and can change
 without notice; when one does, that card shows "Couldn't load usage" instead of a guess.
@@ -58,7 +61,8 @@ without notice; when one does, that card shows "Couldn't load usage" instead of 
 - Read-only: Token Monitor never rewrites or refreshes your sign-ins. If one has expired, it says so
   and you open the tool once to refresh it.
 - Your tokens go only to each tool's own service (Anthropic, OpenAI). There is no server, telemetry, or
-  analytics, and nothing is saved to disk.
+  analytics. Token Monitor keeps no usage history or credentials of its own; like any Electron app it
+  has a standard folder in `~/Library/Application Support/Token Monitor` for browser settings and caches.
 - The window gets only percentages, reset times, and plan names, never tokens or account IDs.
 
 ## Develop
@@ -73,7 +77,8 @@ be checked on a Mac with real accounts.
 
 | File | Purpose |
 | --- | --- |
-| `src/main.js` | Menu-bar icon, window, 5-minute refresh |
+| `src/main.js` | Menu-bar icon and window |
+| `src/refresher.js` | When to refresh: every 5 minutes, after resets, manual at most once a minute |
 | `src/preload.js` | The page's only bridge: read status, refresh, quit |
 | `src/ui/` | The usage window (plain HTML, CSS, JS) |
 | `src/providers/claude.js`, `codex.js` | Read a sign-in, call one usage endpoint, map the answer |

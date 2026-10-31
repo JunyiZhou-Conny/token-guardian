@@ -52,6 +52,14 @@ test("labels windows by length, so a weekly window in the primary slot stays wee
   assert.equal(windowLabel(undefined, "primary"), "5-hour");
   assert.equal(windowLabel(undefined, "secondary"), "Weekly");
   assert.equal(windowLabel(86400, "primary"), "1-day");
+  assert.equal(windowLabel(1200, "primary"), "20-min");
+  assert.equal(windowLabel(10, "primary"), "1-min");
+});
+
+test("keeps an unknown reset time unknown instead of 'resets now'", async () => {
+  const body = { rate_limit: { primary_window: { used_percent: 10, limit_window_seconds: 18000, reset_after_seconds: null } } };
+  const result = await fetchCodexLimits(deps({ fetch: fakeFetch({ body }) }));
+  assert.equal(result.windows[0].resetsAt, null);
 });
 
 test("never puts tokens or account ids in the result", async () => {
@@ -63,16 +71,15 @@ test("never puts tokens or account ids in the result", async () => {
   }
 });
 
-test("falls back to the Codex CLI app-server when the web sign-in is rejected", async () => {
+test("does not start the Codex CLI to work around a rejected sign-in", async () => {
+  const spawned = [];
   const result = await fetchCodexLimits(deps({
-    env: { TOKEN_MONITOR_CODEX_COMMAND: FAKE_CODEX, PATH: process.env.PATH },
-    spawnFn: require("node:child_process").spawn,
+    spawnFn: (command) => { spawned.push(command); throw new Error("should not spawn"); },
     fetch: fakeFetch({ status: 401 }),
   }));
-  assert.equal(result.status, "ok");
-  assert.equal(result.source, "codex-cli");
-  assert.equal(result.plan, "Pro");
-  assert.deepEqual(result.windows.map((w) => [w.label, w.usedPercent]), [["5-hour", 5], ["Weekly", 33]]);
+  assert.equal(result.status, "expired");
+  assert.equal(result.plan, "Plus");
+  assert.deepEqual(spawned, []);
 });
 
 test("uses the Codex CLI when there is no auth.json at all", async () => {
@@ -83,17 +90,19 @@ test("uses the Codex CLI when there is no auth.json at all", async () => {
   }));
   assert.equal(result.status, "ok");
   assert.equal(result.source, "codex-cli");
+  assert.equal(result.plan, "Pro");
+  assert.deepEqual(result.windows.map((w) => [w.label, w.usedPercent]), [["5-hour", 5], ["Weekly", 33]]);
 });
 
-test("stops a Codex CLI that never answers and keeps the web status", async () => {
+test("stops a Codex CLI that never answers", async () => {
   const started = Date.now();
   const result = await fetchCodexLimits(deps({
+    readFile: fakeFiles({}),
     env: { TOKEN_MONITOR_CODEX_COMMAND: FAKE_CODEX, FAKE_CODEX_MODE: "hang", PATH: process.env.PATH },
     spawnFn: require("node:child_process").spawn,
-    fetch: fakeFetch({ status: 401 }),
     rpcTimeoutMs: 300,
   }));
-  assert.equal(result.status, "expired");
+  assert.equal(result.status, "notConfigured");
   assert.ok(Date.now() - started < 5000);
 });
 
@@ -104,9 +113,10 @@ test("reports notConfigured when there is no sign-in and no Codex CLI", async ()
   assert.equal(fetch.calls.length, 0);
 });
 
-test("maps web errors to labeled statuses when the CLI is unavailable", async () => {
+test("maps web errors to labeled statuses", async () => {
   const cases = [
     [{ status: 401 }, "expired", null],
+    [{ status: 403 }, "unavailable", "no permission to read usage"],
     [{ status: 429 }, "throttled", null],
     [{ status: 502 }, "unavailable", "HTTP 502"],
     [{ error: new TypeError("fetch failed") }, "unavailable", "network"],

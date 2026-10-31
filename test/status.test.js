@@ -31,7 +31,7 @@ test("one failing provider does not hide the others", async () => {
     home: "/nonexistent",
     platform: "darwin",
     readFile: async () => { throw new Error("disk exploded"); },
-    run: async () => { throw new Error("no keychain"); },
+    run: async () => { throw Object.assign(new Error("item not found"), { code: 44 }); },
     exists: () => { throw new Error("boom"); },
     spawnFn: () => { throw new Error("no codex"); },
     now,

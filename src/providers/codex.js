@@ -3,9 +3,11 @@
 // Codex (ChatGPT plan) limits: the 5-hour and weekly windows shown in Codex itself.
 //
 // First choice: read the ChatGPT sign-in Codex stored in ~/.codex/auth.json and call the same
-// usage endpoint the Codex app uses. Fallback: ask the local Codex CLI through its app-server
-// JSON-RPC (`account/rateLimits/read`), which also lets Codex refresh its own sign-in.
-// Read-only: auth.json is never rewritten. Neither interface is a documented public API.
+// usage endpoint the Codex app uses. Only when there is no usable auth.json (for example, Codex
+// keeps its sign-in in the system keyring) do we ask the local Codex CLI through its app-server
+// JSON-RPC (`account/rateLimits/read`); the CLI manages its own sign-in. We never start the CLI to
+// work around a rejected sign-in, and auth.json is never rewritten. Neither interface is a
+// documented public API.
 // Approach adapted from Javis603/token-monitor (MIT), commits b01f2f33 and cc79febc.
 
 const fs = require("node:fs/promises");
@@ -41,11 +43,19 @@ async function readCodexAuth({ env, home, readFile }) {
   };
 }
 
+// Number(null) and Number("") are 0, which would turn "unknown" into "resets now".
+function toNumberOrNull(value) {
+  if (value === null || value === undefined || value === "") return null;
+  const n = Number(value);
+  return Number.isFinite(n) ? n : null;
+}
+
 // Label a window by its length, not its slot: free plans can put the weekly window in "primary".
 function windowLabel(seconds, slot) {
   if (Number.isFinite(seconds) && seconds > 0) {
     if (seconds >= ONE_WEEK_S) return "Weekly";
     if (seconds === FIVE_HOURS_S) return "5-hour";
+    if (seconds < 3600) return `${Math.max(1, Math.round(seconds / 60))}-min`;
     const hours = Math.round(seconds / 3600);
     return hours >= 24 ? `${Math.round(hours / 24)}-day` : `${hours}-hour`;
   }
@@ -58,8 +68,8 @@ function mapWhamUsage(body, now = Date.now) {
     const window = rateLimit[`${slot}_window`];
     if (!window) return null;
     const seconds = Number(window.limit_window_seconds);
-    const after = Number(window.reset_after_seconds);
-    const resetsAt = window.reset_at ?? (Number.isFinite(after) ? now() + after * 1000 : null);
+    const after = toNumberOrNull(window.reset_after_seconds);
+    const resetsAt = window.reset_at ?? (after === null ? null : now() + after * 1000);
     return makeWindow({ label: windowLabel(seconds, slot), usedPercent: window.used_percent, resetsAt });
   }).filter(Boolean);
 }
@@ -93,7 +103,8 @@ async function fetchViaHttp(auth, { fetch, now }) {
   } catch (error) {
     return { status: STATUS.unavailable, detail: error?.name === "TimeoutError" ? "timeout" : "network" };
   }
-  if (response.status === 401 || response.status === 403) return { status: STATUS.expired };
+  if (response.status === 401) return { status: STATUS.expired };
+  if (response.status === 403) return { status: STATUS.unavailable, detail: "no permission to read usage" };
   if (response.status === 429) return { status: STATUS.throttled };
   if (!response.ok) return { status: STATUS.unavailable, detail: `HTTP ${response.status}` };
 
@@ -193,16 +204,14 @@ async function fetchCodexLimits(deps = {}) {
   } = deps;
 
   const auth = await readCodexAuth({ env, home, readFile });
-  const http = auth ? await fetchViaHttp(auth, { fetch, now }) : null;
-  if (http?.status === STATUS.ok) {
+  if (auth) {
+    const http = await fetchViaHttp(auth, { fetch, now });
     return providerResult("codex", { source: "chatgpt", ...http, plan: http.plan || auth.plan }, now);
   }
 
   const rpc = await fetchViaAppServer({ env, home, platform, exists, spawnFn, timeoutMs: rpcTimeoutMs });
-  if (rpc) return providerResult("codex", { source: "codex-cli", ...rpc, plan: rpc.plan || auth?.plan }, now);
-
-  if (!http) return providerResult("codex", { status: STATUS.notConfigured }, now);
-  return providerResult("codex", { source: "chatgpt", ...http, plan: auth.plan }, now);
+  if (rpc) return providerResult("codex", { source: "codex-cli", ...rpc }, now);
+  return providerResult("codex", { status: STATUS.notConfigured }, now);
 }
 
 module.exports = { fetchCodexLimits, readCodexAuth, mapWhamUsage, mapRpcRateLimits, windowLabel, USAGE_URL };

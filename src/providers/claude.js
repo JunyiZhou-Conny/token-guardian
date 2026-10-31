@@ -18,7 +18,10 @@ const { STATUS, makeWindow, planLabel, providerResult } = require("../limits");
 const USAGE_URL = "https://api.anthropic.com/api/oauth/usage";
 const KEYCHAIN_SERVICE = "Claude Code-credentials";
 const REQUEST_TIMEOUT_MS = 12_000;
-const KEYCHAIN_TIMEOUT_MS = 5_000;
+// Long enough for a person to answer a macOS Keychain access prompt.
+const KEYCHAIN_TIMEOUT_MS = 60_000;
+// `security` exits with 44 (errSecItemNotFound) when there is no such Keychain item.
+const KEYCHAIN_ITEM_NOT_FOUND = 44;
 
 function runCommand(command, args, { timeout = KEYCHAIN_TIMEOUT_MS } = {}) {
   return new Promise((resolve, reject) => {
@@ -50,20 +53,38 @@ function parseClaudeCredentials(text) {
   return { accessToken: oauth.accessToken, plan: plan && tier ? `${plan} ${tier}` : plan };
 }
 
-// Same lookup order as Claude Code: env token, then the credentials file, then the macOS Keychain.
+class KeychainAccessError extends Error {}
+
+async function readKeychain(run) {
+  try {
+    return await run("security", ["find-generic-password", "-s", KEYCHAIN_SERVICE, "-w"]);
+  } catch (error) {
+    if (error?.code === KEYCHAIN_ITEM_NOT_FOUND) return null;
+    // Denied, cancelled, or a prompt nobody answered in time.
+    throw new KeychainAccessError("keychain");
+  }
+}
+
+// Env token first. On macOS, Claude Code keeps its live sign-in in the Keychain, so a leftover
+// credentials file must not shadow it; elsewhere the credentials file is the store.
 async function readClaudeCredentials({ env, home, platform, readFile, run }) {
   if (env.CLAUDE_CODE_OAUTH_TOKEN) return { accessToken: env.CLAUDE_CODE_OAUTH_TOKEN, plan: null };
+
+  let keychainError = null;
+  if (platform === "darwin") {
+    try {
+      const fromKeychain = parseClaudeCredentials(await readKeychain(run));
+      if (fromKeychain) return fromKeychain;
+    } catch (error) {
+      keychainError = error;
+    }
+  }
 
   const configDir = env.CLAUDE_CONFIG_DIR || path.join(home, ".claude");
   const fileText = await readFile(path.join(configDir, ".credentials.json"), "utf8").catch(() => null);
   const fromFile = parseClaudeCredentials(fileText);
   if (fromFile) return fromFile;
-
-  if (platform === "darwin") {
-    // The first read shows a macOS prompt; choose "Always Allow" so later refreshes stay quiet.
-    const keychainText = await run("security", ["find-generic-password", "-s", KEYCHAIN_SERVICE, "-w"]).catch(() => null);
-    return parseClaudeCredentials(keychainText);
-  }
+  if (keychainError) throw keychainError;
   return null;
 }
 
@@ -87,7 +108,13 @@ async function fetchClaudeLimits(deps = {}) {
   } = deps;
   const result = (fields) => providerResult("claude", { source: "oauth", ...fields }, now);
 
-  const creds = await readClaudeCredentials({ env, home, platform, readFile, run });
+  let creds;
+  try {
+    creds = await readClaudeCredentials({ env, home, platform, readFile, run });
+  } catch (error) {
+    if (error instanceof KeychainAccessError) return result({ status: STATUS.unavailable, detail: "Keychain access not allowed" });
+    throw error;
+  }
   if (!creds) return result({ status: STATUS.notConfigured });
 
   let response;
@@ -105,7 +132,9 @@ async function fetchClaudeLimits(deps = {}) {
     return result({ status: STATUS.unavailable, plan: creds.plan, detail: error?.name === "TimeoutError" ? "timeout" : "network" });
   }
 
-  if (response.status === 401 || response.status === 403) return result({ status: STATUS.expired, plan: creds.plan });
+  if (response.status === 401) return result({ status: STATUS.expired, plan: creds.plan });
+  // 403 is not an expiry: e.g. a `claude setup-token` token without permission to read usage.
+  if (response.status === 403) return result({ status: STATUS.unavailable, plan: creds.plan, detail: "no permission to read usage" });
   if (response.status === 429) return result({ status: STATUS.throttled, plan: creds.plan });
   if (!response.ok) return result({ status: STATUS.unavailable, plan: creds.plan, detail: `HTTP ${response.status}` });
 

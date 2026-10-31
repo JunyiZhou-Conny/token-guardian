@@ -9,7 +9,8 @@ The earlier Token Guardian prototype lives on the `archive/guardian-v1` branch; 
 
 ## Layout
 
-- `src/main.js`: tray icon, popover window, 5-minute refresh, 60-second manual-refresh floor.
+- `src/main.js`: tray icon and popover window. `src/refresher.js`: 5-minute refresh, refresh shortly
+  after a window resets, 60-second manual-refresh floor, shared in-flight request.
 - `src/preload.js`: the only renderer bridge (`getStatus`, `onShown`, `quit`). Keep `contextIsolation`,
   `sandbox`, no `nodeIntegration`, blocked navigation, and denied permissions.
 - `src/ui/`: plain HTML/CSS/JS. User-facing text lives in the `COPY` object in `src/ui/app.js`.
