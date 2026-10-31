@@ -1,41 +1,19 @@
-# Third-Party Notices
+# Third-party notices
 
-This project includes third-party assets and code. The following notices apply.
+## Javis603/token-monitor
 
-## RunCat menu bar cat frames
+Token Monitor's provider approach (which local sign-in to read, which usage endpoint to call, and
+how to label the windows) is adapted from [Javis603/token-monitor](https://github.com/Javis603/token-monitor),
+written fresh rather than copied. Relevant upstream commits:
 
-The running-cat animation frames used by the macOS menu bar icon
-(`TokenTrackerBar/TokenTrackerBar/Assets.xcassets/RunnerCat0…4.imageset`)
-are from [menubar_runcat](https://github.com/Kyome22/menubar_runcat)
-by Takuto Nakamura (Kyome22).
+- `b01f2f33` — Claude and Codex limits (Claude OAuth usage endpoint, Codex app-server RPC)
+- `cc79febc` — Codex limits over ChatGPT's usage endpoint
+- `b8303bbe`, `3e82f76a` — Cursor limits and reading Cursor's local sign-in (planned here)
 
-Copyright © 2019 Takuto Nakamura
+```
+MIT License
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use these files except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-## Bot companion morphing engine
-
-The vector morphing engine behind the `bot` pet character and its menu bar icon
-(`dashboard/src/lib/bot/`, and the frame data generated from it by
-`scripts/gen-bot-frames.cjs`) is from [bloub](https://github.com/jeremy-prt/bloub)
-by Jérémy Perret, vendored unmodified at commit
-[`b4bb3c1b5f93`](https://github.com/jeremy-prt/bloub/tree/b4bb3c1b5f93c7b87a2e8d620f667c4093d97749).
-
-Note when re-vendoring: `dashboard/src/lib/bot/README.md` is ours, not upstream's, and
-`decor.ts` / `skins.ts` are listed in `scripts/ops/ui-hardcode-baseline.json`, so a
-refresh needs that file re-copied and the baseline regenerated.
-
-Copyright © 2026 Jérémy Perret
+Copyright (c) 2026 Javis
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -54,52 +32,11 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```
 
-## Devin brand mark
+## Earlier project history
 
-`dashboard/public/brand-logos/devin.svg` is a monochrome vector trace of the
-official Devin "nodes" mark published by Cognition at
-`https://app.devin.ai/assets/pwa/apple-touch-icon.png` (also
-`https://app.devin.ai/assets/pwa/pwa-icon-192.png`). The Devin name and logo
-are trademarks of Cognition; the mark is bundled solely to identify the Devin
-CLI source and subscription quota in the dashboard, recoloured to `currentColor` like the
-other provider marks.
-
-## Token Guardian prototype champion avatars
-
-`guardian/assets/champions.png` contains generated reference-based illustrations
-of Ahri, Jinx, and Jhin. The user's supplied Red Note screenshots credit the cute
-avatar references to **AiBaker** (Red Note ID: AiBaker). The prototype atlas was
-generated with OpenAI image generation on 2026-10-10.
-
-League of Legends and its champion characters belong to Riot Games. The software
-MIT license does not grant rights to these characters or to AiBaker's artwork.
-No public artwork license or permission from AiBaker is documented here. This is
-an unofficial fan prototype with no affiliation or endorsement from Riot Games
-or AiBaker. Full source and asset context is recorded in
-[guardian/assets/PROVENANCE.md](guardian/assets/PROVENANCE.md).
-
-The companion outfit atlas `guardian/assets/champion-variants.png` was generated
-with OpenAI image generation on 2026-10-11 from the original prototype atlas.
-It depicts the same Ahri, Jinx, and Jhin characters in alternate cozy outfits.
-The same character, reference-artwork, and non-endorsement notices above apply;
-the software MIT license does not grant rights to these fan illustrations.
-
-## Floating desktop interaction reference
-
-The floating desktop interaction was informed by
-[Javis603/token-monitor](https://github.com/Javis603/token-monitor), reviewed at
-commit `7abdb33ed2290d61bf6d8325ef2da6c6b27ffd05` (MIT, copyright 2026 Javis).
-Guardian's desktop host and widget are implemented in this repository using its
-existing usage backend; reference code and marketing assets were not imported.
-
-The desktop development runtime is Electron 44.7.0. Electron and its bundled
-components carry their own licenses in the installed runtime distribution.
-
-## Generated tutorial narration
-
-The public tutorial scripts were narrated using the ElevenLabs Turbo v2.5 Rachel
-preset through fal.ai. No voice was cloned. The recordings use generated speech,
-synthetic usage metadata, and labeled tutorial examples. Text, request provenance,
-and timing plans are retained in `docs/demos/narration/`; the software MIT notice
-does not replace the media providers' applicable terms.
+Before this restart, the repository was Token Guardian, built on
+[xiufengsun/TokenTracker](https://github.com/xiufengsun/TokenTracker) (MIT, Copyright (c) 2026 xiufengsun).
+That code is preserved unchanged on the `archive/guardian-v1` branch with its original license and
+notices. None of it is included in this version.
