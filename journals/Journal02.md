@@ -1,44 +1,62 @@
-# FP Journal 2: Token Monitor
+FP Journal 2: Token Guardian
 
-**Prototype video (3 min):** [VIDEO LINK — paste the "anyone with the link can view" URL here]
+Prototype video (3 min): https://harvard.zoom.us/rec/share/y3o6Q4YVP_0G8kMg1Z11qfyBdZqVCjxBHdjzf1h5Gb2yWrGiHSDPIKoAq4zH24dZ.blxf6YfKDN9ao5C1?startTime=1793587342000
 
-Repo: https://github.com/JunyiZhou-Conny/token-guardian (pull request [#4](https://github.com/JunyiZhou-Conny/token-guardian/pull/4))
+Repo: https://github.com/JunyiZhou-Conny/token-guardian 
+And take a look at pull request #4: https://github.com/JunyiZhou-Conny/token-guardian/pull/4
 
-## Reformed problem statement
 
-My first version, Token Guardian, tried to do everything: four collectors, spike detection, a chat companion, voice input, and game characters. It reached about 1,700 files that I could no longer explain or test. So I restarted with the question I actually ask several times a day:
+Reformed problem statement:
 
-**How much of my Claude Code, Codex (ChatGPT), and Cursor subscription is left, and when does it reset?**
+My first version tried to do everything at once: spike detection, a chat companion, voice input, even game characters. Each time I asked the AI for more, it added it, until I couldn't explain or test most of it. That was my biggest lesson so far about vibe coding: the AI will build whatever I ask, so I have to be the one who keeps the scope small.
 
-Token Monitor is a small macOS menu-bar app. For each tool it shows the plan, how much of the 5-hour and weekly windows I've used, what's left, and a countdown to the reset. Later it will also show tokens used and their API-equivalent cost. It reads the sign-in each tool already saved on my Mac, never changes it, and talks only to that tool's own usage service.
+So I started over with the one question I actually ask several times a day: how much of my Claude Code, Codex, and Cursor subscription is left, and when does it reset?
 
-I borrowed the approach from the open-source Javis603/token-monitor (MIT): I traced its commit history to the commits where it first read each tool's limits, then rewrote just those ideas in about 1,600 lines I understand.
+Token Guardian is now a small app that sits in my Mac's menu bar. Each tool gets a card showing my plan, how much I've used, what's left, and when it resets. It only reads the sign-in each tool already saved on my computer. It never changes anything.
 
-## Task decomposition, and why each fits iteration with AI
 
-1. **Menu-bar skeleton.** An Electron tray icon, a small window, and one card per tool. The output is visible, so I can correct the AI from screenshots.
-2. **Claude Code limits.** Find the sign-in, call the usage endpoint, and map the answer into the card. I can give the AI a sample response, and tests check every outcome: success, expired sign-in, rate-limited, and no sign-in.
-3. **Codex limits.** The same pattern with a different sign-in file and response format. The AI can follow task 2's pattern, and tests catch differences such as free plans putting the weekly window in the "primary" slot.
-4. **Cursor limits.** Read Cursor's local sign-in database and its plan/usage endpoints. This one is exploratory: Cursor has several plan types, so I'll iterate with the AI against real responses from my account.
-5. **Tokens and API-equivalent cost.** Run an existing tool such as ccusage and display its totals. The AI can wire it up quickly, and I can check the numbers against ccusage's own output.
-6. **Polish and real-Mac checklist.** A double-click launcher, README, and a checklist comparing the app's numbers with each tool's own usage page.
+Task decomposition, and why each fits iteration with AI:
 
-Every task has a checkable output: a test, a screenshot, or a number I can compare with the tool itself. That is what makes directing the AI safe.
+1. A basic menu-bar app. An icon and a small window with one card per tool. I can see the result right away, so I can tell the AI "make this smaller" or "this looks wrong" from a screenshot.
 
-## Work order
+2. Show my Claude Code limits. The AI finds where the data comes from, and I check its answer against Claude Code's own usage screen.
 
-1 → 2 → 3 → 4 → 5 → 6, with 4 and 5 possibly in parallel.
+3. Show my Codex limits. Same idea as task 2, so the AI can reuse what already worked. Again, I compare the numbers with what Codex itself reports.
 
-The skeleton comes first because every later task plugs into it. Subscription limits come next because they are the core need: Claude and Codex first since I use them most and their data is simplest, then Cursor, the hardest. Tokens and cost are "nice to know", not what tells me I'm about to be cut off. Polish comes last, after real-Mac verification.
+4. Show my Cursor limits. This is the most uncertain one, since Cursor has several kinds of plans. I expect a lot of back-and-forth with the AI, trying it on my own account.
 
-**Prototype for this journal:** tasks 1–3. 32 automated tests use synthetic responses and a fake Codex command to cover sign-in lookup order, response mapping, each error status, refresh timing, and that no token or account ID ever appears in the output. An AI code review found 13 issues, which I fixed. The video shows it running on my Mac with my real accounts.
+5. Usage and cost. Show roughly how much I've used and what it would cost. Free tools already count this, so the AI can connect one and I check that the totals match.
 
-**On your feedback:** for testing, every provider is tested against recorded responses rather than live accounts. For "many AI models", I now cover the three subscriptions I actually pay for. My research into existing monitors directly shaped the restart.
+6. Polish. Easy opening, simple instructions, and a final check against each tool's official page.
 
-## Questions for my mentor
+What these tasks share is that I can check every one myself without reading the code: does it look right, and do the numbers match the real tool? That is what makes it safe for me, as someone without a computer science background, to let the AI write the code.
 
-1. Is restarting with a narrower scope acceptable for the final project, given the earlier prototype?
-2. These usage endpoints are undocumented. Is depending on them acceptable if the app fails clearly and never guesses?
-3. What would an "extremely extensive" test suite look like to you here: more recorded edge cases, or real-account checks from friends?
-4. Should "test many AI models" mean adding more tools (Gemini, Copilot), or going deeper on these three?
-5. Would a small friends pilot (3–5 Macs) be a good final-stage evaluation?
+
+Work order
+
+The order is 1, 2, 3, 4, 5, 6, with 4 and 5 possibly in parallel.
+
+The basic app comes first because everything else lives inside it. Then Claude Code and Codex, because I use them most and they turned out to be the easiest. Cursor is next because it's the hardest and the most uncertain. Cost is nice to know, but it isn't what tells me I'm about to run out. Polish comes last.
+
+
+Prototype for this journal
+
+The prototype covers tasks 1 to 3. Because I can't fully judge the code myself, I had the AI write automated tests with made-up example data. All 32 tests pass. They check normal cases, problem cases like an expired sign-in, and that no password-like information ever shows up on screen. I also asked a separate AI to review the code. It found 13 problems, and I had them fixed. The video shows it running with my real accounts.
+
+
+On your feedback
+
+Testing now uses example data instead of my live accounts. For "many AI models," I focused on the three subscriptions I actually pay for. Looking at existing tools helped me realize I should restart smaller.
+
+
+Questions for my mentor
+
+1. Is it okay that I restarted with a much smaller scope for the final project?
+
+2. The tools don't officially publish where their usage numbers come from. Is it acceptable to rely on that, as long as the app clearly says when something fails?
+
+3. As a non-programmer, how can I best judge whether the AI's tests are actually good enough?
+
+4. Should I add more tools (like Gemini or Copilot), or go deeper on these three?
+
+5. Would asking a few friends to try it on their Macs be a good final evaluation?
