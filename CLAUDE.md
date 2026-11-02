@@ -1,6 +1,6 @@
-# Token Monitor contributor and agent guidance
+# Token Guardian contributor and agent guidance
 
-Token Monitor is a deliberately small macOS menu-bar app (Electron) that shows Claude Code, Codex
+Token Guardian is a deliberately small macOS menu-bar app (Electron) that shows Claude Code, Codex
 (ChatGPT plan), and Cursor subscription limits: used/remaining percent per window, reset time, and plan.
 Tokens and API-equivalent cost are a planned addition. Keep it small: no analytics, characters, chat, or
 extra views unless the user asks.

@@ -7,7 +7,7 @@
 // credentials. If the token has expired, the user runs `claude` once and Claude Code refreshes it.
 //
 // The endpoint is the one Claude Code's own /usage view uses. It is not a documented public
-// API and may change. Approach adapted from Javis603/token-monitor (MIT), commit b01f2f33.
+// API and may change. Approach adapted from Javis603/token-guardian (MIT), commit b01f2f33.
 
 const fs = require("node:fs/promises");
 const os = require("node:os");
@@ -124,7 +124,7 @@ async function fetchClaudeLimits(deps = {}) {
         Accept: "application/json",
         Authorization: `Bearer ${creds.accessToken}`,
         "anthropic-beta": "oauth-2025-04-20",
-        "User-Agent": "token-monitor (local, read-only)",
+        "User-Agent": "token-guardian (local, read-only)",
       },
       signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
     });

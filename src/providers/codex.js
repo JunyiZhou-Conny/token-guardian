@@ -8,7 +8,7 @@
 // JSON-RPC (`account/rateLimits/read`); the CLI manages its own sign-in. We never start the CLI to
 // work around a rejected sign-in, and auth.json is never rewritten. Neither interface is a
 // documented public API.
-// Approach adapted from Javis603/token-monitor (MIT), commits b01f2f33 and cc79febc.
+// Approach adapted from Javis603/token-guardian (MIT), commits b01f2f33 and cc79febc.
 
 const fs = require("node:fs/promises");
 const { existsSync } = require("node:fs");
@@ -93,7 +93,7 @@ async function fetchViaHttp(auth, { fetch, now }) {
   const headers = {
     Accept: "application/json",
     Authorization: `Bearer ${auth.accessToken}`,
-    "User-Agent": "token-monitor (local, read-only)",
+    "User-Agent": "token-guardian (local, read-only)",
   };
   if (auth.accountId) headers["ChatGPT-Account-Id"] = auth.accountId;
 
@@ -115,7 +115,7 @@ async function fetchViaHttp(auth, { fetch, now }) {
 }
 
 function codexCommands({ env, platform, exists }) {
-  if (env.TOKEN_MONITOR_CODEX_COMMAND) return [env.TOKEN_MONITOR_CODEX_COMMAND];
+  if (env.TOKEN_GUARDIAN_CODEX_COMMAND) return [env.TOKEN_GUARDIAN_CODEX_COMMAND];
   const app = "/Applications/Codex.app/Contents/Resources/codex";
   return [platform === "darwin" && exists(app) ? app : null, "codex"].filter(Boolean);
 }
@@ -171,7 +171,7 @@ function readRateLimitsOverRpc(command, { env, home, spawnFn, timeoutMs }) {
     });
 
     (async () => {
-      await send("initialize", { clientInfo: { name: "token-monitor", title: "Token Monitor", version: "0.1.0" } });
+      await send("initialize", { clientInfo: { name: "token-guardian", title: "Token Guardian", version: "0.1.0" } });
       child.stdin.write(`${JSON.stringify({ method: "initialized", params: {} })}\n`);
       return send("account/rateLimits/read");
     })().then((value) => finish(null, value), (error) => finish(error));

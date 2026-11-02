@@ -85,7 +85,7 @@ test("does not start the Codex CLI to work around a rejected sign-in", async () 
 test("uses the Codex CLI when there is no auth.json at all", async () => {
   const result = await fetchCodexLimits(deps({
     readFile: fakeFiles({}),
-    env: { TOKEN_MONITOR_CODEX_COMMAND: FAKE_CODEX, PATH: process.env.PATH },
+    env: { TOKEN_GUARDIAN_CODEX_COMMAND: FAKE_CODEX, PATH: process.env.PATH },
     spawnFn: require("node:child_process").spawn,
   }));
   assert.equal(result.status, "ok");
@@ -98,7 +98,7 @@ test("stops a Codex CLI that never answers", async () => {
   const started = Date.now();
   const result = await fetchCodexLimits(deps({
     readFile: fakeFiles({}),
-    env: { TOKEN_MONITOR_CODEX_COMMAND: FAKE_CODEX, FAKE_CODEX_MODE: "hang", PATH: process.env.PATH },
+    env: { TOKEN_GUARDIAN_CODEX_COMMAND: FAKE_CODEX, FAKE_CODEX_MODE: "hang", PATH: process.env.PATH },
     spawnFn: require("node:child_process").spawn,
     rpcTimeoutMs: 300,
   }));

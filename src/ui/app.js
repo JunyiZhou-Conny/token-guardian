@@ -2,7 +2,7 @@
 
 // All user-facing text lives here.
 const COPY = {
-  title: "Token Monitor",
+  title: "Token Guardian",
   refresh: "Refresh",
   quit: "Quit",
   demo: "Demo data — not your real usage.",

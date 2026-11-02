@@ -1,7 +1,7 @@
 "use strict";
 
 // Clearly labeled sample data for screenshots and UI work without real sign-ins.
-// Enabled only by TOKEN_MONITOR_DEMO=1; the UI shows a "Demo data" banner.
+// Enabled only by TOKEN_GUARDIAN_DEMO=1; the UI shows a "Demo data" banner.
 function demoStatus(now = Date.now) {
   const at = (hours) => new Date(now() + hours * 3600_000).toISOString();
   const fetchedAt = new Date(now()).toISOString();

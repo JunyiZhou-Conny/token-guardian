@@ -1,4 +1,4 @@
-# Token Monitor
+# Token Guardian
 
 A small macOS menu-bar app that answers one question: **how much of my AI coding subscription is
 left, and when does it reset?**
@@ -13,7 +13,7 @@ countdown to the reset:
 | Cursor | Included usage for the current period | Next milestone |
 | Tokens and API-equivalent cost | Today and this week | Planned (via [ccusage](https://ccusage.com)) |
 
-![Token Monitor showing demo data](docs/screenshot-demo.png)
+![Token Guardian showing demo data](docs/screenshot-demo.png)
 
 *The screenshot uses labeled demo data, not real usage.*
 
@@ -41,7 +41,7 @@ To look at the interface without any sign-in: `npm run demo`.
 
 ## How it works
 
-Token Monitor reads the sign-in each tool already saved on your Mac and asks that tool's own usage
+Token Guardian reads the sign-in each tool already saved on your Mac and asks that tool's own usage
 service for the numbers its app shows you:
 
 - **Claude Code:** the OAuth token from `CLAUDE_CODE_OAUTH_TOKEN`, the macOS Keychain, or
@@ -58,11 +58,11 @@ without notice; when one does, that card shows "Couldn't load usage" instead of 
 
 ## Privacy
 
-- Read-only: Token Monitor never rewrites or refreshes your sign-ins. If one has expired, it says so
+- Read-only: Token Guardian never rewrites or refreshes your sign-ins. If one has expired, it says so
   and you open the tool once to refresh it.
 - Your tokens go only to each tool's own service (Anthropic, OpenAI). There is no server, telemetry, or
-  analytics. Token Monitor keeps no usage history or credentials of its own; like any Electron app it
-  has a standard folder in `~/Library/Application Support/Token Monitor` for browser settings and caches.
+  analytics. Token Guardian keeps no usage history or credentials of its own; like any Electron app it
+  has a standard folder in `~/Library/Application Support/Token Guardian` for browser settings and caches.
 - The window gets only percentages, reset times, and plan names, never tokens or account IDs.
 
 ## Develop

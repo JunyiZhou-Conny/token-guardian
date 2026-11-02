@@ -10,7 +10,7 @@ const { demoStatus } = require("./demo");
 const { createRefresher } = require("./refresher");
 
 const WINDOW_SIZE = { width: 360, height: 540 };
-const DEMO = process.env.TOKEN_MONITOR_DEMO === "1";
+const DEMO = process.env.TOKEN_GUARDIAN_DEMO === "1";
 const SHOW_ON_START = process.argv.includes("--show");
 // A tray click first blurs (and hides) the open window; don't let that same click reopen it.
 const BLUR_CLICK_GRACE_MS = 300;
@@ -36,7 +36,7 @@ function updateTray(status) {
       if (highest === null || window.usedPercent > highest) highest = window.usedPercent;
     }
   }
-  tray.setToolTip(lines.length ? lines.join("\n") : "Token Monitor");
+  tray.setToolTip(lines.length ? lines.join("\n") : "Token Guardian");
   if (process.platform === "darwin") tray.setTitle(highest === null ? "" : `${Math.round(highest)}%`);
 }
 
@@ -107,12 +107,12 @@ function createTray() {
   const icon = nativeImage.createFromPath(path.join(__dirname, "..", "assets", "trayTemplate.png"));
   icon.setTemplateImage(true);
   tray = new Tray(icon);
-  tray.setToolTip("Token Monitor");
+  tray.setToolTip("Token Guardian");
   const menu = Menu.buildFromTemplate([
     { label: "Show usage", click: () => toggleWindow() },
     { label: "Refresh now", click: () => refresher.refresh({ force: true }).then(() => win.webContents.send("status:shown")) },
     { type: "separator" },
-    { label: "Quit Token Monitor", role: "quit" },
+    { label: "Quit Token Guardian", role: "quit" },
   ]);
   tray.on("click", toggleWindow);
   tray.on("right-click", () => tray.popUpContextMenu(menu));
