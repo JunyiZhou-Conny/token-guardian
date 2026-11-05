@@ -1,171 +1,104 @@
 # Token Guardian
 
-A local token tracker with a little company: investigate unexpected AI usage,
-follow the available evidence, and ask a champion companion what happened.
+A small macOS menu-bar app that answers one question: **how much of my AI coding subscription is
+left, and when does it reset?**
 
-This is the source prototype for
-[JunyiZhou-Conny/token-guardian](https://github.com/JunyiZhou-Conny/token-guardian),
-built on [xiufengsun/TokenTracker](https://github.com/xiufengsun/TokenTracker).
-The first focus is **macOS**, with a Guardian view for records from **Codex,
-Claude Code, Cursor, and Gemini CLI**. Codex covers the OpenAI coding-tool source;
-this is not a complete OpenAI account or ChatGPT subscription usage monitor.
+For each tool it shows the plan, how much of each usage window you've used, how much is left, and a
+countdown to the reset:
 
-The companion can also float on your desktop while the full dashboard stays
-available. Use **Node.js 22.20+**, run `npm --prefix desktop ci` once, then
-`node scripts/start-floating-guardian.cjs`. First launch may download the Electron
-runtime. On macOS, **Start Floating
-Guardian.command** launches it after setup. This development runtime needs no
-Xcode; a signed macOS installer is still pending.
+| Tool | What it shows | Status |
+| --- | --- | --- |
+| Claude Code | 5-hour window, weekly window (and weekly Opus when reported) | Built, tested with synthetic data |
+| Codex (ChatGPT plan) | 5-hour window, weekly window | Built, tested with synthetic data |
+| Cursor | Included usage for the current period | Next milestone |
+| Tokens and API-equivalent cost | Today and this week | Planned (via [ccusage](https://ccusage.com)) |
 
-![Token Guardian overview with an Ahri companion](docs/screenshots/guardian-preview.png)
+![Token Guardian showing demo data](docs/screenshot-demo.png)
 
-The screenshot uses labeled preview data. Watch the narrated
-[full dashboard tour](docs/demos/token-guardian-demo.mp4) or
-[floating companion tour](docs/demos/token-guardian-floating-demo.mp4),
-then use the [installation guide](docs/INSTALL.md) and [walkthrough](docs/DEMO.md)
-to try the current prototype.
+*The screenshot uses labeled demo data, not real usage.*
 
-See the [session investigation view](docs/screenshots/guardian-sessions.png) and
-[companion collection](docs/screenshots/guardian-collection.png) for more previews.
-The [compact floating view](docs/screenshots/guardian-floating-compact.png) and
-[summoned companion](docs/screenshots/guardian-floating-companion.png) show real
-Electron windows tested on Linux, using synthetic records.
+## Run it
 
-## Try the prototype
-
-Install **Node.js 20 or newer**, then run from this repository:
+You need macOS, [Node.js 22.12 or newer](https://nodejs.org/), and to be signed in to the tools you
+want to see (run `claude` once, open Codex and sign in with ChatGPT).
 
 ```sh
-node scripts/start-guardian.cjs
+git clone https://github.com/JunyiZhou-Conny/token-guardian.git
+cd token-guardian
+npm install
+npm start
 ```
 
-On macOS you can also double-click **Start Token Guardian.command**. The launcher
-opens `http://127.0.0.1:7681` in your browser. Press Control-C in the terminal to
-stop it. No npm install, account, or API key is needed for this Guardian launcher.
+A gauge icon and a percentage appear in the menu bar. Click it to open the usage window; right-click
+for **Refresh now** and **Quit**. The menu-bar number is your most-used window across all tools.
 
-The standalone Guardian reads existing local TokenTracker records; it does not
-install collection hooks or start a sync. If it finds no supported usage, it
-shows clearly labeled **preview data**, including a simulated Cursor job repeating
-every ten minutes. Choose **Show local records** to inspect your own dataset, or
-import a Cursor usage CSV or normalized usage JSON. Reimporting an unchanged
-export does not duplicate its records.
+On macOS, Claude Code keeps its sign-in in the Keychain item "Claude Code-credentials", which Token
+Monitor reads with the built-in `security` tool. macOS may ask whether to allow that; choose
+**Always Allow** so later refreshes stay quiet. If access is denied, the Claude card says so instead of
+showing numbers. *(Whether and how this prompt appears still needs a real-Mac check.)*
 
-Existing records are read from `~/.tokentracker/tracker/`, with support for older
-layouts. Imports stay in `~/.tokentracker/guardian/`. For a separate data folder or
-port:
+To look at the interface without any sign-in: `npm run demo`.
+
+## How it works
+
+Token Guardian reads the sign-in each tool already saved on your Mac and asks that tool's own usage
+service for the numbers its app shows you:
+
+- **Claude Code:** the OAuth token from `CLAUDE_CODE_OAUTH_TOKEN`, the macOS Keychain, or
+  `~/.claude/.credentials.json`, sent to `api.anthropic.com/api/oauth/usage`.
+- **Codex:** the ChatGPT sign-in in `~/.codex/auth.json`, sent to `chatgpt.com/backend-api/wham/usage`.
+  Only if there is no `auth.json` (Codex can keep its sign-in in the system keyring instead) does it
+  ask the local Codex CLI (`codex app-server`), which manages its own sign-in.
+
+It refreshes every 5 minutes, and again shortly after a window resets. **Refresh** is limited to
+once a minute.
+
+These are the endpoints the tools' own apps use. **They are not documented public APIs** and can change
+without notice; when one does, that card shows "Couldn't load usage" instead of a guess.
+
+## Privacy
+
+- Read-only: Token Guardian never rewrites or refreshes your sign-ins. If one has expired, it says so
+  and you open the tool once to refresh it.
+- Your tokens go only to each tool's own service (Anthropic, OpenAI). There is no server, telemetry, or
+  analytics. Token Guardian keeps no usage history or credentials of its own; like any Electron app it
+  has a standard folder in `~/Library/Application Support/Token Guardian` for browser settings and caches.
+- The window gets only percentages, reset times, and plan names, never tokens or account IDs.
+
+## Develop
 
 ```sh
-TOKENTRACKER_GUARDIAN_DATA_DIR=/path/to/data-root TOKENTRACKER_GUARDIAN_PORT=7682 node scripts/start-guardian.cjs
+npm test
 ```
 
-## What is here
+Tests use synthetic responses and a fake Codex CLI, so they need no sign-in, network, or Electron
+download. They run on any OS; the real endpoints, the Keychain prompt, and menu-bar placement can only
+be checked on a Mac with real accounts.
 
-- An overview and activity trail for the four target sources, with reported,
-  estimated, and unknown usage values kept distinct.
-- Investigation details with record links and available project, session,
-  automation, and cloud-agent identifiers.
-- A Sessions view that ranks available attributed sessions, explains the
-  evidence basis, and suggests practical investigation steps. Missing session
-  attribution remains visible instead of being guessed from totals.
-- Detection of request spikes and recurring activity when individual events
-  provide enough evidence. Cursor CSV parsing preserves populated Automation ID
-  and Cloud Agent ID columns before aggregation.
-- Ahri, Jinx, and Jhin prototype companions with classic and cozy outfits, a
-  small sticker collection, and read-only companion chat. Preview achievements are illustrative; local
-  achievements use your local records and actions.
-- A floating desktop summary, summoned companion and text chat, with native
-  pinning and hiding. The full dashboard remains available in a separate window.
-- Optional OpenAI or DeepSeek explanations, and voice input that produces an
-  editable question draft before you send it.
-- An explicit, read-only Grok Bot in Cursor quota connection. It uses Cursor's
-  existing sign-in to show the provider's percentage and reset time when exposed;
-  these are quota measures rather than an additional token source.
-- The upstream collector, React dashboard, and desktop app sources. See
-  [Guardian setup and architecture](GUARDIAN.md) to collect usage and build on them.
+| File | Purpose |
+| --- | --- |
+| `src/main.js` | Menu-bar icon and window |
+| `src/refresher.js` | When to refresh: every 5 minutes, after resets, manual at most once a minute |
+| `src/preload.js` | The page's only bridge: read status, refresh, quit |
+| `src/ui/` | The usage window (plain HTML, CSS, JS) |
+| `src/providers/claude.js`, `codex.js` | Read a sign-in, call one usage endpoint, map the answer |
+| `src/limits.js` | The shared card shape and small helpers |
+| `src/status.js` | Collects every provider; one failure never hides the others |
+| `test/` | `node:test` suites and synthetic fixtures |
 
-## Evidence and privacy
+## Roadmap
 
-An aggregate usage bucket cannot prove a ten-minute request schedule. Missing
-identifiers remain unavailable, provider reports can arrive late, and a recurring
-pattern is an investigation lead rather than proof of an unwanted job. Guardian
-does not pause or kill the originating application. Refreshes and browser alerts
-operate while its page is open.
+1. ~~Menu-bar skeleton~~ and ~~Claude Code limits~~
+2. ~~Codex limits~~
+3. Cursor limits (read Cursor's local sign-in)
+4. Tokens used and API-equivalent cost, today and this week
+5. Double-click launcher, real-Mac checklist, polish
 
-Recorded usage value is not necessarily your subscription bill. Included plan
-usage, estimated model cost, and extra on-demand charges are different measures.
-Unknown pricing stays unknown.
+## Credits
 
-Guardian collects usage metadata, not original prompts, code, or conversation
-bodies. Without a key, chat uses a labeled local explanation engine. Optionally
-configure `OPENAI_API_KEY` or `DEEPSEEK_API_KEY` in the server environment for
-local-data questions. A paid explanation sends your question and a bounded
-selection of usage metadata to the selected provider; local project paths,
-session titles, and vendor session identifiers are excluded from that evidence.
-Anything you type into the question itself is sent when you choose a model.
-The browser starts with Local; select a configured provider to request a paid explanation.
-OpenAI response storage is disabled. Preview questions stay local.
-Defaults are **10 calls/day**, **350 output tokens/call**, and a **3,500 daily
-output-token reservation limit**, shared across configured chat providers;
-these do not guarantee a dollar spending cap. Voice has a separate privacy
-choice: browser dictation may use the browser vendor's speech service, while
-OpenAI transcription explicitly uploads your recorded audio. A transcript stays
-in the question draft until you send it.
-See [chat configuration](GUARDIAN.md#companion-chat) and the
-[local service documentation](guardian-server/README.md) for details.
+The approach to reading each tool's limits is adapted from
+[Javis603/token-monitor](https://github.com/Javis603/token-monitor) (MIT). See
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). The earlier, larger Token Guardian prototype is kept
+on the [`archive/guardian-v1`](https://github.com/JunyiZhou-Conny/token-guardian/tree/archive/guardian-v1) branch.
 
-## Status and checks
-
-This repository contains source, not a ready-to-install native release. There is
-**no compiled or signed Guardian DMG yet**. Desktop and mobile Chromium checks
-passed with preview data and synthetic imports. The four target collectors have not all been tested
-end to end against real accounts on macOS. A friends pilot is the next step.
-
-For the automated tests, use Node.js 22.20 or newer. The local checks ran on Node.js 24:
-
-```sh
-npm run guardian:test
-```
-
-Local validation passed **175 Node checks** (88 Guardian and 87 Cursor),
-**42 real Electron checks on Linux**, **37 widget browser checks**, and
-**45 full-dashboard browser checks** with isolated synthetic records.
-The native checks include the desktop launcher and shutdown of its owned backend.
-
-The focused tests cover metadata normalization, imports, detection, local storage,
-request handling, and mocked provider behavior. The local launcher and browser flows
-were also checked: companion selection, evidence dialogs, chat citations, repeated
-CSV imports, and mobile navigation. These checks do not replace a real macOS
-collection and browser check. Detailed setup and limits are in [GUARDIAN.md](GUARDIAN.md);
-the preserved upstream documentation is [README.upstream.md](README.upstream.md).
-The demo uses isolated synthetic records, local explanations, and disclosed
-mock browser dictation. Live model calls, real microphone recognition, and
-Grok Bot quota access require an account-based check.
-
-## Roadmap and feedback
-
-1. **Friends pilot:** collect real Mac usage, reproduce a known scheduled run,
-   and check whether a Cursor export exposes useful automation identifiers.
-2. **Evidence coverage:** improve event detail and project/session links, publish
-   what each source exposes, and make delayed or incomplete data visible.
-3. **Collectible progress:** add persistent levels, stickers, and outfits earned
-   by investigating activity and managing budgets.
-4. **Reviewed improvements:** turn issues into reproductions, regression tests,
-   AI-assisted pull requests, human review, and releases.
-
-Use [issues](https://github.com/JunyiZhou-Conny/token-guardian/issues) for feedback.
-Include the tool, OS, reproduction steps, and expected behavior. Share anonymized
-usage metadata where useful; remove account identifiers, private paths, and keys.
-
-## Source and artwork credits
-
-The foundation is xiufengsun's MIT-licensed TokenTracker, pinned to commit
-[`c388d675e2e7512264c44ede1610b7a28100307e`](https://github.com/xiufengsun/TokenTracker/tree/c388d675e2e7512264c44ede1610b7a28100307e).
-The original copyright and license notice remain in [LICENSE](LICENSE). Import
-provenance is recorded in [UPSTREAM_SNAPSHOT.json](UPSTREAM_SNAPSHOT.json), and
-existing asset notices remain in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
-
-The prototype champion atlas was generated from user-supplied Red Note references
-credited to **AiBaker**. League of Legends characters belong to Riot Games. The
-software MIT license does not license those characters or the reference artist's
-work; see [avatar provenance](guardian/assets/PROVENANCE.md). This is an unofficial
-fan prototype with no affiliation or endorsement from Riot Games or AiBaker.
+License: [MIT](LICENSE).
